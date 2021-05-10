@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Bitacora_personal(models.Model):
     id_user = models.PositiveIntegerField(default=0)
@@ -44,22 +45,22 @@ class Bitacora_cheque_liberado(models.Model):
     id_cheque = models.PositiveIntegerField(default=0)
 
 class Bitacora_cheque_fallido(models.Model):
-    fecha__fallo = models.DateTimeField(auto_now_add=True)
+    fecha_fallo = models.DateTimeField(auto_now_add=True)
     cuasa = models.TextField(default=0)
     id_cheque = models.PositiveIntegerField(default=0)
     id_user = models.PositiveIntegerField(default=0)
 
 class Permiso_superior(models.Model):
-    crud_users = models.PositiveIntegerField(defaul=0)
+    crud_users = models.PositiveIntegerField(default=0)
     imprimir_cheque = models.PositiveIntegerField(default=0)
     anular_cheque = models.PositiveIntegerField(default=0)
     modificar_cheque = models.PositiveIntegerField(default=0)
-    reporte_cheques = models.PositiveIntegerField(defualt=0)
+    reporte_cheques = models.PositiveIntegerField(default=0)
     auditar_usuarios = models.PositiveIntegerField(default=0)
     administrar_cuentas_bancarias = models.PositiveIntegerField(default=0)
     auditar_cuenta = models.PositiveIntegerField(default=0)
     mostrar_bitacora_usuario = models.PositiveIntegerField(default=0)
-    mostrar_bitacora_grupo = models.PositiveIntegerField(defualt=0)
+    mostrar_bitacora_grupo = models.PositiveIntegerField(default=0)
     mostrar_bitacura_jefe = models.PositiveIntegerField(default=0)
 
 class Grupo(models.Model):
@@ -78,8 +79,7 @@ class Rol(models.Model):
     id_grupo = models.ForeignKey(Grupo, on_delete=models.PROTECT)
 
 class Usuario(models.Model):
-    nombre = models.TextField(default=0)
-    apellido = models.TextField(default=0)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     dpi = models.CharField(max_length=13)
     direccion = models.TextField(default=0)
     fecha_ingreso = models.DateTimeField(auto_now_add=True)
@@ -151,7 +151,7 @@ class Bitacora_cheque_emitido(models.Model):
     id_cheque = models.ForeignKey(Cheque, on_delete=models.PROTECT)
 
 class Bitacora_deposito(models.Model):
-    fecha_deposito = models.DateTimeField(auto_now_add=)
+    fecha_deposito = models.DateTimeField(auto_now_add=True)
     monto = models.FloatField(default=0)
     num_cuenta = models.CharField(max_length=10)
 
