@@ -10,7 +10,7 @@ class Bitacora_personal(models.Model):
     id_rol = models.PositiveIntegerField(default=0)
     fecha_ingreso = models.DateTimeField(auto_now_add=True)
     fecha_egreso = models.DateTimeField(auto_now=True)
-
+    
 class Bitacora_cuenta(models.Model):
     num_cuenta = models.CharField(max_length=10)
     nombre_banco = models.TextField()
