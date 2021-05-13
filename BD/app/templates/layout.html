@@ -40,7 +40,7 @@
     <!-- Menu de navegacion donde hara referencia a otro sitio de momento con "#" no se tiene implementada esa accion por el momento -->
     <div class="nav-menu">
         <nav class="menuPrincipal central" id="Menu">
-            <a href="japp.lanzar.cargarpantalla{'vista'inicio}">Inicio</a>
+            <a href="{% url 'ver_usuario' %}">Inicio</a>
             <a href="#">Nosotros</a>
             <a href="#">Sobre Nuestro Proyecto</a>
             <!-- <button onclick="">Entrar</button> -->
@@ -152,6 +152,10 @@
         </div>
 
         </section>
+
+        {% block contenido %}
+            <!--Aquí va todo lo que se muestra en cada plantilla html difierente-->
+        {% endblock %}
 
 
         <!-- Nuestro formulario que se llenara y se llevara esa informacion a la base de datos -->

@@ -5,6 +5,17 @@ from django.shortcuts import render
 
 def Index(request):
 
-    return render(request, 'layout.html', {
-        'titulo': 'Plantilla Principal'
+    variable = 'Hola mundo'
+
+    return render(request, 'usuarios.html', {
+        'titulo': 'Plantilla Principal',
+        'variable': variable
+    })
+
+def Ver_usuario(respuesta):
+
+    variable = 'Hola mundo!'
+
+    return render(respuesta, 'ver_usuario.html', {
+        'variable': variable
     })
