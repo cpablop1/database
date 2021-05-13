@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
     <link type="text/css" rel="stylesheet" href="{% static '/css/style.css' %}" />
     <script src="{% static '/js/js.js' %}"></script>
- 
+
     <title>DataBase</title>
 </head>
+
 <body>
     <h1>{{ titulo }}</h1>
-    <h2>Nuestro proyecto de base de datos ya está en línea</h2><br/>
+    <h2>Nuestro proyecto de base de datos ya está en línea</h2><br />
     <h3>Texto de prueba!!</h3>
 
     {% block contenido %}
-        <h2>Hola mundo</h2>
+    <h2>Hola mundo</h2>
     {% endblock %}
-    
+    <p>fewfesf</p>
+
 </body>
+
 </html>
