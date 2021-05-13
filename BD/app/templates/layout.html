@@ -2,26 +2,204 @@
 <html lang="es">
 
 <head>
-    {% load static %}
+    <!-- {% load static %} -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!------------------------------------------------------------------------------->
 
-    <link type="text/css" rel="stylesheet" href="{% static '/css/style.css' %}" />
+    <!-- Utilizando la libreria normalize -->
+    <link rel="stylesheet" href="../static/css/normalize.css">
+    <link rel="preload" href="../static/css/normalize.css" as="style">
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Krub:ital,wght@0,700;1,300&display=swap" rel="stylesheet">
+    <!-- utilizando 2 tipos de fuente seria kurb de 300 y 700 -->
+
+    <!-- <link type="text/css" rel="stylesheet" href="{% static '/css/style.css' %}" /> -->
+    <!-- Documento esta linea por lasde abajo -->
+    <!-- con preload le dicimos al navegado que cargue la hoja de estilos lo mas rapido posible y 
+    luego ejecute la linea de codigo 17 que es nuestro archivo css principal  -->
+    <link rel="preload" href="../static/css/main.css" as="style">
+
+    <!--link del archivo principal de nuestros estilos CSS  -->
+    <link rel="stylesheet" href="../static/css/main.css">
+
     <script src="{% static '/js/js.js' %}"></script>
-
-    <title>DataBase</title>
+    <!------------------------------------------------------------------------------->
+    <title>NUEVA VERAPAZ</title>
 </head>
 
 <body>
-    <h1>{{ titulo }}</h1>
-    <h2>Nuestro proyecto de base de datos ya está en línea</h2><br />
-    <h3>Texto de prueba!!</h3>
 
-    {% block contenido %}
-    <h2>Hola mundo</h2>
-    {% endblock %}
-    <p>fewfesf</p>
+    <!-- Encabezado principal de la pagina  -->
+    <header>
+        <h1 class="titulo">Empresa <span>Nueva Verapaz</span></h1>
+    </header>
+    <!-- Menu de navegacion donde hara referencia a otro sitio de momento con "#" no se tiene implementada esa accion por el momento -->
+    <div class="nav-menu">
+        <nav class="menuPrincipal central" id="Menu">
+            <a href="japp.lanzar.cargarpantalla{'vista'inicio}">Inicio</a>
+            <a href="#">Nosotros</a>
+            <a href="#">Sobre Nuestro Proyecto</a>
+            <!-- <button onclick="">Entrar</button> -->
+        </nav>
+    </div>
+
+
+    <section class="seccionA">
+        <div class="seccionContenida">
+
+            <h2>Base de datos</h2>
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-database" width="76" height="76"
+                viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <ellipse cx="12" cy="6" rx="8" ry="3"></ellipse>
+                <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
+                <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
+            </svg>
+
+            <p>Guatemala, Santa Cruz Del Quiche</p>
+
+            <a class="boton" href="#">Conectar</a>
+
+        </div>
+    </section>
+
+    <!-- Nuestro contenido principal de la pagina web  -->
+    <main class="seccionContenida sombra">
+
+        <h2>Nuestros Servicios</h2>
+        <!-- servicios por niveles -->
+        <div class="niveles">
+
+            <section class="nivel">
+                <h3>Auditoria</h3>
+                <div class="iconos">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-book" width="76"
+                        height="76" viewBox="0 0 24 24" stroke-width="1.5" stroke="#c9de00" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+                        <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+                        <line x1="3" y1="6" x2="3" y2="19" />
+                        <line x1="12" y1="6" x2="12" y2="19" />
+                        <line x1="21" y1="6" x2="21" y2="19" />
+                    </svg>
+
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium eius harum autem sit aspernatur
+                    rerum atque alias corporis ipsam sint, omnis consequuntur obcaecati expedita, adipisci quaerat unde
+                    sunt
+                    quis enim?</p>
+            </section>
+
+            <section class="nivel">
+                <h3>Generacion De Cheques</h3>
+                <div class="iconos">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-id" width="76"
+                        height="76" viewBox="0 0 24 24" stroke-width="1.5" stroke="#c9de00" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <rect x="3" y="4" width="18" height="16" rx="3" />
+                        <circle cx="9" cy="10" r="2" />
+                        <line x1="15" y1="8" x2="17" y2="8" />
+                        <line x1="15" y1="12" x2="17" y2="12" />
+                        <line x1="7" y1="16" x2="17" y2="16" />
+                    </svg>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-notebook" width="76"
+                        height="76" viewBox="0 0 24 24" stroke-width="1.5" stroke="#c9de00" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18" />
+                        <line x1="13" y1="8" x2="15" y2="8" />
+                        <line x1="13" y1="12" x2="15" y2="12" />
+                    </svg>
+
+                </div>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure sapiente fugiat quia aliquid aut,
+                    praesentium aliquam officiis voluptate neque eius! Ea rem ipsam impedit excepturi unde, quaerat
+                    magnam
+                    cupiditate culpa.</p>
+            </section>
+
+
+            <section class="nivel">
+                <h3>Gerencia</h3>
+                <div class="iconos">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-check" width="76"
+                        height="76" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffec00" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                        <path d="M16 11l2 2l4 -4" />
+                    </svg>
+                </div>
+
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non deserunt ab ad fugiat, alias ipsam
+                    reprehenderit sint nihil tempore, nostrum commodi eos sapiente consequuntur corrupti, distinctio
+                    delectus rerum! Consequuntur, illo?</p>
+
+        </div>
+
+        </section>
+
+
+        <!-- Nuestro formulario que se llenara y se llevara esa informacion a la base de datos -->
+        <section>
+
+            <h2>Contactanos</h2>
+
+            <form class="formulario" action="" method="POST">
+                <fieldset>
+                    <legend>Contactanos Llenando todos los campos</legend>
+                    <div class="campos-div">
+
+                        <div class="forp">
+                            <label for="">Nombre</label>
+                            <input class="input-intro" type="text" placeholder="Escribe Tu Nombre">
+                        </div>
+
+                        <div class="forp">
+                            <label for="Celular: ">Celular</label>
+                            <input class="input-intro" type="tel" placeholder="Tu Numero Celular">
+                        </div>
+
+                        <div class="forp">
+                            <label for="">Correo</label>
+                            <input class="input-intro" type="email" placeholder="Tu Correo Electronico">
+                        </div>
+
+                        <div class="forp">
+                            <label for="">Mensaje</label>
+                            <textarea class="input-intro" name="" id="" cols="30" rows="10"
+                                placeholder="Escribenos..."></textarea>
+                        </div>
+
+                    </div>
+                    <div class="enviar">
+                        <input class="boton" type="submit" value="Enviar">
+                    </div>
+
+                </fieldset>
+            </form>
+
+        </section>
+    </main>
+
+    <!-- Contenido especifico de la pagina informacion extra  -->
+    <footer>
+        <p>Todos los derechos reservados. Para Willy, Richy, Cruz</p>
+    </footer>
 
 </body>
 
