@@ -1,0 +1,293 @@
+/* Utilizo rem en vez de px oh otra medida para que se adapte a nuevos dispositivos
+aunque esto es algo nuevo aun para mi  */
+
+
+/* Variables en css */
+:root {
+    --verde: #adff2f;
+    --blanco: #ffffff;
+    --oscuro: #212121;
+    --primario: #ffc107;
+    --secundario: #0097a7;
+    --celeste: #07e4ff;
+    --gris: #757575; 
+    --oro: #ffd700;
+    --cafe: #d58535;
+    --cafez: #3f0e03;
+    --ini: #d90046;
+}
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box; /* Parte para facilitar el Box Model con padding y contenido*/
+    scroll-snap-type: y mandatory;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+body {
+    font-size: 16px;
+    font-family: 'Krub' sans-serif;
+    /* background-color: var(--verde); */
+    background-image: linear-gradient(to bottom, var(--primario) 10%, var(--verde) 100%);;
+}
+
+/*          1rem equiva a 10px
+            1rem = 10px 
+*/
+
+
+h1 {
+    font-size: 3.8rem;
+}
+
+h2 {
+    font-size: 2.8rem;
+}
+
+h3 {
+    font-size: 1.8rem;
+}
+
+
+h1, h2, h3 {
+    text-align: center;
+}
+
+.titulo span {
+    font-size: 3.8rem;
+}
+
+.central {
+    max-width: 120rem;
+    margin-top: 0;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-left: auto;
+    /* margin: 0 auto 0 auto;
+       margin: 0 auto; */
+}
+
+.boton {
+    background-color: var(--secundario);
+    color: var(--blanco);
+    padding: 1rem 3rem;
+    margin-top: 1rem;
+    font-size: 2rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: .5rem;
+    width: 90%;
+    text-align: center;
+
+}
+
+
+
+@media (min-width: 768px) {
+     .boton {
+         width:auto;
+     }
+}
+
+.nav-menu{
+    /* background-color: var(--secundario); */
+    background-color: var(--celeste);
+}
+
+.menuPrincipal {
+   display: flex;
+   flex-direction: column;
+   /* justify-content: space-around;  */
+   /* justify-content: space-evenly; */
+   
+}
+/* cel es 480px */
+@media (min-width: 480px ) {
+    
+}
+/* tablet es 768 */
+@media (min-width: 768px) {
+    .menuPrincipal {
+        flex-direction: row;
+        justify-content: space-between;
+        /* align-items: center; */
+    }
+}
+/* laptop oh pc deskop */
+@media (min-width: 1140px) {
+     
+}
+/* PC escritorio */
+@media (min-width: 1440px) {
+     
+}
+
+.sombra {
+    /* -webkit-box-shadow: 0px 5px 15px 0px rgba(112, 112, 112, 0.48);
+    -moz-box-shadow: 0px 5px 15px 0px rgba(112, 112, 112, 0.48); */
+    box-shadow: 0px 5px 15px 0px rgba(112, 112, 112, 0.48);
+    background-color: var(--blanco);
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+
+
+.menuPrincipal a {
+    /* color: var(--blanco); */
+    display: block;
+    text-align: center;
+    color: var(--oscuro);
+    text-decoration: none;
+    padding: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.menuPrincipal a:hover {
+    background-color: var(--oro);
+    color: var(--blanco);
+}
+
+/* .contenido-hero {
+    
+} */
+/* .menuPrincipal>nav>button {
+    display: flex;
+    justify-content: flex-end;
+} */
+
+/* esto es .hero */
+.seccionA {
+    background-image: url(../../templates/img/data.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 450px;
+    position: relative;
+    margin-bottom: 2rem;
+}
+/* CONTENIDO */
+.seccionContenida {
+    position: absolutes;
+    background-color:rgba(0, 0, 0, .3);/*lo agrego por si un navegador no reconoce la nueva forma de implementarlo*/
+    background-color: rgb(0 0 0 / 70%);
+    width: 100%;
+    height: 100%;
+   /* top: 0;
+    bottom: 0;
+   right: 0;
+   left: 0; */
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+.seccionContenida  h2,
+.seccionContenida p {
+    color: var(--blanco);
+
+}
+
+.nav-menu, .niveles, .formulario {
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+}
+
+@media (min-width: 768px) {
+    .niveles {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /*33.3%*/
+        /* grid-template-rows: 200px 800px;
+     */
+        /* grid: 200px 800px / 300px 300px; */
+        column-gap: 3rem;
+    }
+}
+
+/* .nivel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+} */
+
+
+.nivel h3 {
+    color: var(--oro);
+    font-weight: bold;
+    text-align: center;
+}
+
+.nivel p {
+    line-height: 2;
+
+}
+
+/* .nivel .iconos {
+    height: 15rem;
+    width: 15rem;
+    background-color: var(--blanco);
+    border-radius: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+} */
+
+
+/* FORMULARIO */
+.formulario {
+    background-color: yellow;
+    width: min( 82rem, 100% ); /*Utiliza el valor menor*/
+    margin: o auto;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+.formulario fieldset {
+    border: none;
+}
+
+.formulario legend {
+    text-align: center;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: var(--oscuro);
+}
+/* contenedor-campos */
+
+
+.forp {
+    margin-bottom: 1rem;
+}
+
+.forp label {
+    color: var(--oscuro);
+    font-weight: bold;
+    margin-bottom: .5rem;
+    display: block;
+
+}
+
+.input-intro {
+    background-color: var(--verde);
+    width: 100%;
+    border: none;
+    padding: 1.5rem;
+    border-radius: ;
+}
+
+.boton:hover {
+    cursor: pointer;
+}
+
+.enviar {
+    width: 100%;
+    text-align: center;
+}

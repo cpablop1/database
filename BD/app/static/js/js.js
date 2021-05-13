@@ -1,5 +1,49 @@
-alert('Activado!!')
-console.log("Activado!!")
-// otro alert más!!
-console.log('Funciona pedazo de mierda!!')
-console.log('Funciona pedazo de mierda!!')
+document.addEventListener('DOMContentLoaded', function () {
+
+    const btn = document.getElementById('demo');
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
