@@ -12,10 +12,6 @@ def Index(request):
         'variable': variable
     })
 
-def Ver_usuario(respuesta):
+def About(respuesta):
 
-    variable = 'Hola mundo!'
-
-    return render(respuesta, 'ver_usuario.html', {
-        'variable': variable
-    })
+    return render(respuesta, 'about.html')
