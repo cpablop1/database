@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.Index, name='inicio'),
     path('about/', views.About, name='about'),
+    path('crear-usuario/', views.Crear_usuario, name='crear_usuario'),
 ]
