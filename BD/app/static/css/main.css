@@ -274,7 +274,10 @@ h1, h2, h3 {
 
 }
 
-.input-intro {
+.input-intro,
+input[type="email"],
+input[type="text"],
+input[type="password"] {
     background-color: var(--verde);
     width: 100%;
     border: none;
