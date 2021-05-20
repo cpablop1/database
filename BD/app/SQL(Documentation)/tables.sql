@@ -240,4 +240,3 @@ DROP TABLE permiso_sup;
 DROP TABLE correo_prov;
 DROP TABLE telefono_prov;
 DROP TABLE proveedor;
-

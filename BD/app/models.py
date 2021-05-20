@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+"""
 class Bitacora_personal(models.Model):
     id_user = models.PositiveIntegerField(default=0)
     nombre = models.TextField()
@@ -163,3 +163,4 @@ class Bitacora_cheque_eliminado(models.Model):
     fecha_eliminacion = models.DateTimeField(auto_now_add=True)
     id_user = models.CharField(max_length=3)
     id_cheque = models.ForeignKey(Cheque, on_delete=models.PROTECT)
+"""
