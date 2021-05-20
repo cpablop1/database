@@ -30,8 +30,7 @@ html {
 body {
     font-size: 16px;
     font-family: 'Krub' sans-serif;
-    /* background-color: var(--verde); */
-    background-image: linear-gradient(to bottom, var(--primario) 10%, var(--verde) 100%);;
+    background-image: linear-gradient(to bottom, var(--oscuro) 10%, var(--blanco) 100%);;
 }
 
 /*          1rem equiva a 10px
@@ -41,6 +40,7 @@ body {
 
 h1 {
     font-size: 3.8rem;
+    color: white;
 }
 
 h2 {
@@ -279,7 +279,7 @@ h1, h2, h3 {
     width: 100%;
     border: none;
     padding: 1.5rem;
-    border-radius: ;
+    border-radius: 5px;
 }
 
 .boton:hover {

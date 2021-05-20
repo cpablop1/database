@@ -1,0 +1,110 @@
+.contenedor {
+	width: 90%;
+	max-width: 1000px;
+	margin: 20px auto;
+}
+
+.contenedor article {
+	line-height: 28px;
+}
+
+.contenedor article h1 {
+	font-size: 30px;
+	text-align: left;
+	padding: 50px 0;
+}
+
+.contenedor article p {
+	margin-bottom: 20px;
+}
+
+.contenedor article .btn-abrir-popup {
+	padding: 0 20px;
+	margin-bottom: 20px;
+	height: 40px;
+	line-height: 40px;
+	border: none;
+	color: #fff;
+	background: #5E7DE3;
+	border-radius: 3px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 16px;
+	cursor: pointer;
+	transition: .3s ease all;
+	cursor: pointer;
+}
+
+.contenedor article .btn-abrir-popup:hover {
+	background: rgba(94,125,227, .9);
+}
+
+/* ------------------------- */
+/* POPUP */
+/* ------------------------- */
+
+.overlay {
+	background: rgba(0,0,0,.3);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	visibility: hidden;
+}
+
+
+.overlay.active {
+	visibility: visible;
+}
+
+.popup .btn-cerrar-popup {
+	font-size: 39px;
+	line-height: 15px;
+	display: block;
+	text-align: right;
+	transition: .3s ease all;
+	color: greenyellow;
+}
+
+
+.popup .btn-cerrar-popup:hover {
+	color: white;
+}
+
+
+/* .popup form .contenedor-inputs {
+	
+} */
+
+.popup form .contenedor-inputs input {
+	width: 100%;
+	margin-bottom: 21px;
+	height: 60px;
+	font-size: 21px;
+	line-height: 52px;
+	text-align: center;
+	border: 1px solid 
+}
+
+
+.popup form .btn-submit {
+	padding: 0 20px;
+	height: 40px;
+	line-height: 40px;
+	border: none;
+	color: #fff;
+	background: #5E7DE3;
+	border-radius: 3px;
+	font-family: sans-serif;
+	font-size: 16px;
+	cursor: pointer;
+	transition: .3s ease all;
+}
+
+.popup form .btn-submit:hover {
+	background: rgba(94,125,227, .9);
+}
+

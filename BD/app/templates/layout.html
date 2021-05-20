@@ -12,10 +12,14 @@
     <link rel="stylesheet" href="../static/css/normalize.css">
     <link rel="preload" href="../static/css/normalize.css" as="style">
 
+
+
     <!-- GOOGLE FONT -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Krub:ital,wght@0,700;1,300&display=swap" rel="stylesheet">
     <!-- utilizando 2 tipos de fuente seria kurb de 300 y 700 -->
+
+
 
     <!-- <link type="text/css" rel="stylesheet" href="{% static '/css/style.css' %}" /> -->
     <!-- Documento esta linea por lasde abajo -->
@@ -23,10 +27,14 @@
     luego ejecute la linea de codigo 17 que es nuestro archivo css principal  -->
     <link rel="preload" href="../static/css/main.css" as="style">
 
+
     <!--link del archivo principal de nuestros estilos CSS  -->
     <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/css/ventanas.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 
-    <script src="{% static '/js/js.js' %}"></script>
+
+    <!-- <script src="{% static '../js/js.js' %}"></script> -->
     <!------------------------------------------------------------------------------->
     <title>NUEVA VERAPAZ</title>
 </head>
@@ -64,10 +72,54 @@
 
             <p>Guatemala, Santa Cruz Del Quiche</p>
 
-            <a class="boton" href="#">Conectar</a>
+
+            <!-- <a id="btn-abrir-popup" onclick="conectar()" class="btn-abrir-popup" href="">Conectar</a> -->
+            <button id="btn-abrir-popup" class="btn-abrir-popup boton">Iniciar Sesion</button>
+
 
         </div>
     </section>
+
+
+    <!-- Ventana emergente que estara oculta -->
+
+
+    <div class="contenedor">
+
+        <div class="overlay active" id="overlay">
+            <div class="popup" id="popup">
+                <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+
+                <form class="formulario" action="" method="POST">
+                    <h2 style="color: black; background-color: greenyellow; width: 100%; border-radius: 5px;">Iniciar
+                        Sesion</h2>
+                    <fieldset>
+                        <div class="campos-div contenedor-inputs">
+
+                            <label for="">Nombre</label>
+                            <input class="input-intro" type="text" placeholder="Escribe Tu Nombre">
+
+                            <label for="">Clave</label>
+                            <input class="input-intro" type="password" placeholder="Escribe Tu Clave">
+
+                        </div>
+
+                        <div class="enviar">
+                            <input class="boton btn-submit" type="submit" value="Enviar">
+                        </div>
+
+                    </fieldset>
+                </form>
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
 
     <!-- Nuestro contenido principal de la pagina web  -->
     <main class="seccionContenida sombra">
@@ -202,5 +254,7 @@
     </footer>
 
 </body>
+
+<script src="../static/js/js.js"></script>
 
 </html>
