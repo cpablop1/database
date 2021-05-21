@@ -42,6 +42,10 @@
 /* POPUP */
 /* ------------------------- */
 
+.overlay.active {
+	visibility: visible;
+}
+
 .overlay {
 	background: rgba(0,0,0,.3);
 	position: fixed;
@@ -56,9 +60,7 @@
 }
 
 
-.overlay.active {
-	visibility: visible;
-}
+
 
 .popup .btn-cerrar-popup {
 	font-size: 39px;
@@ -105,6 +107,6 @@
 }
 
 .popup form .btn-submit:hover {
-	background: rgba(94,125,227, .9);
+	background: rgba(94,125,227, .3);
 }
 
