@@ -61,7 +61,6 @@
     </div>
 
 
-<<<<<<< HEAD
     <section class="seccionA">
         <div class="seccionContenida">
 
@@ -85,9 +84,6 @@
 
         </div>
     </section>
-=======
-    
->>>>>>> 7b0a631f5ed81beddd3ac9a7edb023885be4e4a8
 
 
     <!-- Ventana emergente que estara oculta -->
@@ -100,6 +96,7 @@
                 <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
 
                 <form class="formulario" action="" method="POST">
+                    {% csrf_token %}
                     <h2 style="color: black; background-color: greenyellow; width: 100%; border-radius: 5px;">Iniciar
                         Sesion</h2>
                     <fieldset>
