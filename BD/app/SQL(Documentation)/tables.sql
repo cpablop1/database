@@ -7,6 +7,7 @@ CREATE TABLE proveedor(
     prov_name VARCHAR(40),
     prov_lastname VARCHAR(25),
     direccion VARCHAR(20),
+    estado VARCHAR(10),
     PRIMARY KEY(nit)
 ) ENGINE = INNODB;
 
@@ -31,6 +32,7 @@ CREATE TABLE telefono_prov(
 -- Rol
 CREATE TABLE permiso_sup(
     id_permiso_sup INT UNSIGNED AUTO_INCREMENT,
+    nombre VARCHAR(30),
     crud_users BOOLEAN,
     imprimir_cheque BOOLEAN,
     anular_cheque BOOLEAN,
@@ -60,7 +62,6 @@ CREATE TABLE grupo(
 
 CREATE TABLE rol(
     id_rol INT UNSIGNED AUTO_INCREMENT,
-    nombre VARCHAR(30),
     id_permiso_sup INT UNSIGNED NULL,
     id_group INT UNSIGNED NULL,
     PRIMARY KEY(id_rol),
