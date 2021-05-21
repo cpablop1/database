@@ -44,6 +44,7 @@ CREATE TABLE permiso_sup(
     mostrar_bitacora_user BOOLEAN,
     mostrar_bitacora_group BOOLEAN,
     mostrar_bitacora_jefe BOOLEAN,
+    jefe BOOLEAN,
     PRIMARY KEY(id_permiso_sup)
 ) ENGINE = INNODB;
 
@@ -54,9 +55,7 @@ CREATE TABLE grupo(
     monto_max DECIMAL(10, 2) UNSIGNED,
     nivel_autoridad INT UNSIGNED,
     generar_cheque BOOLEAN,
-    llamar_jefe_dep BOOLEAN,
     validar_cheque BOOLEAN,
-    llamar_jefe_pagos BOOLEAN,
     PRIMARY KEY(id_group)
 ) ENGINE = INNODB;
 
@@ -131,11 +130,14 @@ CREATE TABLE cheque(
     num_cuenta BIGINT(16) UNSIGNED,
     num_chequera INT UNSIGNED,
     nit INT UNSIGNED,
+    id_user_genero INT UNSIGNED,
     PRIMARY KEY(id_cheque),
     INDEX(num_chequera),
     INDEX(nit),
+    INDEX(id_user_genero),
     FOREIGN KEY(num_chequera) REFERENCES chequera(num_chequera) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(nit) REFERENCES proveedor(nit) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY(nit) REFERENCES proveedor(nit) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_user_genero) REFERENCES usuario(id_user) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
 -- Buffers
@@ -173,28 +175,14 @@ CREATE TABLE bitacora_cheque_eliminado(
     FOREIGN KEY(id_cheque) REFERENCES cheque(id_cheque) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
-CREATE TABLE bitacora_movimiento_cuenta(
-    num_movimiento INT UNSIGNED AUTO_INCREMENT,
-    monto_movido DECIMAL(15, 2),
-    fondo_resultante DECIMAL(20, 2) UNSIGNED,
-    num_cuenta BIGINT(16) UNSIGNED,
-    PRIMARY KEY(num_movimiento),
-    INDEX(num_cuenta),
-    FOREIGN KEY(num_cuenta) REFERENCES cuenta_bancaria(num_cuenta) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = INNODB;
-
 CREATE TABLE bitacora_cheque_emitido(
     id_emision INT UNSIGNED AUTO_INCREMENT,
     fecha_entrega DATETIME,
     nombre_cajero VARCHAR(75),
     id_user INT UNSIGNED,
     id_cheque INT UNSIGNED,
-    num_movimiento INT UNSIGNED,
     PRIMARY KEY(id_emision),
-    INDEX(id_user),
-    INDEX(num_movimiento),
-    FOREIGN KEY(num_movimiento) REFERENCES bitacora_movimiento_cuenta(num_movimiento)
-    ON DELETE CASCADE ON UPDATE CASCADE,
+    INDEX(id_cheque),
     FOREIGN KEY(id_cheque) REFERENCES cheque(id_cheque) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
@@ -203,12 +191,23 @@ CREATE TABLE bitacora_deposito(
     fecha_deposito DATETIME,
     monto DECIMAL(15, 2) UNSIGNED,
     num_cuenta BIGINT(16) UNSIGNED,
-    num_movimiento INT UNSIGNED,
     PRIMARY KEY(no_deposito),
     INDEX(num_cuenta),
-    INDEX(num_movimiento),
-    FOREIGN KEY(num_cuenta) REFERENCES cuenta_bancaria(num_cuenta) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(num_movimiento) REFERENCES bitacora_movimiento_cuenta(num_movimiento) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY(num_cuenta) REFERENCES cuenta_bancaria(num_cuenta) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = INNODB;
+
+CREATE TABLE bitacora_movimiento_cuenta(
+    num_movimiento INT UNSIGNED AUTO_INCREMENT,
+    monto_movido DECIMAL(15, 2),
+    fondo_resultante DECIMAL(20, 2) UNSIGNED,
+    num_cuenta BIGINT(16) UNSIGNED,
+    no_deposito INT UNSIGNED,
+    id_emision INT UNSIGNED,
+    PRIMARY KEY(num_movimiento),
+    INDEX(no_deposito),
+    INDEX(id_emision),
+    FOREIGN KEY(no_deposito) REFERENCES bitacora_deposito(no_deposito) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(id_emision) REFERENCES bitacora_cheque_emitido(id_emision) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
 -- Bitacoras huerfanas
@@ -266,19 +265,6 @@ CREATE TABLE bitacora_cheque_liberado(
     PRIMARY KEY(id_liberacion)
 ) ENGINE = INNODB;
 
-CREATE TABLE bitacora_cheque_generado(
-    id_b_cheque INT UNSIGNED AUTO_INCREMENT,
-    fecha_gen DATETIME,
-    monto DECIMAL(15, 2) UNSIGNED,
-    lugar_gen VARCHAR(30),
-    beneficiario VARCHAR(67),
-    num_chequera INT UNSIGNED,
-    num_cuenta BIGINT(16) UNSIGNED,
-    id_user INT UNSIGNED,
-    id_cheque INT UNSIGNED,
-    PRIMARY KEY(id_b_cheque)
-) ENGINE = INNODB;
-
 -- Contactanos
 CREATE TABLE contactanos(
     id_custom INT UNSIGNED AUTO_INCREMENT,
@@ -303,11 +289,10 @@ DROP TABLE bitacora_cuenta;
 DROP TABLE bitacora_cheque_fallido;
 DROP TABLE bitacora_cheque_modificado;
 DROP TABLE bitacora_cheque_liberado;
-DROP TABLE bitacora_cheque_generado;
 
+DROP TABLE bitacora_movimiento_cuenta;
 DROP TABLE bitacora_deposito;
 DROP TABLE bitacora_cheque_emitido;
-DROP TABLE bitacora_movimiento_cuenta;
 DROP TABLE bitacora_cheque_eliminado;
 
 DROP TABLE buffer_cheque_pendiente_autorizacion;
