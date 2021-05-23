@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+
 """
 class Bitacora_personal(models.Model):
     id_user = models.PositiveIntegerField(default=0)

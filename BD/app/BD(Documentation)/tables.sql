@@ -80,6 +80,7 @@ CREATE TABLE usuario(
     id_rol INT UNSIGNED,
     PRIMARY KEY(id_user),
     INDEX(id_rol),
+    clave VARCHAR(15),
     FOREIGN KEY(id_rol) REFERENCES rol(id_rol) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
