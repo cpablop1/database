@@ -66,3 +66,38 @@ class Server(BaseHTTPRequestHandler):
 
         self._set_headers()
         self.wfile.write(bytes(json.dumps(retorno), "utf-8")) 
+
+"""
+import json
+
+print(json.dumps({"name": "John", "age": 30}))
+print(json.dumps(["apple", "bananas"]))
+print(json.dumps(("apple", "bananas")))
+print(json.dumps("hello"))
+print(json.dumps(42))
+print(json.dumps(31.76))
+print(json.dumps(True))
+print(json.dumps(False))
+print(json.dumps(None))
+
+
+print(json.dumps([
+{"usuario": "Lucas", "age": 12,"Correos":['correo1@gmail.com','correo2@gmail.com']},
+{"usuario": "Pedro", "age": 30},
+{"usuario": "Maria", "age": 41}
+]))
+resultado
+
+{"name": "John", "age": 30}
+["apple", "bananas"]
+["apple", "bananas"]
+"hello"
+42
+31.76
+true
+false
+null
+[{"usuario": "Lucas", "age": 12, "Correos": ["correo1@gmail.com", "correo2@gmail.com"]},
+{"usuario": "Pedro", "age": 30},
+{"usuario": "Maria", "age": 41}]
+"""

@@ -1,14 +1,15 @@
-import pymysql #conexion a myslq y MariaDb 
+import pymysql
 
-class mySql:
+class mySql():
     conn=0
     def __init__(self):
         try:
             self.conn = pymysql.connect(
                 host='localhost',
-                user='root',
-                password='admin',
-                db='aula',
+                port = 3306,
+                user='adminman',
+                password='hi!',
+                db='ourData',
                 charset='utf8mb4'
             )
         except:
@@ -33,25 +34,20 @@ class mySql:
 
     def insertar(self, sql):
         good = self.query(sql)
+        respuesta = ""
         if good == 1:
-            res = self.query('SELECT LAST_INSERT_ID()')
-            good = res[0][0]
+            respuesta = self.query("SELECT @resultado")
+        return respuesta
         
     def rotular(self, res, label):
         retorno=[]
-        for x in res:
+        for registro in res:
             fila = {}
             i = 0
-            for c in x:
-                fila[ label[i] ] = c
+            for valor in registro:
+                fila[ label[i] ] = valor
                 i = i + 1
             retorno.append(fila)
         return retorno
 
 
-intento = Usuario.insertar('Willy',7445654,'asdfsdf')
-if intento == True:
-    levantar_alerta()
-else:
-    levantar_error()
-    
