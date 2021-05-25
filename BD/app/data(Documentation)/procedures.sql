@@ -65,11 +65,28 @@ END IF;
 */
 
 -- R O L     G R O U P     I N S E R T
+    -- function for get id_rol from rol
+DELIMITER //
+CREATE OR REPLACE FUNCTION f_id_rol()
+RETURNS INT
+NOT DETERMINISTIC
+BEGIN
+DECLARE id_rol_var INT;
+    SELECT MAX(id_rol) INTO id_rol_var FROM rol;
+    IF id_rol_var IS NULL THEN
+       RETURN 0;
+    ELSE
+      RETURN id_rol_var;
+    END IF;
+END;
+//
+DELIMITER ; 
+
     -- function for get id_group from group
 DELIMITER //
 CREATE OR REPLACE FUNCTION f_id_group()
 RETURNS INT
-DETERMINISTIC
+NOT DETERMINISTIC
 BEGIN
 DECLARE id_group_var INT;
     SELECT MAX(id_group) INTO id_group_var FROM grupo;
@@ -92,7 +109,6 @@ CREATE OR REPLACE PROCEDURE pa_new_group_rol(
     OUT resultado VARCHAR(10)
 )
 BEGIN
-DECLARE id_group INT;
 DECLARE generar_cheque BOOLEAN DEFAULT 0;
 DECLARE validar_cheque BOOLEAN DEFAULT 1;
     IF f_id_group() = 0 THEN
@@ -103,12 +119,68 @@ DECLARE validar_cheque BOOLEAN DEFAULT 1;
     VALUES(nombre, monto_min, monto_max, generar_cheque, validar_cheque);
     INSERT INTO rol(id_permiso_sup,id_group)
     VALUES(NULL,f_id_group());
-    SET resultado := 'Ingresado exitosamente';
-    COMMIT;   
+    SET resultado := f_id_rol();
+    COMMIT;
 END;
  //
 DELIMITER ;
 -- CALL pa_new_group_rol('Rychy group',45.3,800.50,@resultado);
 -- SELECT @resultado;
 
--- R O L     G R O U P     I N S E R T
+-- R O L     S U P     P E R M I S I O N     I N S E R T
+    -- function for get id_permiso_sup from permiso_sup
+DELIMITER //
+CREATE OR REPLACE FUNCTION f_id_permiso_sup()
+RETURNS INT
+NOT DETERMINISTIC
+BEGIN
+DECLARE id_permiso_sup_var INT;
+    SELECT MAX(id_permiso_sup) INTO id_permiso_sup_var FROM permiso_sup;
+    IF id_permiso_sup_var IS NULL THEN
+       RETURN 0;
+    ELSE
+      RETURN id_permiso_sup_var;
+    END IF;
+END;
+//
+DELIMITER ; 
+-- SELECT id_permiso_sup_var();
+
+    -- Procedure for INSERT into permiso_sup, and a rol as rol_permiso_sup
+DELIMITER //
+CREATE OR REPLACE PROCEDURE pa_new_permis_sup_rol(
+    IN nombre VARCHAR(30),
+    IN crud_users BOOLEAN,
+    IN imprimir_cheque BOOLEAN,
+    IN anular_cheque BOOLEAN,
+    IN modificar_cheque BOOLEAN,
+    IN reporte_cheque BOOLEAN,
+    IN auditar_user BOOLEAN,
+    IN admin_cuenta_banc BOOLEAN,
+    IN auditar_cuenta BOOLEAN,
+    IN mostrar_bitacora_user BOOLEAN,
+    IN mostrar_bitacora_group BOOLEAN,
+    IN mostrar_bitacora_jefe BOOLEAN,
+    IN jefe BOOLEAN,
+    OUT resultado VARCHAR(10)
+)
+BEGIN
+    INSERT INTO permiso_sup(
+        nombre, crud_users, imprimir_cheque, anular_cheque, modificar_cheque,
+        reporte_cheque, auditar_user, admin_cuenta_banc, auditar_cuenta,
+        mostrar_bitacora_user, mostrar_bitacora_group, mostrar_bitacora_jefe, jefe
+    )
+    VALUES(
+        nombre, crud_users, imprimir_cheque, anular_cheque, modificar_cheque,
+        reporte_cheque, auditar_user, admin_cuenta_banc, auditar_cuenta,
+        mostrar_bitacora_user, mostrar_bitacora_group, mostrar_bitacora_jefe, jefe
+    ) ;
+    INSERT INTO rol(id_permiso_sup,id_group)
+    VALUES(f_id_permiso_sup(),NULL);
+    SET resultado := f_id_rol();
+    COMMIT;
+END;
+ //
+DELIMITER ;
+-- CALL pa_new_permis_sup_rol('Rychy_sup_rol',1,1,1,1,0,0,1,1,1,0,0,1,@resultado);
+-- SELECT @resultado;
