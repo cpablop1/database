@@ -1,7 +1,10 @@
-from mySql import mySql #Importamos la libreria para usar la base de datos
+from BD.app.data.mySql import mySql #Importamos la libreria para usar la base de datos
 maria = mySql() #objeto global de la base de datos 
 
 class Usuario:  #Driver de usuarios
+    def nuevo(data):
+        return {"error":"Esto es [ CREAR ] nuevo usuario"}
+    
     def hacer(data): #Funcion o metodo
         retorno = {"error":""}
         sql = 'SELECT * FROM urol'
@@ -15,8 +18,7 @@ class Usuario:  #Driver de usuarios
         return retorno #Retorno de la API
     def listar(data):
         return {"error":"Esto es [ LISTAR ] usuarios"}
-    def nuevo(data):
-        return {"error":"Esto es [ CREAR ] nuevo usuario"}
+
 
 
 

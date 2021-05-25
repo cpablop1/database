@@ -53,7 +53,6 @@ CREATE TABLE grupo(
     nombre VARCHAR(30),
     monto_min DECIMAL(10, 2) UNSIGNED,
     monto_max DECIMAL(10, 2) UNSIGNED,
-    nivel_autoridad INT UNSIGNED,
     generar_cheque BOOLEAN,
     validar_cheque BOOLEAN,
     PRIMARY KEY(id_group)
