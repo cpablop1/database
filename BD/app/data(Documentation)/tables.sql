@@ -282,35 +282,35 @@ CREATE TABLE contactanos(
 COMMIT;
 
 -- D R O P P I N G
-DROP TABLE contactanos;
+DROP TABLE if exists contactanos;
 
-DROP TABLE bitacora_personal;
-DROP TABLE bitacora_cuenta;
-DROP TABLE bitacora_cheque_fallido;
-DROP TABLE bitacora_cheque_modificado;
-DROP TABLE bitacora_cheque_liberado;
+DROP TABLE if exists bitacora_personal;
+DROP TABLE if exists bitacora_cuenta;
+DROP TABLE if exists bitacora_cheque_fallido;
+DROP TABLE if exists bitacora_cheque_modificado;
+DROP TABLE if exists bitacora_cheque_liberado;
 
-DROP TABLE bitacora_movimiento_cuenta;
-DROP TABLE bitacora_deposito;
-DROP TABLE bitacora_cheque_emitido;
-DROP TABLE bitacora_cheque_eliminado;
+DROP TABLE if exists bitacora_movimiento_cuenta;
+DROP TABLE if exists bitacora_deposito;
+DROP TABLE if exists bitacora_cheque_emitido;
+DROP TABLE if exists bitacora_cheque_eliminado;
 
-DROP TABLE buffer_cheque_pendiente_autorizacion;
-DROP TABLE buffer_cheque_disponible;
+DROP TABLE if exists buffer_cheque_pendiente_autorizacion;
+DROP TABLE if exists buffer_cheque_disponible;
 
-DROP TABLE cheque;
-DROP TABLE chequera;
-DROP TABLE cuenta_bancaria;
+DROP TABLE if exists cheque;
+DROP TABLE if exists chequera;
+DROP TABLE if exists cuenta_bancaria;
 
-DROP TABLE correo_user;
-DROP TABLE telefono_user;
-DROP TABLE usuario;
+DROP TABLE if exists correo_user;
+DROP TABLE if exists telefono_user;
+DROP TABLE if exists usuario;
 
-DROP TABLE rol;
-DROP TABLE grupo;
-DROP TABLE permiso_sup;
+DROP TABLE if exists rol;
+DROP TABLE if exists grupo;
+DROP TABLE if exists permiso_sup;
 
-DROP TABLE correo_prov;
-DROP TABLE telefono_prov;
-DROP TABLE proveedor;
+DROP TABLE if exists correo_prov;
+DROP TABLE if exists telefono_prov;
+DROP TABLE if exists proveedor;
 COMMIT;
