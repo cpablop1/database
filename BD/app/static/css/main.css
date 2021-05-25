@@ -1,295 +1,271 @@
-/* Utilizo rem en vez de px oh otra medida para que se adapte a nuevos dispositivos
-aunque esto es algo nuevo aun para mi  */
-
-
-/* Variables en css */
 :root {
-    --verde: #adff2f;
     --blanco: #ffffff;
+    --primario: #FFC107;
+    --secundario: #0097A7;
+    --gris: #757575;
     --oscuro: #212121;
-    --primario: #ffc107;
-    --secundario: #0097a7;
-    --celeste: #07e4ff;
-    --gris: #757575; 
-    --oro: #ffd700;
-    --cafe: #d58535;
-    --cafez: #3f0e03;
-    --ini: #d90046;
 }
-
 html {
-    font-size: 62.5%;
-    box-sizing: border-box; /* Parte para facilitar el Box Model con padding y contenido*/
+    box-sizing: border-box;
+    min-height: 100%;
     scroll-snap-type: y mandatory;
 }
-
 *, *:before, *:after {
     box-sizing: inherit;
-  }
-
+}
+p {
+    line-height: 2;
+    color: var(--blanco);
+}
 body {
-    font-size: 16px;
-    font-family: 'Krub' sans-serif;
-    background-image: linear-gradient(to bottom, var(--oscuro) 10%, var(--blanco) 100%);;
+    font-family: 'Krub', sans-serif;
+    background-image: linear-gradient(to top, #1c4e80 0%, rgb(10, 210, 236) 100%);
+    min-height: 100%;
+    
 }
-
-/*          1rem equiva a 10px
-            1rem = 10px 
-*/
-
-
 h1 {
-    font-size: 3.8rem;
-    color: white;
+    font-size:1.9rem;
+    margin: 1.7rem;
 }
-
-h2 {
-    font-size: 2.8rem;
+h1 span {
+    font-size: 1.4rem;
 }
-
-h3 {
-    font-size: 1.8rem;
-}
-
-
 h1, h2, h3 {
     text-align: center;
 }
-
-.titulo span {
-    font-size: 3.8rem;
-}
-
-.central {
-    max-width: 120rem;
-    margin-top: 0;
-    margin-right: auto;
-    margin-bottom: 0;
-    margin-left: auto;
-    /* margin: 0 auto 0 auto;
-       margin: 0 auto; */
-}
-
-.boton {
-    background-color: var(--secundario);
+h2 {
+    font-size: 2.4rem;
     color: var(--blanco);
-    padding: 1rem 3rem;
-    margin-top: 1rem;
-    font-size: 2rem;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: bold;
-    border-radius: .5rem;
-    width: 90%;
-    text-align: center;
+}
+h3 {
+    color: var(--oscuro);
+    font-weight: 400;
+    font-size: 1.6rem;
+}
+.contenedor {
+    margin: 0 auto;
+    max-width: 1515px;
+}
+.sombra {
+    padding: 2rem;
+    margin-bottom: 3rem;
+    background-color: rgba(49, 8, 8, 0.555);
 
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 11px 15px -9px rgba(0,0,0,0.63);
+    -moz-box-shadow: 0px 11px 15px -9px rgba(0,0,0,0.63);
+    box-shadow: 0px 11px 15px -9px rgba(0,0,0,0.63);
+}
+.nav-bg {
+    background-color: var(--oscuro);
+}
+
+nav a ul {
+    list-style: none;
+    display: none;
+}
+
+nav a ul li:hover > ul {
+    display: block;
 }
 
 
-
-@media (min-width: 768px) {
-     .boton {
-         width:auto;
-     }
+.navegacion {
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
-.nav-menu{
-    /* background-color: var(--secundario); */
-    background-color: var(--celeste);
-}
-
-.menuPrincipal {
-   display: flex;
-   flex-direction: column;
-   /* justify-content: space-around;  */
-   /* justify-content: space-evenly; */
-   
-}
-/* cel es 480px */
-@media (min-width: 480px ) {
-    
-}
-/* tablet es 768 */
-@media (min-width: 768px) {
-    .menuPrincipal {
+@media (min-width:768px) {
+    .navegacion {
         flex-direction: row;
         justify-content: space-between;
-        /* align-items: center; */
     }
 }
-/* laptop oh pc deskop */
-@media (min-width: 1140px) {
-     
-}
-/* PC escritorio */
-@media (min-width: 1440px) {
-     
-}
-
-.sombra {
-    /* -webkit-box-shadow: 0px 5px 15px 0px rgba(112, 112, 112, 0.48);
-    -moz-box-shadow: 0px 5px 15px 0px rgba(112, 112, 112, 0.48); */
-    box-shadow: 0px 5px 15px 0px rgba(112, 112, 112, 0.48);
-    background-color: var(--blanco);
-    padding: 2rem;
-    border-radius: 1rem;
-}
-
-
-
-.menuPrincipal a {
-    /* color: var(--blanco); */
-    display: block;
-    text-align: center;
-    color: var(--oscuro);
-    text-decoration: none;
-    padding: 1rem;
-    font-size: 2rem;
-    font-weight: bold;
-}
-
-.menuPrincipal a:hover {
-    background-color: var(--oro);
+.navegacion a{
+    padding: 1rem 1rem;
     color: var(--blanco);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
 }
-
-/* .contenido-hero {
-    
-} */
-/* .menuPrincipal>nav>button {
-    display: flex;
-    justify-content: flex-end;
-} */
-
-/* esto es .hero */
-.seccionA {
-    background-image: url(../../templates/img/data.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 450px;
-    position: relative;
+.navegacion a:hover {
+    color: var(--oscuro);
+    background-color: white;
+}
+.navegacion a:last-of-type {
+    margin-bottom:0;
+}
+@media (min-width:768px) {
+    .navegacion a{
+        margin-bottom: 0;
+    }
+}
+.hero {
+    height: 700px;
+    background-image: url(../img/git2.png) ;
     margin-bottom: 2rem;
+    position: relative;
 }
-/* CONTENIDO */
-.seccionContenida {
-    position: absolutes;
-    background-color:rgba(0, 0, 0, .3);/*lo agrego por si un navegador no reconoce la nueva forma de implementarlo*/
-    background-color: rgb(0 0 0 / 70%);
+.contenido-hero {
+    background-color: rgb(0 0 0 / 70%); /** Otra opción **/
+    background-color: rgba(0, 0, 0, .3);
+    position: absolute;
     width: 100%;
     height: 100%;
-   /* top: 0;
-    bottom: 0;
-   right: 0;
-   left: 0; */
-   display: flex;
-   flex-direction: column;
+    display: flex;
+    flex-direction: column;
    align-items: center;
    justify-content: center;
 }
 
-.seccionContenida  h2,
-.seccionContenida p {
+.contenido-hero h2, 
+.contenido-hero p {
     color: var(--blanco);
-
 }
-
-.nav-menu, .niveles, .formulario {
+.boton {
+    background-color: var(--secundario);
+    outline: none;
+    color: var(--blanco);
+    margin-top: 1rem;
+    padding: .5rem 3rem;
+    border-radius: 5px;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1rem;
+    border:none;
+}
+.boton:hover{
+    cursor: pointer;
+}
+.servicios {
     scroll-snap-align: center;
     scroll-snap-stop: always;
 }
-
-@media (min-width: 768px) {
-    .niveles {
+@media (min-width:768px) {
+    .servicios {
         display: grid;
-        grid-template-columns: repeat(3, 1fr); /*33.3%*/
-        /* grid-template-rows: 200px 800px;
-     */
-        /* grid: 200px 800px / 300px 300px; */
-        column-gap: 3rem;
+        grid-template-columns: 33.3% 33.3% 33.3%;
+        column-gap: 1rem;
     }
 }
-
-/* .nivel {
+.servicio {
+    text-align:center;
+}
+.servicio {
     display: flex;
     flex-direction: column;
     align-items: center;
-} */
-
-
-.nivel h3 {
-    color: var(--oro);
-    font-weight: bold;
-    text-align: center;
 }
 
-.nivel p {
-    line-height: 2;
 
-}
-
-/* .nivel .iconos {
-    height: 15rem;
-    width: 15rem;
-    background-color: var(--blanco);
-    border-radius: 50%;
+.iconos {
     display: flex;
+    height: 150px;
+    width: 150px;
     justify-content: space-evenly;
     align-items: center;
-} */
+}
+.iconos i {
+    font-size: 2rem;
+    color: var(--oscuro);
+}
 
 
-/* FORMULARIO */
 .formulario {
-    background-color: yellow;
-    width: min( 82rem, 100% ); /*Utiliza el valor menor*/
-    margin: o auto;
+    background-color: #1b1a17;
     padding: 2rem;
-    border-radius: 1rem;
+    border-radius: 10px;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
 }
-
-.formulario fieldset {
-    border: none;
-}
-
 .formulario legend {
     text-align: center;
-    font-size: 1.8rem;
-    text-transform: uppercase;
-    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--blanco);
     margin-bottom: 2rem;
-    color: var(--oscuro);
+    display: block;
+    text-transform: uppercase;
+    font-weight: 700;
 }
-/* contenedor-campos */
+@media (min-width:768px) {
+    .formulario {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+}
+.contenedor-campos {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 
-
-.forp {
+.campo {
     margin-bottom: 1rem;
+    width: 100%;
 }
-
-.forp label {
-    color: var(--oscuro);
-    font-weight: bold;
+@media (min-width:480px) {
+    .campo {
+        display: flex;
+        align-items: center;
+    }
+}
+@media (min-width: 768px) {
+    .campo{
+        flex: 0 0 calc(50% - .5rem)
+    }
+}
+.campo label {
+    color: var(--secundario);
+    font-weight: 700;
     margin-bottom: .5rem;
     display: block;
-
 }
-
-.input-intro,
-input[type="email"],
-input[type="text"],
-input[type="password"] {
-    background-color: var(--verde);
+@media (min-width:480px) {
+    .campo label {
+        flex: 0 0 90px;
+    }
+}
+.campo input[type="text"],
+.campo input[type="tel"],
+.campo input[type="mail"],
+.campo textarea {
     width: 100%;
+    padding: .5rem;
     border: none;
-    padding: 1.5rem;
-    border-radius: 5px;
+    border-radius: .5rem;
+}
+@media (min-width: 768px) {
+    :is(.campo) :is( 
+        input[type="text"], 
+        input[type="text"],  
+        input[type="tel"],  
+        input[type="mail"] , 
+        textarea ) {
+        flex: 1;
+    }
 }
 
-.boton:hover {
-    cursor: pointer;
+.w-100{
+    flex: 0 0 100%;
+}
+.campo textarea {
+    height: 12rem;
 }
 
 .enviar {
-    width: 100%;
-    text-align: center;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.footer .copyright {
+    font-size: 1rem;
+    text-align: right;
+    padding-bottom: 1rem;
+}
+
+.footer {
+    text-align: right;
 }

@@ -1,155 +1,256 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
-    <!-- {% load static %} -->
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!------------------------------------------------------------------------------->
-
-    <!-- Utilizando la libreria normalize -->
-    <link rel="stylesheet" href="../static/css/normalize.css">
-    <link rel="preload" href="../static/css/normalize.css" as="style">
-
-
-
-    <!-- GOOGLE FONT -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Krub:ital,wght@0,700;1,300&display=swap" rel="stylesheet">
-    <!-- utilizando 2 tipos de fuente seria kurb de 300 y 700 -->
-
-
-
-    <!-- <link type="text/css" rel="stylesheet" href="{% static '/css/style.css' %}" /> -->
-    <!-- Documento esta linea por lasde abajo -->
-    <!-- con preload le dicimos al navegado que cargue la hoja de estilos lo mas rapido posible y 
-    luego ejecute la linea de codigo 17 que es nuestro archivo css principal  -->
-    <link rel="preload" href="../static/css/main.css" as="style">
-
-
-    <!--link del archivo principal de nuestros estilos CSS  -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Nueva Verapaz</title>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Krub:400,700" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/main.css">
-    <link rel="stylesheet" href="../static/css/ventanas.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
-
-
-    <!-- <script src="{% static '../js/js.js' %}"></script> -->
-    <!------------------------------------------------------------------------------->
-    <title>NUEVA VERAPAZ</title>
+    <link rel="stylesheet" href="../static/css/Logeo.css">
 </head>
 
+
 <body>
+    <!--  -->
+    <div class="contenedor sombra">
+        <header class="header">
+            <h1>Empresa <span>Nueva Verapaz</span></h1>
+        </header>
 
-    <!-- Encabezado principal de la pagina  -->
-    <header>
-        <h1 class="titulo">Empresa <span>Nueva Verapaz</span></h1>
-    </header>
-    <!-- Menu de navegacion donde hara referencia a otro sitio de momento con "#" no se tiene implementada esa accion por el momento -->
-    <div class="nav-menu">
-        <nav class="menuPrincipal central" id="Menu">
-            <a href="#">Inicio</a>
-            <ul>
-                <a>Usuario</a>
-                <li><a href="{% url 'crear_usuario' %}">Crear</a></li>
-                <li><a href="#">Ver</a></li>
-            </ul>
-            <a href="#">Nosotros</a>
-            <a href="{% url 'about' %}">Sobre Nuestro Proyecto</a>
-            <!-- <button onclick="">Entrar</button> -->
-        </nav>
-    </div>
+        <div class=" nav-bg">
+            <nav class="navegacion contenedor">
+                <a href="layout.html">Inicio</a>
+                <a href="#">Sobre Nosotros
+                    <ul>
+                        <li>Somos una empresa que se dedida a la compra-venta de produtos genericos, con una gran
+                            cantidad de operaciones, proveedores y compras que realiza diariamente </li>
 
+                    </ul>
+                </a>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> d89289982cefcc72d7944e9cffe03f1ecae81445
-    <section class="seccionA">
-        <div class="seccionContenida">
-
-            <h2>Base de datos</h2>
-
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-database" width="76" height="76"
-                viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none" stroke-linecap="round"
-                stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <ellipse cx="12" cy="6" rx="8" ry="3"></ellipse>
-                <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
-                <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
-            </svg>
-
-            <p>Guatemala, Santa Cruz Del Quiche</p>
+                <a href="#">Clientes
+                    <ul>
+                        <li>Ingeniero Markos</li>
+                        <li>Ahsley De Perez</li>
+                    </ul>
+                </a>
 
 
-            <!-- <a id="btn-abrir-popup" onclick="conectar()" class="btn-abrir-popup" href="">Conectar</a> -->
-            <button id="btn-abrir-popup" class="btn-abrir-popup boton">Iniciar Sesion</button>
-
-
+                <a href="#">Productos Y Servicios
+                    <ul>
+                        <li>Cheques Digitales</li>
+                        <li>Niveles de Autoridad</li>
+                        <li>Consultas</li>
+                    </ul>
+                </a>
+                <a href=""></a>
+                <a class="logeo" id="axedi" href="#">Acceder</a>
+            </nav>
         </div>
-    </section>
-<<<<<<< HEAD
 
 
-=======
->>>>>>> d89289982cefcc72d7944e9cffe03f1ecae81445
+        <div class="hero">
+            <div class="contenido-hero">
+                <h2>Proyecto <br> Base De Datos</h2>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-database" width="100"
+                    height="100" viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <ellipse cx="12" cy="6" rx="8" ry="3"></ellipse>
+                    <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
+                    <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
+                </svg>
 
-
-    <!-- Ventana emergente que estara oculta -->
-
-
-    <div class="contenedor">
-
-        <div class="overlay active" id="overlay">
-            <div class="popup" id="popup">
-                <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
-
-                <form class="formulario" action="" method="POST">
-                    {% csrf_token %}
-                    <h2 style="color: black; background-color: greenyellow; width: 100%; border-radius: 5px;">Iniciar
-                        Sesion</h2>
-                    <fieldset>
-                        <div class="campos-div contenedor-inputs">
-
-                            <label for="">Nombre</label>
-                            <input class="input-intro" type="text" placeholder="Escribe Tu Nombre">
-
-                            <label for="">Clave</label>
-                            <input class="input-intro" type="password" placeholder="Escribe Tu Clave">
-
-                        </div>
-
-                        <div class="enviar">
-                            <input class="boton btn-submit" type="submit" value="Enviar">
-                        </div>
-
-                    </fieldset>
-                </form>
-
-
+                <a class="boton" href="#contacto">Contactar</a>
             </div>
         </div>
 
+        <!-- <div class="contenedor sombra"> -->
+        <h2>Nuestros Servicios</h2>
+        <main class="servicios">
+            <div class="servicio">
+                <h3>Generacion De Cheques</h3>
+                <div class="iconos">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-notebook" width="60"
+                        height="60" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18" />
+                        <line x1="13" y1="8" x2="15" y2="8" />
+                        <line x1="13" y1="12" x2="15" y2="12" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-check" width="60"
+                        height="60" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                        <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                        <path d="M9 15l2 2l4 -4" />
+                    </svg>
+                </div>
+                <p> Permite a nuestros clientes que puedan generar un cheque, considerando que el sistema debe validar
+                    si el usuario tiene permisos para emitir cheques.</p>
+            </div>
+            <div class="servicio">
+                <h3>Liberacion De Auditoria</h3>
+                <div class="iconos">
+
+                    <!-- https://tablericons.com/ -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-check" width="60"
+                        height="60" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                        <path d="M16 11l2 2l4 -4" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-exclamation"
+                        width="60" height="60" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                        <line x1="19" y1="7" x2="19" y2="10" />
+                        <line x1="19" y1="14" x2="19" y2="14.01" />
+                    </svg>
+                </div>
+                <p>Permitiendole a nuestros clientes realizar la liberacion de cheques, por medio del sistema y cumplir
+                    con los requisitos previamente establecidos por la Empresa.</p>
+            </div>
+            <div class="servicio">
+                <h3>Liberacion De Gerencia</h3>
+                <div class="iconos">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clipboard-check"
+                        width="60" height="60" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+                        <rect x="9" y="3" width="6" height="4" rx="2" />
+                        <path d="M9 14l2 2l4 -4" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-id" width="60"
+                        height="60" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <rect x="3" y="4" width="18" height="16" rx="3" />
+                        <circle cx="9" cy="10" r="2" />
+                        <line x1="15" y1="8" x2="17" y2="8" />
+                        <line x1="15" y1="12" x2="17" y2="12" />
+                        <line x1="7" y1="16" x2="17" y2="16" />
+                    </svg>
+                </div>
+                <p>Se pueda Liberar todo cheque valido mediante el sistema. Siempre y cuando cumpla con todos los
+                    requisitos solicitados y haya pasado por los diferentes niveles de Autoridad.</p>
+            </div>
+        </main>
+
+        <div id="contacto" class="contacto">
+            <h2>Contactanos</h2>
+            <form class="formulario" action="" method="POST">
+                <!-- <legend>Contactános llenando todos los campos</legend> -->
+
+                <div class="contenedor-campos">
+                    <div class="campo">
+                        <label>Nombre:</label>
+
+                        <input id="name" type="text" name="nombre" placeholder="Ingrese Su Nombre" required>
+                    </div>
+
+                    <div class="campo">
+                        <label>Apellido:</label>
+
+                        <input id="lastname" type="text" name="nombre" placeholder="Ingrese Su Apellido" required>
+                    </div>
+
+                    <div class="campo">
+                        <label>Celular:</label>
+
+                        <input id="numero" type="tel" name="telefono" placeholder="Numero Celular">
+                    </div>
+
+                    <div class="campo">
+                        <label>Direccion:</label>
+
+                        <input id="lugar" type="tel" name="telefono" placeholder="Direccion">
+                    </div>
+
+                    <div class="campo w-100">
+                        <label>Correo Electronico:</label>
+
+                        <input id="correo" type="mail" name="correo" placeholder="Correo Personal">
+                    </div>
+                    <div class="campo w-100">
+                        <label>Mensaje:</label>
+
+                        <textarea id="text1" placeholder="Asunto" name="" id="" cols="30" rows="10"></textarea>
+
+                    </div>
+                </div>
+                <!--.contenedor-campos-->
+                <div class="enviar">
+                    <input class="boton" type="submit" value="Enviar">
+                </div>
+            </form>
+        </div>
+        <!-- </div> -->
+
+        <footer class="footer">
+
+            <strong>Siguenos en GitHub</strong> <br>
+
+            <a href="https://github.com/PabloIQ">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="36"
+                    height="36" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fd0061" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path
+                        d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+                    <a href="https://github.com/PabloIQ" alt="Cruz Pablo Perez"></a>
+                </svg>
+            </a>
+
+            <a href="https://github.com/MyLittleViruz">
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-biohazard" width="36"
+                    height="36" viewBox="0 0 24 24" stroke-width="2" stroke="#00b341" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <circle cx="12" cy="12" r="2" />
+                    <path
+                        d="M11.939 14c0 .173 .048 .351 .056 .533l0 .217a4.75 4.75 0 0 1 -4.533 4.745l-.217 0m-4.75 -4.75a4.75 4.75 0 0 1 7.737 -3.693m6.513 8.443a4.75 4.75 0 0 1 -4.69 -5.503l-.06 0m1.764 -2.944a4.75 4.75 0 0 1 7.731 3.477l0 .217m-11.195 -3.813a4.75 4.75 0 0 1 -1.828 -7.624l.164 -.172m6.718 0a4.75 4.75 0 0 1 -1.665 7.798" />
+                </svg>
+            </a>
+
+            <a href="https://github.com/Rychy248">
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="36"
+                    height="36" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path
+                        d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+                </svg>
+            </a>
+
+            <div class="copyright">
+                <p>&copy;2021 Todos los derechos reservados. Cruz, Willy, Richy</p>
+            </div>
+
+        </footer>
     </div>
-
-
-
-
-
-    <!-- Nuestro contenido principal de la pagina web  -->
-    <main class="seccionContenida sombra">
-        {% block contenido %}
-        {% endblock %}
-
-    </main>
-
-    <!-- Contenido especifico de la pagina informacion extra  -->
-    <footer>
-        <p>Todos los derechos reservados. Para Willy, Richy, Cruz</p>
-    </footer>
 
 </body>
 
-<script src="../static/js/js.js"></script>
+<!-- scripts -->
+
+<script src="../static/js/acceso.js"></script>
+<!-- <script src="../static/js/App.js"></script> -->
+<!-- <script src="../static/js/localstorange.js"></script> -->
+<!-- <script src="../static/js/Main.js"></script> -->
 
 </html>
