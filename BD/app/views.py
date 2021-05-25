@@ -6,7 +6,9 @@ from .forms import FormUsuario
 
 
 def Index(request):
+    return render(request, 'layout.html')
 
+<<<<<<< HEAD
     if request.method == 'POST':
         nombre = request.POST['nombre']
         apellido = request.POST['apellido']
@@ -44,3 +46,13 @@ def Crear_usuario(respuesta):
     return render(respuesta, 'usuario/crear_usuario.html', {
         'form': form
     })
+=======
+def CrearRol(request):
+    return render(request, 'crear_rol.html')
+
+def Login(request):
+    return render(request, 'login.html')
+
+def CrearPermisos(request):
+    return render(request, 'crear_permiso.html')
+>>>>>>> 7933e881d192fc365d536be82f4ba56c78e5b7c7

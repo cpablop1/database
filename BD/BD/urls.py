@@ -20,6 +20,7 @@ from app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.Index, name='inicio'),
-    path('about/', views.About, name='about'),
-    path('crear-usuario/', views.Crear_usuario, name='crear_usuario'),
+    path('crear-rol/', views.CrearRol, name='crear_rol'),
+    path('login/', views.Login, name='login'),
+    path('crear-permiso/', views.CrearPermisos, name='crear_permiso')
 ]

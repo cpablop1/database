@@ -22,7 +22,10 @@
 
         <div class=" nav-bg">
             <nav class="navegacion contenedor">
-                <a href="layout.html">Inicio</a>
+                <a href="#">Inicio</a>
+                <a href="{% url 'crear_rol' %}">Crear rol</a>
+                <a href="{% url 'crear_permiso' %}">Crear permisos</a>
+                <a href="{% url 'login' %}">Login</a>
                 <a href="#">Sobre Nosotros
                     <ul>
                         <li>Somos una empresa que se dedida a la compra-venta de produtos genericos, con una gran
@@ -197,6 +200,9 @@
             </form>
         </div>
         <!-- </div> -->
+
+        {% block contenido %}
+        {% endblock %}
 
         <footer class="footer">
 
