@@ -152,7 +152,7 @@
             <h2>Contactanos</h2>
             <form class="formulario" action="" method="POST">
                 <!-- <legend>Contactános llenando todos los campos</legend> -->
-
+                {% csrf_token %}
                 <div class="contenedor-campos">
                     <div class="campo">
                         <label>Nombre:</label>
@@ -163,19 +163,19 @@
                     <div class="campo">
                         <label>Apellido:</label>
 
-                        <input id="lastname" type="text" name="nombre" placeholder="Ingrese Su Apellido" required>
+                        <input id="lastname" type="text" name="apellido" placeholder="Ingrese Su Apellido" required>
                     </div>
 
                     <div class="campo">
                         <label>Celular:</label>
 
-                        <input id="numero" type="tel" name="telefono" placeholder="Numero Celular">
+                        <input id="numero" type="tel" name="celular" placeholder="Numero Celular">
                     </div>
 
                     <div class="campo">
                         <label>Direccion:</label>
 
-                        <input id="lugar" type="tel" name="telefono" placeholder="Direccion">
+                        <input id="lugar" type="tel" name="direccion" placeholder="Direccion">
                     </div>
 
                     <div class="campo w-100">
@@ -186,7 +186,7 @@
                     <div class="campo w-100">
                         <label>Mensaje:</label>
 
-                        <textarea id="text1" placeholder="Asunto" name="" id="" cols="30" rows="10"></textarea>
+                        <textarea id="text1" placeholder="Asunto" name="mensaje" id="" cols="30" rows="10"></textarea>
 
                     </div>
                 </div>

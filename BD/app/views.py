@@ -2,20 +2,36 @@ from django.shortcuts import render
 from .forms import FormUsuario
 
 # Create your views here.
-## Modificado
+# Modificado
+
 
 def Index(request):
 
-    variable = 'Hola mundo'
+    if request.method == 'POST':
+        nombre = request.POST['nombre']
+        apellido = request.POST['apellido']
+        celular = request.POST['celular']
+        direccion = request.POST['direccion']
+        correo = request.POST['correo']
+        mensaje = request.POST['mensaje']
 
-    return render(request, 'inicio.html', {
-        'titulo': 'Plantilla Principal',
-        'variable': variable
+        print(nombre)
+        print(apellido)
+        print(celular)
+        print(direccion)
+        print(correo)
+        print(mensaje)
+
+    return render(request, 'layout.html', {
+
+        'titulo': 'Plantilla Principal'
     })
+
 
 def About(respuesta):
 
     return render(respuesta, 'about.html')
+
 
 def Crear_usuario(respuesta):
     form = FormUsuario()
