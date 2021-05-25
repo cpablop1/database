@@ -1,5 +1,5 @@
-#from BD.app.data.mySql import mySql
-from mySql import mySql
+from BD.app.data.mySql import mySql
+#from mySql import mySql
 import json
 maria = mySql()
 
@@ -38,7 +38,22 @@ class Rol_grupo():
         return retorno
     
     def read(self,data=None):
-        retorno = {"error":""}
+        #Puede recibir un valor entero, que es el id_rol, o nada
+        #Si recibe un id_devuelve el registro de ese id
+        #si no recibe nada, devuelve todos los registros de rol_grupo
+        
+        #devuelve de la siguiente forma {{'error':'error o sin_error'},{'res':una_lista_de_diccionario}}
+        #Si en ambos casos no encontraron registros, en 'res' es igual a 'No hay registros que mostrar
+        
+        #pudiendo recorerse de la siguiente forma
+        """
+SELECT = rol_grupo.read()
+for fila in SELECT['res']:
+    for campo, valor in fila.items():
+            print(campo, ':', valor,end=" ")
+    print('')"""
+        
+        retorno = {"error":"error"}
         res = {}
         if data == None:
             sql = 'SELECT * FROM v_rol_group;'
@@ -47,7 +62,8 @@ class Rol_grupo():
             sql = f"SELECT * FROM v_rol_group WHERE id_rol = {data};"
             res = maria.obtener(sql)
         if len(res['filas']) == 0:
-            retorno['error'] = 'NO hay registros que mostrar'
+            retorno['error'] = 'sin_errores'
+            retorno['res'] = 'No hay registros que mostrar'
         else:
             retorno['res']=maria.rotular (res['filas'], ['id_rol', 'nombre', 'monto_min', 'monto_max', 'generar_cheque', 'validar_cheque'])
 
@@ -102,33 +118,23 @@ class Rol_permiso_sup():
         return retorno
     
     def read(self,data=None):
-        retorno = {"error":""}
+        #funciona igual que rol_grupo
+        
+        retorno = {"error":"error"}
         res = {}
         if data == None:
-            sql = 'SELECT * FROM v_rol_group;'
+            sql = 'SELECT * FROM v_rol_user;'
             res = maria.obtener( sql )
         else:
-            sql = f"SELECT * FROM v_rol_group WHERE id_rol = {data};"
+            sql = f"SELECT * FROM v_rol_user WHERE id_rol = {data};"
             res = maria.obtener(sql)
         if len(res['filas']) == 0:
-            retorno['error'] = 'NO hay registros que mostrar'
+            retorno['error'] = 'sin_errores'
+            retorno['res'] = 'No hay registros que mostrar'
         else:
-            retorno['res']=maria.rotular (res['filas'], ['nombre', 'crud_users', 'imprimir_cheque', 'anular_cheque', 'modificar_cheque',
-                                                         'reporte_cheque', 'auditar_user', 'admin_cuenta_banc', 'auditar_cuenta',
-                                                         'mostrar_bitacora_user', 'mostrar_bitacora_group', 'mostrar_bitacora_jefe', 'jefe'])
+            labels =  ['id_rol','nombre', 'crud_users', 'imprimir_cheque', 'anular_cheque', 'modificar_cheque',
+                       'reporte_cheque', 'auditar_user', 'admin_cuenta_banc', 'auditar_cuenta',
+                       'mostrar_bitacora_user', 'mostrar_bitacora_group', 'mostrar_bitacora_jefe', 'jefe']
+            retorno['res']=maria.rotular (res['filas'],labels)
 
         return retorno
-    
-'nombre',
-'crud_users',
-'imprimir_cheque',
-'anular_cheque',
-'modificar_cheque',
-'reporte_cheque',
-'auditar_user',
-'admin_cuenta_banc',
-'auditar_cuenta',
-'mostrar_bitacora_user',
-'mostrar_bitacora_group',
-'mostrar_bitacora_jefe',
-'jefe'
