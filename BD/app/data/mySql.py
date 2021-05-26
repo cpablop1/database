@@ -14,22 +14,9 @@ class mySql():
             )
         except:
             print ("ERROR:!! No fue posible acceder al a Base de datos!!!")
-    
-    def obtener(self, sql):
-        #modificar para select only
-        data = []
-        try:
-            cursor = self.conn.cursor()
-            cursor.execute(sql)
-            #data.append(cursor.execute("SELECT @resultado"))
-            #data = cursor.fetchall()
-        except:
-            data.append('error')
-        return data
 
     def query(self, sql):
         data = []
-        #var = ""
         try:
             cursor = self.conn.cursor()
             cursor.execute(sql)
@@ -39,7 +26,18 @@ class mySql():
         except:
             data.append('error')
         return data
-
+    
+    def select(self, sql):
+        data = []
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute(sql)
+            var = cursor.fetchall()
+            data.append(var)
+        except:
+            data.append('error')
+        return data
+            
     def insertar(self, sql):
         respuesta = {'error':''}
         good = self.query(sql)
@@ -49,7 +47,17 @@ class mySql():
         else:
             respuesta['error'] = 'Fallo en la conexion servidor'
         return respuesta
-        
+
+    def obtener(self, sql):
+        respuesta = {'error':''}
+        good = self.select(sql)
+        if good[0] != 'error':
+            respuesta['filas'] = good[0]
+            respuesta['error']='Sin error, Ejecutado exitosamente'
+        else:
+            respuesta['error'] = 'Fallo en la conexion al servidor'
+        return respuesta
+    
     def rotular(self, res, label):
         retorno=[]
         for registro in res:
