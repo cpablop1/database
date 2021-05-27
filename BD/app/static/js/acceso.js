@@ -29,7 +29,7 @@ btn_login.addEventListener('click', () => {
     inputtext2.type = "password"
 
     ventana.classList.add('login-box');
-    ventana.appendChild(titulo2)
+    ventana.appendChild(titulo2);
     ventana.appendChild(texto1);
     ventana.appendChild(inputtext);
     ventana.appendChild(clave1);
