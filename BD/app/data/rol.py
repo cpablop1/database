@@ -2,10 +2,7 @@ from BD.app.data.mySql import mySql
 #from mySql import mySql
 import json
 maria = mySql()
-
-# JSON to Python -> x = json.loads(var1)
-# Python to JSON -> y = json.dumps(var2)
-
+    
 class Rol_grupo():
     """Esta es la clase para crear roles de grupos,
     no es para roles de usuario singular"""
