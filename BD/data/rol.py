@@ -1,5 +1,6 @@
-from BD.app.data.mySql import mySql
+#from BD.app.data.mySql import mySql
 #from mySql import mySql
+from data.mySql import mySql
 import json
 maria = mySql()
     

@@ -3,11 +3,10 @@
 
 {% block contenido %}
 <h1>Permisos De Usuario</h1>
-
-<label for="">Nombre</label>
-<input type="text">
-<label for="">crud_users</label>
-<input type="text">
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Probar">
+</form>
 
 
 {% endblock %}
