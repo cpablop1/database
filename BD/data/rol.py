@@ -72,12 +72,12 @@ class Rol_grupo():
         
         #pudiendo recorerse de la siguiente forma
         """
-SELECT = rol_grupo.read()
-for fila in SELECT['res']:
-    for campo, valor in fila.items():
-            print(campo, ':', valor,end=" ")
-    print('')"""
-        
+        SELECT = rol_grupo.read()
+        for fila in SELECT['res']:
+            for campo, valor in fila.items():
+                    print(campo, ':', valor,end=" ")
+            print('')"""
+                
         retorno = {"error":"error"}
         res = {}
         if data == None:

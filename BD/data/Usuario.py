@@ -132,9 +132,13 @@ class Usuario:
         if data == None:
             sql = 'SELECT * FROM v_all_users'
             res = maria.obtener( sql )
+        if type(data) == type('str'):
+            sql = 'SELECT * FROM v_all_users WHERE correo = {data};'
+            res = maria.obtener( sql )
         else:
             sql = f"SELECT * FROM v_all_users WHERE id_user = {data};"
             res = maria.obtener(sql)
+        
         if len(res['filas']) == 0:
             retorno['error'] = 'sin_errores'
             retorno['res'] = 'No hay registros que mostrar'

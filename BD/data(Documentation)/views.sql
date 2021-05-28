@@ -176,7 +176,6 @@ CREATE OR REPLACE VIEW v_all_users
     
 -- SELECT * FROM v_all_users;
 
-
 -- D R O P P I N G
 DROP VIEW IF EXISTS v_rol_group;
 DROP VIEW IF EXISTS v_rol_user;
