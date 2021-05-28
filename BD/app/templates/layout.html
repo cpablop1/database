@@ -23,13 +23,15 @@
         <div class=" nav-bg">
             <nav class="navegacion contenedor">
                 <a href="#">Inicio</a>
-                <a href="{% url 'crear_rol' %}">Crear rol</a>
+                <!-- <a href="{% url 'crear_rol' %}">Crear rol</a>
                 <a href="{% url 'crear_permiso' %}">Crear permisos</a>
-                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'login' %}">Login</a> -->
                 <a href="#">Sobre Nosotros
-                    <ul>
-                        <li>Somos una empresa que se dedida a la compra-venta de produtos genericos, con una gran
-                            cantidad de operaciones, proveedores y compras que realiza diariamente </li>
+                    <ul class="oculto">
+                        <li>Somos una empresa que se
+                            dedida a la compra-venta de produtos genericos, con una gran
+                            cantidad de operaciones, proveedores y compras que realiza diariamente
+                        </li>
 
                     </ul>
                 </a>
@@ -37,7 +39,7 @@
                 <a href="#">Clientes
                     <ul>
                         <li>Ingeniero Markos</li>
-                        <li>Ahsley De Perez</li>
+                        <li>Ana Luisa</li>
                     </ul>
                 </a>
 
@@ -49,7 +51,6 @@
                         <li>Consultas</li>
                     </ul>
                 </a>
-                <a href=""></a>
                 <a class="logeo" id="axedi" href="#">Acceder</a>
             </nav>
         </div>
@@ -152,7 +153,7 @@
         </main>
 
         <div id="contacto" class="contacto">
-            <h2>Contactanos</h2>
+            <h2>Ponte En Contactanos Con Nosotros</h2>
             <form class="formulario" action="" method="POST">
                 <!-- <legend>Contactános llenando todos los campos</legend> -->
                 {% csrf_token %}
@@ -163,23 +164,23 @@
                         <input id="name" type="text" name="nombre" placeholder="Ingrese Su Nombre" required>
                     </div>
 
-                    <div class="campo">
+                    <!-- <div class="campo">
                         <label>Apellido:</label>
 
                         <input id="lastname" type="text" name="apellido" placeholder="Ingrese Su Apellido" required>
-                    </div>
+                    </div> -->
 
                     <div class="campo">
                         <label>Celular:</label>
 
-                        <input id="numero" type="tel" name="celular" placeholder="Numero Celular">
+                        <input id="numero" type="tel" name="celular" placeholder="Numero De Celular">
                     </div>
 
-                    <div class="campo">
+                    <!-- <div class="campo">
                         <label>Direccion:</label>
 
                         <input id="lugar" type="tel" name="direccion" placeholder="Direccion">
-                    </div>
+                    </div> -->
 
                     <div class="campo w-100">
                         <label>Correo Electronico:</label>
@@ -235,7 +236,7 @@
             <a href="https://github.com/Rychy248">
 
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="36"
-                    height="36" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none" stroke-linecap="round"
+                    height="36" viewBox="0 0 24 24" stroke-width="2" stroke="#ff9321" fill="none" stroke-linecap="round"
                     stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path
