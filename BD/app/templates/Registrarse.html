@@ -7,7 +7,7 @@
 </header>
 
 <div id="contacto" class="contacto">
-    <h2>Iniciar Sesion</h2>
+    <h2>Registrarse</h2>
     <form class="formulario" action="" method="POST">
         <!-- <legend>Contactános llenando todos los campos</legend> -->
         {% csrf_token %}
@@ -15,7 +15,12 @@
             <div class="campo">
                 <label>Usuario:</label>
 
-                <input id="name" type="text" name="usuario" placeholder="Ingrese Su Usuario" required>
+                <input id="name" type="text" name="usuario" placeholder="Ingrese Su Nuevo Usuario" required>
+            </div>
+
+            <div class="campo">
+                <label for="">Clave</label>
+                <input type="password">
             </div>
 
             <div class="campo">
@@ -39,8 +44,7 @@
 
     </form>
 
-    <a href="Registrarse.html">Registrarse</a>
-    <a href="Olvidada.html">Olvide mi Clave</a>
+
 
 </div>
 <!-- </div> -->
