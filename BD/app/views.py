@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .forms import FormUsuario
 
-import data.rol as rol
+import data.Rol as rol
 
 # Create your views here.
 # Modificado

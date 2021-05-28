@@ -1,9 +1,36 @@
-#from BD.app.data.mySql import mySql
 #from mySql import mySql
 from data.mySql import mySql
 import json
 maria = mySql()
-    
+class Rol_all():
+    #esta es una funcion para funciones que abarca todo
+    #por ejemplo lectura de todos los roles
+    def read_all(self,data=None):
+     #Puede recibir un valor entero, que es el id_rol, o nada
+        #Si recibe un id_devuelve el registro de ese id
+        #si no recibe nada, devuelve todos los registros de rol_grupo y Rol_permiso_sup
+        
+        #devuelve de la siguiente forma {{'error':'error o sin_error'},{'res':una_lista_de_diccionario}}
+        #Si en ambos casos no encontraron registros, en 'res' es igual a 'No hay registros que mostrar
+        
+        #pudiendo recorerse de la siguiente forma
+
+        retorno = {"error":"error"}
+        res = {}
+        if data == None:
+            sql = 'SELECT * FROM v_all_rol;'
+            res = maria.obtener( sql )
+        else:
+            sql = f"SELECT * FROM v_all_rol WHERE id_rol = {data};"
+            res = maria.obtener(sql)
+        if len(res['filas']) == 0:
+            retorno['error'] = 'sin_errores'
+            retorno['res'] = 'No hay registros que mostrar'
+        else:
+            retorno['res']=maria.rotular (res['filas'], ['id_rol', 'nombre'])
+
+        return retorno
+        
 class Rol_grupo():
     """Esta es la clase para crear roles de grupos,
     no es para roles de usuario singular"""

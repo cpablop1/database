@@ -76,10 +76,10 @@ CREATE TABLE usuario(
     apellido VARCHAR(30),
     DPI BIGINT(15) UNSIGNED,
     direccion VARCHAR(20),
+    clave VARCHAR(15),
     id_rol INT UNSIGNED,
     PRIMARY KEY(id_user),
     INDEX(id_rol),
-    clave VARCHAR(15),
     FOREIGN KEY(id_rol) REFERENCES rol(id_rol) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
@@ -269,7 +269,7 @@ CREATE TABLE bitacora_cheque_liberado(
 CREATE TABLE contactanos(
     id_custom INT UNSIGNED AUTO_INCREMENT,
     nombre VARCHAR(45),
-    num_telefono INT UNSIGNED,
+    num_telefono INT UN SIGNED,
     correo VARCHAR(30),
     mensaje VARCHAR(255),
     estado BOOLEAN,
@@ -312,5 +312,6 @@ DROP TABLE IF EXISTS permiso_sup;
 
 DROP TABLE IF EXISTS correo_prov;
 DROP TABLE IF EXISTS telefono_prov;
+DROP TABLE IF EXISTS proveedor;
 DROP TABLE IF EXISTS proveedor;
 COMMIT;

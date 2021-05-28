@@ -144,7 +144,7 @@ DECLARE id_permiso_sup_var INT;
 END;
 //
 DELIMITER ; 
--- SELECT id_permiso_sup_var();
+-- SELECT f_id_permiso_sup();
 
     -- Procedure for INSERT into permiso_sup, and a rol as rol_permiso_sup
 DELIMITER //
@@ -184,3 +184,104 @@ END;
 DELIMITER ;
 -- CALL pa_new_permis_sup_rol('Rychy_sup_rol',1,1,1,1,0,0,1,1,1,0,0,1,@resultado);
 -- SELECT @resultado;
+
+-- C O N T A C T A N O S     I N S E R T
+    -- Procedure for INSERT into contactanos, for show pops to users
+DELIMITER //
+CREATE OR REPLACE PROCEDURE pa_new_contact(
+    IN nombre VARCHAR(45),
+    IN num_telefono INT,
+    IN correo VARCHAR(30),
+    IN mensaje VARCHAR(255),
+    OUT resultado VARCHAR(10)
+)
+BEGIN
+DECLARE id_custom_var INT;
+-- id_user and estado, are 'NULL' and '0', until somebo
+    INSERT INTO contactanos(nombre, num_telefono, correo, mensaje, estado, id_user)
+    VALUES(nombre, num_telefono, correo, mensaje, 0, NULL) ;
+    SELECT MAX(id_custom) INTO id_custom_var FROM contactanos;
+    IF id_custom_var IS NULL THEN
+        SET resultado := 0;
+    END IF;
+        SET resultado := id_custom_var;
+    COMMIT;
+END;
+ //
+DELIMITER ;
+-- CALL pa_new_contact('Rychy_customer',45124545,'rychy@gmail.com','Hola quiero un cheque',@resultado);
+-- SELECT @resultado;
+
+
+-- U S U A R I O     I N S E R T
+    -- function for get id_permiso_sup from permiso_sup
+DELIMITER //
+CREATE OR REPLACE FUNCTION f_id_user()
+RETURNS INT
+NOT DETERMINISTIC
+BEGIN
+DECLARE id_user_var INT;
+    SELECT MAX(id_user) INTO id_user_var FROM usuario;
+    IF id_user_var IS NULL THEN
+       RETURN 0;
+    ELSE
+      RETURN id_user_var;
+    END IF;
+END;
+//
+DELIMITER ; 
+-- SELECT f_id_user();
+
+    -- Procedure for INSERT into contactanos, for show pops to users
+DELIMITER //
+CREATE OR REPLACE PROCEDURE pa_new_user(
+    -- user table
+    IN nombre VARCHAR(45),
+    IN apellido VARCHAR(30),
+    IN DPI BIGINT(15),
+    IN direccion VARCHAR(20),
+    IN id_rol INT,
+    IN clave VARCHAR(15),
+    -- email
+    IN correo VARCHAR(30),
+    -- phone number
+    IN numero INT,
+    IN compania VARCHAR(20),
+    IN pais VARCHAR(30),
+    OUT resultado VARCHAR(10)
+)
+BEGIN
+DECLARE id_user_var INT;
+    -- user created
+    INSERT INTO usuario(nombre, apellido, DPI, direccion, id_rol, clave)
+    VALUES(nombre, apellido, DPI, direccion, id_rol, clave);
+    SET id_user_var := f_id_user();
+    -- user email created
+    INSERT INTO correo_user(correo, id_user)
+    VALUES(correo, id_user_var);
+    -- user email created
+    INSERT INTO telefono_user(numero, compania, pais, id_user)
+    VALUES(numero, compania, pais, id_user_var);
+
+    SET resultado := id_user_var;
+    COMMIT;
+END;
+ //
+DELIMITER ;
+-- CALL pa_new_user('Rychy', 'Hernández', 789456, 'sas', 1, 'micontraseña', 'rychy@gmai.com', 123456, 'tigo', 'guatemala',@resultado);
+-- SELECT @resultado;
+-- CALL pa_new_user('Mycat', 'Tom', 5459456, 'Clear', 7, 'catworld', 'cat@gmail.com', 6763456, 'Movistar', 'Salvador',@resultado);
+-- SELECT @resultado;
+
+-- D R O P P I N G
+DROP FUNCTION IF EXISTS  f_id_rol;
+DROP FUNCTION IF EXISTS  f_id_group;
+DROP FUNCTION IF EXISTS  f_id_permiso_sup;
+DROP FUNCTION IF EXISTS  f_id_user;
+
+DROP PROCEDURE IF EXISTS  pa_new_group_rol;
+DROP PROCEDURE IF EXISTS  pa_new_permis_sup_rol;
+
+DROP PROCEDURE IF EXISTS  pa_new_user;
+
+
