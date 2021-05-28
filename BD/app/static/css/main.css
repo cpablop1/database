@@ -8,7 +8,7 @@
 html {
     box-sizing: border-box;
     min-height: 100%;
-    scroll-snap-type: y mandatory;
+    /* scroll-snap-type: y mandatory; */
 }
 *, *:before, *:after {
     box-sizing: inherit;
@@ -62,6 +62,27 @@ h3 {
 }
 
 
+.navegacion{
+   margin: auto;
+   width:1420px;
+
+}
+
+
+ul li {
+    list-style: none;
+}
+
+.navegacion a li {
+    text-decoration: none;
+    padding: 20px 30px;
+}
+
+.navegacion li {
+    float: left;
+}
+
+
 
 .contenedor>a>ul>li {
     display: none;
@@ -72,14 +93,20 @@ h3 {
 .contenedor:hover>a>ul>li {
     display: block;
     list-style: none;
+    text-decoration: none;
+    padding: 10px 105px;
     display: flex;
     justify-content: center;
 }
 
 
+
+
+
+
 .navegacion {
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
+    /* scroll-snap-align: center;
+    scroll-snap-stop: always; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -147,10 +174,10 @@ h3 {
 .boton:hover{
     cursor: pointer;
 }
-.servicios {
+/* .servicios {
     scroll-snap-align: center;
     scroll-snap-stop: always;
-}
+} */
 @media (min-width:768px) {
     .servicios {
         display: grid;
