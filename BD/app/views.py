@@ -19,6 +19,18 @@ def CrearRol(request):
 def Login(request):
     return render(request, 'login.html')
 
+def Registrarse(request):
+    if request.method == 'POST':
+        usuario = request.POST['usuario']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        correo = request.POST['correo']
+        print('Usuario: ', usuario)
+        print('Password1: ', password1)
+        print('Password2: ', password2)
+        print('Correo: ', correo)
+    return render(request, 'Registrarse.html')
+
 
 def CrearPermisos(request):
     if request.method == 'POST':

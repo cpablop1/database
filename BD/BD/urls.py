@@ -22,5 +22,6 @@ urlpatterns = [
     path('', views.Index, name='inicio'),
     path('crear-rol/', views.CrearRol, name='crear_rol'),
     path('login/', views.Login, name='login'),
+    path('registrarse/', views.Registrarse, name='registrarse'),
     path('crear-permiso/', views.CrearPermisos, name='crear_permiso')
 ]
