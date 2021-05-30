@@ -1,5 +1,4 @@
 :root {
-    
     --primario: #FFC107;
     --secundario: #0097A7;
     --gris: #757575;
@@ -265,4 +264,10 @@ h3 {
 .footer {
     text-align: right;
 }
+
+.separar {
+    padding: 10px;
+}
+
+/*Haciendo la tabla*/
 

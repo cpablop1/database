@@ -5,35 +5,60 @@
 <form class="formulario" method="post">
     {% csrf_token %}
     <div class="contenedor-campos">
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre_usuario">
-        <label for="apellido">Apellido:</label>
-        <input type="text" name="apellido">
-        <label for="dpi">DPI:</label>
-        <input type="text" name="dpi">
-        <label for="direccion">Dirección:</label>
-        <input type="text" name="direccion">
+        <div class="campo">
+
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre_usuario">
+        </div>
+
+        <div class="campo">
+            <label for="apellido">Apellido:</label>
+            <input type="text" name="apellido">
+        </div>
+        <div class="campo">
+            <label for="dpi">DPI:</label>
+            <input type="text" name="dpi">
+        </div>
+        <div class="campo">
+            <label for="direccion">Dirección:</label>
+            <input type="text" name="direccion">
+        </div>
+
+        <div class="campo">
+            <label for="clave1">Contraseña:</label>
+            <input type="password" name="clave1">
+        </div>
+        <div class="campo">
+            <label for="clave2">Confirmar contraseña:</label>
+            <input type="password" name="clave2">
+        </div>
+        <div class="campo">
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" name="correo">
+        </div>
+        <div class="campo">
+            <label for="telefono">Teléfono:</label>
+            <input type="text" name="telefono">
+        </div>
+        <div class="campo">
+            <label for="compania">Companía de teléfono:</label>
+            <input type="text" name="compania">
+        </div>
+        <div class="campo">
+            <label for="pais">País:</label>
+            <input type="text" name="pais">
+        </div>
+
         <select name="rol">
-            <option value="00">Seleccione un rol</option>
+            <option disabled selected>--Seleccione un Rol--</option>
             <option value="0">Rol 1</option>
             <option value="1">Rol 2</option>
             <option value="2">Rol 3</option>
             <option value="3">Rol 4</option>
         </select>
-        <label for="clave1">Contraseña:</label>
-        <input type="password" name="clave1">
-        <label for="clave2">Confirmar contraseña:</label>
-        <input type="password" name="clave2">
-        <label for="correo">Correo Electrónico:</label>
-        <input type="email" name="correo">
-        <label for="telefono">Teléfono:</label>
-        <input type="text" name="telefono">
-        <label for="compania">Companía de teléfono:</label>
-        <input type="text" name="compania">
-        <label for="pais">País:</label>
-        <input type="text" name="pais">
+
         <div class="enviar">
-            <input type="submit" value="CREAR">
+            <input class="boton" type="submit" value="CREAR">
         </div>
     </div>
 </form>

@@ -2,12 +2,28 @@
 
 {% block contenido %}
 <h1>Ver usuario</h1>
-<a href="#"><input type="submit" value="Ver solo usuario"></a>
-<input type="search" placeholder="Buscar por email">
-<a href="#"><input type="submit" value="Ver usuarios de grupo"></a>
-<a href="#"><input type="submit" value="Ver usuarios sigulares"></a>
-<a href="#"><input type="submit" value="Ver todos los usuarios"></a>
-<table>
+
+<div class="nav-bg">
+
+    <nav class="navegacion contenedor">
+
+        <!-- <a href="#"><input type="submit" value="Ver solo usuario"></a> -->
+        <a href="#">Ver usuario</a>
+        <!-- <a href="#"><input type="submit" value="Ver usuarios de grupo"></a> -->
+        <a href="#">Ver usuario de grupo</a>
+        <!-- <a href="#"><input type="submit" value="Ver usuarios sigulares"></a> -->
+        <a href="#">Ver usuario singulares</a>
+        <!-- <a href="#"><input type="submit" value="Ver todos los usuarios"></a> -->
+        <a href="#">Ver todos los usuarios</a>
+
+
+
+    </nav>
+</div>
+
+<input class="boton" type="search" placeholder="Buscar por email">
+
+<table border="3px">
     <thead>
         <tr>
             <th>Id usuario</th>
