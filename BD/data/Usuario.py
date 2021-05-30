@@ -2,9 +2,35 @@
 #from mySql import mySql
 from data.mySql import mySql
 
+
 maria = mySql() #objeto global de la base de datos 
 
-class Usuario: 
+class Usuario:
+    #SOBRE LA LECTURA DE DATOS read_grup(), read_permiso_sup() o read_all_user
+    """
+    Estos metodos pueden recibir nada, o dos parametros, el primero un string (NOMBRE DEL CAMPO),
+    con culquiera de los campos para cada metodo, el segundo parametro es el VALUE
+    
+    read_grup        = lectura de usuarios con rol de grupo
+    read_permiso_sup = lectura de usuarios con rol singular
+    read_all_user    = lee todos los usuarios sin importar su rol
+
+    --si no recibe nada, devuelve todos los registros existentes
+    --si recibe un string(nombre_Campo), y valor, devuelve las coincidencias con ese campo y valor
+    --si no se hayan resgistros en la clave 'res' se adjunta 'No hay registros que mostrar  o en el'
+    
+    estructura del retorno
+    dict = {
+        'error':'error_type, or no_error'
+        'res' : list{
+            fila1= dict{'field1':value, 'field2':value, ... 'fieldn':value}
+            fila2= dict{'field1':value, 'field2':value, ... 'fieldn':value}
+            ...
+            filan= dict{'field1':value, 'field2':value, ... 'fieldn':value}
+        }
+    }
+    """
+    
     def create(self,data):
         ##### MUCHO CUIDADO CON METER correos o telefonos iguales, da error en la base,
         # comprobar que no existan antes
@@ -28,7 +54,7 @@ class Usuario:
         # 'id': 'id_del_usuario'}
         #---Con error
         # {'Error': 'Error!'}
-
+        
         retorno = ""
         Data = dict(data)
         nombre = Data['nombre']
@@ -49,116 +75,38 @@ class Usuario:
         retorno = maria.insertar( sql )
         return retorno
     
-    def read_grup(self,data=None):
-        #Puede recibir un valor entero, que es el id_user, o nada
-        #Si recibe un id_ devuelve el registro de ese id
-        #si no recibe nada, devuelve todos los registros de rol_grupo
+    def read_grup(self,**kwargs):
+        #campos aceptados ['id_user', 'nombre', 'apellido','DPI', 'direccion',
+        #               'id_rol', 'clave', 'nombre_grupo', 'correo', 'numero', 'compania']
         
-        #devuelve de la siguiente forma {{'error':'error o sin_error'},{'res':una_lista_de_diccionario}}
-        #Si en ambos casos no encontraron registros, en 'res' es igual a 'No hay registros que mostrar
-
-        retorno = {"error":"error"}
-        res = {}
-        if data == None:
-            sql = 'SELECT * FROM v_users_rol_group'
-            res = maria.obtener( sql )
-        else:
-            sql = f"SELECT * FROM v_users_rol_group WHERE id_user = {data};"
-            res = maria.obtener(sql)
-        if len(res['filas']) == 0:
-            retorno['error'] = 'sin_errores'
-            retorno['res'] = 'No hay registros que mostrar'
-        else:
-            labels = ['id_user',
-                      'nombre',
-                      'apellido',
-                      'DPI',
-                      'direccion',
-                      'id_rol',
-                      'clave',
-                      'nombre_grupo',
-                      'correo',
-                      'numero',
-                      'compania']
-            retorno['res']=maria.rotular (res['filas'],labels)
-
+        labels = ['id_user', 'nombre', 'apellido', 'DPI', 'direccion',
+                  'id_rol', 'clave', 'nombre_grupo', 'correo', 'numero', 'compania']
+        vista = "v_users_rol_group"
+        retorno = maria.select_vista(vista,labels,**kwargs)
         return retorno
     
-    def read_permiso_sup(self,data=None):
-        #Puede recibir un valor entero, que es el id_user, o nada
-        #Si recibe un id_ devuelve el registro de ese id
-        #si no recibe nada, devuelve todos los registros de rol_grupo
+    def read_permiso_sup(self,**kwargs):
+        """campos aceptados ['id_user', 'nombre', 'apellido', 'DPI', 'direccion',
+                         'id_rol', 'clave', 'nombre_sup_user', 'correo', 'numero', 'compania']   """
         
-        #devuelve de la siguiente forma {{'error':'error o sin_error'},{'res':una_lista_de_diccionario}}
-        #Si en ambos casos no encontraron registros, en 'res' es igual a 'No hay registros que mostrar
-
-        retorno = {"error":"error"}
-        res = {}
-        if data == None:
-            sql = 'SELECT * FROM v_users_rol_sup'
-            res = maria.obtener( sql )
-        else:
-            sql = f"SELECT * FROM v_users_rol_sup WHERE id_user = {data};"
-            res = maria.obtener(sql)
-        if len(res['filas']) == 0:
-            retorno['error'] = 'sin_errores'
-            retorno['res'] = 'No hay registros que mostrar'
-        else:
-            labels = ['id_user',
-                      'nombre',
-                      'apellido',
-                      'DPI',
-                      'direccion',
-                      'id_rol',
-                      'clave',
-                      'nombre_grupo',
-                      'correo',
-                      'numero',
-                      'compania']
-            retorno['res']=maria.rotular (res['filas'],labels)
-
+        labels = ['id_user', 'nombre', 'apellido', 'DPI', 'direccion',
+                  'id_rol', 'clave', 'nombre_sup_user', 'correo', 'numero', 'compania']
+        vista = "v_users_rol_sup"
+        retorno = maria.select_vista(vista,labels,**kwargs)
         return retorno
     
-    def read_all_user(self,data=None):
-        #Puede recibir un valor entero, que es el id_user, o nada
-        #Si recibe un id_ devuelve el registro de ese id
-        #si no recibe nada, devuelve todos los registros de rol_grupo
+    def read_all_user(self,**kwargs):
+        """campos aceptados ['id_user', 'nombre', 'apellido', 'DPI', 'direccion', 'id_rol',
+                          'clave', 'nombre_rol', 'correo', 'numero', 'compania']"""
         
-        #devuelve de la siguiente forma {{'error':'error o sin_error'},{'res':una_lista_de_diccionario}}
-        #Si en ambos casos no encontraron registros, en 'res' es igual a 'No hay registros que mostrar
-
-        retorno = {"error":"error"}
-        res = {}
-        if data == None:
-            sql = 'SELECT * FROM v_all_users'
-            res = maria.obtener( sql )
-        if type(data) == type('str'):
-            sql = 'SELECT * FROM v_all_users WHERE correo = {data};'
-            res = maria.obtener( sql )
-        else:
-            sql = f"SELECT * FROM v_all_users WHERE id_user = {data};"
-            res = maria.obtener(sql)
-        
-        if len(res['filas']) == 0:
-            retorno['error'] = 'sin_errores'
-            retorno['res'] = 'No hay registros que mostrar'
-        else:
-            labels = ['id_user',
-                      'nombre',
-                      'apellido',
-                      'DPI',
-                      'direccion',
-                      'id_rol',
-                      'clave',
-                      'nombre_rol',
-                      'correo',
-                      'numero',
-                      'compania']
-        
-            retorno['res']=maria.rotular (res['filas'],labels)
-
+        labels = ['id_user', 'nombre', 'apellido', 'DPI', 'direccion', 'id_rol',
+                  'clave', 'nombre_rol', 'correo', 'numero', 'compania']
+        vista = "v_all_users"
+        retorno = maria.select_vista(vista,labels,**kwargs) 
         return retorno
              
+
+
 
 
 # Documentacion Libreria mySql

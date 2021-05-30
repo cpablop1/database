@@ -56,6 +56,7 @@ class mySql():
             respuesta['error']='Sin error, Ejecutado exitosamente'
         else:
             respuesta['error'] = 'Fallo en la conexion al servidor'
+            respuesta ['filas'] = ''
         return respuesta
     
     def rotular(self, res, label):
@@ -68,5 +69,33 @@ class mySql():
                 i = i + 1
             retorno.append(fila)
         return retorno
-
+    
+    def select_vista(self,vista,labels,**kwargs):
+        retorno = {"error":"error"}
+        res = {}
+        sql = f"SELECT * FROM {vista}"
+        
+        if len(kwargs)!=0:
+            i =0
+            for campo, valor in kwargs.items():
+                if i == 0:
+                    sql += " WHERE "
+                else:
+                    sql += " AND "
+                if type(valor) != type('str'):
+                    sql += f"{campo} = {valor}"
+                    i += 1
+                else:
+                    sql += f"{campo} = \'{valor}\'"
+                    i += 1
+        
+        sql += ";"
+        res = self.obtener( sql )
+        retorno['error'] = 'sin_errores'
+        
+        if len(res['filas']) == 0:
+            retorno['res'] = 'No hay registros que mostrar'
+        else:
+            retorno['res']=self.rotular (res['filas'],labels)
+        return retorno
 
