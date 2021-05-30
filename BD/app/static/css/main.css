@@ -69,7 +69,7 @@ h3 {
 }
 
 
-ul li {
+/* ul li {
     list-style: none;
 }
 
@@ -86,18 +86,18 @@ ul li {
 
 .contenedor>a>ul>li {
     display: none;
-}
+} */
 
 
 
-.contenedor:hover>a>ul>li {
+/* .contenedor:hover>a>ul>li {
     display: block;
     list-style: none;
     text-decoration: none;
     padding: 10px 105px;
     display: flex;
     justify-content: center;
-}
+} */
 
 
 
@@ -137,17 +137,17 @@ ul li {
     }
 }
 .hero {
-    height: 700px;
+    height: 550px;
     background-image: url(../img/git2.png) ;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     position: relative;
 }
 .contenido-hero {
     background-color: rgb(0 0 0 / 70%); /** Otra opción **/
     background-color: rgba(0, 0, 0, .3);
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
     display: flex;
     flex-direction: column;
    align-items: center;
