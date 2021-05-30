@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+
+{% block contenido %}
+    <h1>Crear Rol Grupo</h1>
+    <form method="post">
+        <label for="nombre_rol_grupo">Nombre rol grupo:</label>
+        <input type="text" name="nombre_rol_grupo">
+        <label for="monto_maximo">Monto máximo:</label>
+        <input type="number" name="monto_maximo">
+        <label for="monto_minimo">Monto mínimo:</label>
+        <input type="number" name="monto_maximo">
+
+        <input type="submit" value="CREAR">
+    </form>
+{% endblock %}

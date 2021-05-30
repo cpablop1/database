@@ -12,8 +12,27 @@ def Index(request):
 
     return render(request, 'layout.html')
 
-def CrearRol(request):
-    return render(request, 'crear_rol.html')
+def CrearRolUsuario(request):
+    return render(request, 'admin/crear_rol_usuario.html')
+
+def CrearRolGrupo(request):
+    return render(request, 'admin/crear_rol_grupo.html')
+
+def MenuCrearUsuario(request):
+    return render(request, 'admin/menu_crear_usuario.html')
+
+def CrearUsuarioGrupo(request):
+    return render(request, 'admin/crear_usuario_grupo.html')
+
+def CrearUsuarioSingular(request):
+    return render(request, 'admin/crear_usuario_singular.html')
+
+def VerRol(request):
+    return render(request, 'admin/ver_rol.html')
+
+def VerUsuario(request):
+    return render(request, 'admin/ver_usuario.html')
+
 
 
 def Login(request):
@@ -30,6 +49,9 @@ def Registrarse(request):
         print('Password2: ', password2)
         print('Correo: ', correo)
     return render(request, 'Registrarse.html')
+
+def MenuAdmin(request):
+    return render(request, 'admin/menu_admin.html')
 
 
 def CrearPermisos(request):
