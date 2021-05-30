@@ -3,36 +3,32 @@
 
 {% block contenido %}
 
-<form action="">
-
-    <h2>Crear Roles de Usuario</h2>
-    <form class="formulario" method="post">
-        {% csrf_token %}
-        <div class="contenedor-campos">
-            <label for="nombre_rol">Nombre de rol:</label>
-            <input type="text">
-            <label for="permiso">Seleccione los permisos:</label>
-            <select multiple size="12" name="permiso">
-                <option value="0">CRUD usuario</option>
-                <option value="0">Imprimr cheque</option>
-                <option value="0">Anular cheque</option>
-                <option value="0">Modificar cheque</option>
-                <option value="0">Reporte cheque</option>
-                <option value="0">Auditar usuario</option>
-                <option value="0">Administrar cuenta bancaria</option>
-                <option value="0">Auditar cuenta bancaria</option>
-                <option value="0">Mostrar bitácora usuario</option>
-                <option value="0">Mostrar bitácora grupo</option>
-                <option value="0">Mostrar bitácora jefe</option>
-                <option value="0">Jefe</option>
-            </select>
-            <div class="enviar">
-                <input type="submit" value="CREAR">
-            </div>
+<form class="formulario forrol" action="">
+    <h2 style="font-size: 20px;">Crear Roles de Usuario</h2>
+    {% csrf_token %}
+    <div class="contenedor-campos">
+        <div class="campos w-100">
+            <label style="color: white; font-size: 17px; margin: 2px; padding: 12px;" for="nombre_rol">Nombre de
+                rol:</label>
+            <input style="border-radius: 5px; margin: 30px; padding: 10px;" type="text">
         </div>
-    </form>
-
-
+        <select class="forrol__campo" name="permiso">
+            <option disabled selected>--Selecciones los permisos--</option>
+            <option>CRUD usuario</option>
+            <option>Imprimr cheque</option>
+            <option>Anular cheque</option>
+            <option>Modificar cheque</option>
+            <option>Reporte cheque</option>
+            <option>Auditar usuario</option>
+            <option>Administrar cuenta bancaria</option>
+            <option>Auditar cuenta bancaria</option>
+            <option>Mostrar bitácora usuario</option>
+            <option>Mostrar bitácora grupo</option>
+            <option>Mostrar bitácora jefe</option>
+            <option>Jefe</option>
+        </select>
+        <input class="forrol__submit boton" type="submit" EAR">
+    </div>
 </form>
 
 
