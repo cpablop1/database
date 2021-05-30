@@ -6,27 +6,32 @@
 <form action="">
 
     <h2>Crear Roles de Usuario</h2>
-    <form method="post">
-        <label for="nombre_rol">Nombre de rol:</label>
-        <input type="text">
-        <label for="permiso">Seleccione los permisos:</label>
-        <select multiple size="12" name="permiso">
-            <option value="0">CRUD usuario</option>
-            <option value="0">Imprimr cheque</option>
-            <option value="0">Anular cheque</option>
-            <option value="0">Modificar cheque</option>
-            <option value="0">Reporte cheque</option>
-            <option value="0">Auditar usuario</option>
-            <option value="0">Administrar cuenta bancaria</option>
-            <option value="0">Auditar cuenta bancaria</option>
-            <option value="0">Mostrar bitácora usuario</option>
-            <option value="0">Mostrar bitácora grupo</option>
-            <option value="0">Mostrar bitácora jefe</option>
-            <option value="0">Jefe</option>
-        </select>
-
-        <input type="submit" value="CREAR">
+    <form class="formulario" method="post">
+        {% csrf_token %}
+        <div class="contenedor-campos">
+            <label for="nombre_rol">Nombre de rol:</label>
+            <input type="text">
+            <label for="permiso">Seleccione los permisos:</label>
+            <select multiple size="12" name="permiso">
+                <option value="0">CRUD usuario</option>
+                <option value="0">Imprimr cheque</option>
+                <option value="0">Anular cheque</option>
+                <option value="0">Modificar cheque</option>
+                <option value="0">Reporte cheque</option>
+                <option value="0">Auditar usuario</option>
+                <option value="0">Administrar cuenta bancaria</option>
+                <option value="0">Auditar cuenta bancaria</option>
+                <option value="0">Mostrar bitácora usuario</option>
+                <option value="0">Mostrar bitácora grupo</option>
+                <option value="0">Mostrar bitácora jefe</option>
+                <option value="0">Jefe</option>
+            </select>
+            <div class="enviar">
+                <input type="submit" value="CREAR">
+            </div>
+        </div>
     </form>
+
 
 </form>
 

@@ -1,8 +1,10 @@
 {% extends 'layout.html' %}
 
 {% block contenido %}
-    <h1>Crear rol de usuario singular</h1>
-    <form method="post">
+<h1>Crear rol de usuario singular</h1>
+<form class="formulario" method="post">
+    {% csrf_token %}
+    <div class="contenedor-campos">
         <label for="nombre">Nombre:</label>
         <input type="text" name="nombre_usuario">
         <label for="apellido">Apellido:</label>
@@ -30,7 +32,9 @@
         <input type="text" name="compania">
         <label for="pais">País:</label>
         <input type="text" name="pais">
-
-        <input type="submit" value="CREAR">
-    </form>
+        <div class="enviar">
+            <input type="submit" value="CREAR">
+        </div>
+    </div>
+</form>
 {% endblock %}
