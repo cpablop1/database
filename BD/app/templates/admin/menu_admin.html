@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+    <h1>Menú Admin</h1>
+    <div class="menuadmin">
+        <a href="{% url 'crear_rol_usuario' %}"><input type="submit" value="Crear rol de usuario"></a>
+        <a href="{% url 'crear_rol_grupo' %}"><input type="submit" value="Crear rol de grupo"></a>
+        <a href="{% url 'menu_crear_usuario' %}"><input type="submit" value="Crear usuario"></a>
+        <a href="{% url 'ver_usuario' %}"><input type="submit" value="Ver usuario"></a>
+        <a href="{% url 'ver_rol' %}"><input type="submit" value="Ver roles"></a>
+    </div>
+{% endblock %}
