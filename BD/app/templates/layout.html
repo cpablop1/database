@@ -17,23 +17,51 @@
 
 <body>
 
+
+    <header class="header">
+        <h1>Empresa <span>Nueva Verapaz</span></h1>
+    </header>
+
+
+    <div class="nav-bg" id="ocultar">
+        <nav class="navegacion contenedor">
+            <ul class="navul">
+                <li><a href="../templates/layout.html">Inicio</a></li>
+            </ul>
+
+
+            <ul class="navul">
+                <li><a href="#">Sobre Nosotros</a>
+                    <ul>
+                        <li class="item">Somos una empresa que se dedica a la compra y venta de productos genericos
+                            contamos con gran cantidad de proveedores, y manejamos los cheques y chequeras de
+                            nuestros clientes para poder darles un mejor servicio ademas contamos con productos
+                            novedosos con una gran DISPONIBILIDAD y pueden hacer compra de nuestros productos
+                            por medio de nuestra pagina en donde de manera eficientes logramos que tenga los mejores
+                            productos y que permita contar con nuestro apoyo, estamos para servirles
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+
+            <ul class="navul">
+                <li><a href="{% url 'menu_admin' %}">Administrador</a></li>
+            </ul>
+
+
+            <ul class="navul">
+                <li><a href="{% url 'login' %}">Acceder</a>
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+
+
     <div class="contenedor sombra">
 
-        <header class="header">
-            <h1>Empresa <span>Nueva Verapaz</span></h1>
-        </header>
-
-        <div class="nav-bg">
-            <nav class="navegacion contenedor">
-                <a href="../templates/layout.html">Inicio</a>
-
-                <a href="{% url 'menu_admin' %}">Administrador</a>
-                <a href="{% url 'login' %}">Acceder</a>
-            </nav>
-        </div>
-
-
-        <div class="hero">
+        <div class="hero" id="hidden">
             <div class="contenido-hero">
                 <h2>Proyecto <br> Base De Datos</h2>
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-database" width="100"
@@ -44,7 +72,7 @@
                     <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
                     <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
                 </svg>
-                <a class="boton" href="#contacto">Contactar</a>
+                <a class="boton" href="#">Contactar</a>
             </div>
         </div>
 
@@ -52,7 +80,8 @@
         {% block contenido %}
         {% endblock %}
 
-        <footer class="footer">
+
+        <footer class="footer" id="foter">
 
             <strong>Siguenos en GitHub</strong> <br>
 
@@ -101,8 +130,8 @@
 
 
 <!-- scripts -->
-
-<script src="../static/js/acceso.js"></script>
+<!-- <script src="../static/js/oculto.js"></script> -->
+<!-- <script src="../static/js/acceso.js"></script> -->
 <!-- <script src="../static/js/App.js"></script> -->
 <!-- <script src="../static/js/localstorange.js"></script> -->
 <!-- <script src="../static/js/Main.js"></script> -->
