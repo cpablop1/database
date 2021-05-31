@@ -73,14 +73,18 @@ def MenuCrearUsuario(request):
     return render(request, 'admin/menu_crear_usuario.html')
 
 def CrearUsuarioGrupo(request):
-    data = rol.Rol_grupo()
-    leer = data.read()
     clave = []
     valor = []
-    for fila in leer['res']:
-        clave.append(fila['id_rol'])
-        valor.append(fila['nombre'])
-    dic = dict(zip(clave, valor))
+    dic = ''
+    try:
+        data = rol.Rol_grupo()
+        leer = data.read()
+        for fila in leer['res']:
+            clave.append(fila['id_rol'])
+            valor.append(fila['nombre'])
+        dic = dict(zip(clave, valor))
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar los roles!')
 
     if request.method == 'POST':
         nombre_usuario = request.POST['nombre_usuario']
@@ -124,7 +128,6 @@ def CrearUsuarioGrupo(request):
                                                             messages.error(request, result['id'])
                                                     else:
                                                         messages.error(request, result['id'])
-                                            
                                                 except:
                                                     messages.error(request, 'Hubo un error al crear el usuario!')
                                             else:
@@ -153,7 +156,88 @@ def CrearUsuarioGrupo(request):
     })
 
 def CrearUsuarioSingular(request):
-    return render(request, 'admin/crear_usuario_singular.html')
+    clave = []
+    valor = []
+    dic = ''
+    try:
+        data = rol.Rol_permiso_sup()
+        leer = data.read()
+        for fila in leer['res']:
+            clave.append(fila['id_rol'])
+            valor.append(fila['nombre'])
+        dic = dict(zip(clave, valor))
+        print(dic)
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar los roles!')
+
+    if request.method == 'POST':
+        nombre_usuario = request.POST['nombre_usuario']
+        apellido = request.POST['apellido']
+        dpi = request.POST['dpi']
+        direccion = request.POST['direccion']
+        clave1 = request.POST['clave1']
+        clave2 = request.POST['clave2']
+        correo = request.POST['correo']
+        telefono = request.POST['telefono']
+        compania = request.POST['compania']
+        pais = request.POST['pais']
+        rolu = request.POST['rol']
+        if nombre_usuario.strip() != '' and apellido.strip() != '':
+            if dpi.strip() != '':
+                if direccion.strip() != '':
+                    if clave1.strip() != '' and clave2.strip() != '':
+                        if clave1.strip() == clave2.strip():
+                            if correo.strip() != '':
+                                if telefono.strip() != '':
+                                    if compania.strip() != '':
+                                        if pais.strip() != '':
+                                            if int(rolu) > 0:
+                                                diccionario = {"nombre" : nombre_usuario,
+                                                                "apellido" : apellido,
+                                                                "DPI" : dpi,
+                                                                "direccion" : direccion,
+                                                                "id_rol" : rolu,
+                                                                "clave" : clave1,
+                                                                "correo" : correo,
+                                                                "numero" : telefono,
+                                                                "compania" : compania,
+                                                                "pais" : pais}
+                                                data = user.Usuario()
+                                                try:
+                                                    result = data.create(diccionario)
+                                                    if result['id'] != 'Correo, ya existente':
+                                                        if result['id'] != 'Numero de telefono, ya existente':
+                                                            messages.success(request, 'Usuario creada correctamente!')
+                                                        else:
+                                                            messages.error(request, result['id'])
+                                                    else:
+                                                        messages.error(request, result['id'])
+                                                except:
+                                                    messages.error(request, 'Hubo un error al crear el usuario!')
+                                            else:
+                                                messages.warning(request, 'Seleccione un rol para el usuario.')
+                                        else:
+                                            messages.warning(request, 'Campo país está vacío.')
+                                    else:
+                                        messages.warning(request, 'Ingrese la companía al pertenece el teléfono.')
+                                else:
+                                    messages.warning(request, 'Campo teléfono está vacío.')
+                            else:
+                                messages.warning(request, 'Campo correo está vacío.')
+                        else:
+                            messages.warning(request, 'Las constraseñas no coinciden.')
+                    else:
+                        messages.warning(request, 'Los campos contraseñas están vacíos.')
+                else:
+                    messages.warning(request, 'Campo dirección está vacío.')
+            else:
+                messages.warning(request, 'Campo DPI está vacío.')
+        else:
+            messages.warning(request, 'Alguno de los campos de nombre y apellido están vacíos.')
+    
+    return render(request, 'admin/crear_usuario_singular.html', {
+        'dic': dic
+    })
 
 def VerRol(request):
     return render(request, 'admin/ver_rol.html')
