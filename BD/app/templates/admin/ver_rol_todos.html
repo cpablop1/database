@@ -1,0 +1,25 @@
+{% extends 'admin/ver_rol.html' %}
+
+{% block tabla %}
+<div class="contenedor">
+    <table border="3px">
+        <thead>
+            <tr>
+                <th>ID rol</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in leer %}
+                <tr>
+                    {% for j in i.items %}
+                        <td>
+                            {{ j.1 }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

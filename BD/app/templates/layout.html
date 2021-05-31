@@ -18,7 +18,7 @@
 <body>
 
 
-    <header class="header">
+    <header class="header" id="header">
         <h1>Empresa <span>Nueva Verapaz</span></h1>
     </header>
 
@@ -46,13 +46,12 @@
 
 
             <ul class="navul">
-                <li><a href="{% url 'menu_admin' %}">Administrador</a></li>
+                <li><a id="botonOcultar" href="{% url 'menu_admin' %}">Administrador</a></li>
             </ul>
 
 
             <ul class="navul">
-                <li><a href="{% url 'login' %}">Acceder</a>
-                </li>
+                <li><a id="btn" href="{% url 'login' %}">Acceder</a></li>
             </ul>
 
         </nav>
@@ -61,7 +60,7 @@
 
     <div class="contenedor sombra">
 
-        <div class="hero" id="hidden">
+        <div class="hero show" id="hidden">
             <div class="contenido-hero">
                 <h2>Proyecto <br> Base De Datos</h2>
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-database" width="100"
