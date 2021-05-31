@@ -44,9 +44,66 @@ h3 {
     font-size: 1.6rem;
 }
 .contenedor {
-    margin: 0 auto;
-    max-width: 1200px;
+    margin: 0px auto;
+    max-width: 1721px;
+    padding: 0px;
 }
+
+/* Menu */
+
+
+.navul li a {
+    text-decoration: none;
+    padding: 15px 21px;
+    display: block;
+}
+
+.navul >li {
+    display:block; 
+    float:left; 
+    list-style:none; 
+    /* margin:0px 5px 0 0;  */
+    margin: 0 auto;
+    padding:0px; 
+    position:relative; 
+    font-weight: 700;
+    min-height:1px; 
+    min-width:60%;
+}
+
+
+.navul li ul {
+    background:var(--oscuro); 
+    position:absolute; 
+    left:-1px; 
+    top:50px; 
+    color: var(--blanco);
+    font-family: 'Krub', sans-serif;
+    font-size: 20px;
+    display:none; 
+    overflow:hidden; 
+    padding:50px; 
+    z-index:5; 
+    width:100%; 
+    border:1px solid var(--oscuro);
+   
+   
+}
+
+.navul > li:hover > ul {
+    display: block;
+    min-width: 521px;
+}
+
+.item {
+    display:block;
+    float:none;
+    margin:10px;
+    width:100%;
+    border-bottom:3px solid var(--blanco);
+}
+
+
 .sombra {
     padding: 2rem;
     margin-bottom: 3rem;
