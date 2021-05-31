@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import FormUsuario
+from django.contrib import messages
 
 import data.rol as rol
 import data.Contacto as Contacto
@@ -13,6 +13,36 @@ def Index(request):
     return render(request, 'layout.html')
 
 def CrearRolUsuario(request):
+    dicccionario = {"nombre": "nombre",                   
+                        "crud_users": 0,
+                        "imprimir_cheque": 0,
+                        "anular_cheque": 0,
+                        "modificar_cheque": 0,
+                        "reporte_cheque": 0,
+                        "auditar_user": 0,
+                        "admin_cuenta_banc": 0,
+                        "auditar_cuenta": 0,
+                        "mostrar_bitacora_user": 0,
+                        "mostrar_bitacora_group": 0,
+                        "mostrar_bitacora_jefe": 0,
+                        "jefe": 0}
+    if request.method == 'POST':
+        nombre = request.POST['nombre_rol']
+        permiso = request.POST.getlist('permiso',)
+        if nombre.strip() != '':
+            dicccionario['nombre'] = nombre
+            if not permiso:
+                messages.warning(request, 'Seleccione los permisos a conceder al usuario')
+            else:
+                for i in permiso:
+                    dicccionario[i] = 1
+                print(dicccionario)
+                data = rol.Rol_permiso_sup()
+                data.create(dicccionario)
+                messages.success(request, 'Rol de usuario creado exitosamente')
+        else:
+            messages.warning(request, 'Ingrese nombre de rol')
+
     return render(request, 'admin/crear_rol_usuario.html')
 
 def CrearRolGrupo(request):
