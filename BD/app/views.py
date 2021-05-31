@@ -1,3 +1,4 @@
+from django.contrib.messages.api import warning
 from django.shortcuts import render
 from django.contrib import messages
 
@@ -115,9 +116,15 @@ def CrearUsuarioGrupo(request):
                                                                 "pais" : pais}
                                                 data = user.Usuario()
                                                 try:
-                                                    data.create(diccionario)
-                                                    print(diccionario)
-                                                    messages.success(request, 'Usuario creada correctamente!')
+                                                    result = data.create(diccionario)
+                                                    if result['id'] != 'Correo, ya existente':
+                                                        if result['id'] != 'Numero de telefono, ya existente':
+                                                            messages.success(request, 'Usuario creada correctamente!')
+                                                        else:
+                                                            messages.error(request, result['id'])
+                                                    else:
+                                                        messages.error(request, result['id'])
+                                            
                                                 except:
                                                     messages.error(request, 'Hubo un error al crear el usuario!')
                                             else:

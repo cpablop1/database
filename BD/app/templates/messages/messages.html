@@ -17,6 +17,14 @@
                     position: 'top-end'
                 })
             </script>
+        {% elif msg.tags == 'error' %}
+            <script>
+                Swal.fire({
+                    title: 'Algo salió mal!! (°_°)',
+                    text: '{{ msg }}',
+                    icon: 'error'
+                })
+            </script>
         {% endif %}
     {% endfor %}
 {% endif %}
