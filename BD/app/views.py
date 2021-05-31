@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import FormUsuario
+from django.contrib import messages
 
 import data.rol as rol
 import data.Contacto as Contacto
@@ -12,8 +12,76 @@ def Index(request):
 
     return render(request, 'layout.html')
 
-def CrearRol(request):
-    return render(request, 'crear_rol.html')
+def CrearRolUsuario(request):
+    dicccionario = {"nombre": "nombre",                   
+                        "crud_users": 0,
+                        "imprimir_cheque": 0,
+                        "anular_cheque": 0,
+                        "modificar_cheque": 0,
+                        "reporte_cheque": 0,
+                        "auditar_user": 0,
+                        "admin_cuenta_banc": 0,
+                        "auditar_cuenta": 0,
+                        "mostrar_bitacora_user": 0,
+                        "mostrar_bitacora_group": 0,
+                        "mostrar_bitacora_jefe": 0,
+                        "jefe": 0}
+    if request.method == 'POST':
+        nombre = request.POST['nombre_rol']
+        permiso = request.POST.getlist('permiso',)
+        if nombre.strip() != '':
+            dicccionario['nombre'] = nombre
+            if not permiso:
+                messages.warning(request, 'Seleccione los permisos a conceder al usuario')
+            else:
+                for i in permiso:
+                    dicccionario[i] = 1
+                print(dicccionario)
+                data = rol.Rol_permiso_sup()
+                data.create(dicccionario)
+                messages.success(request, 'Rol de usuario creado exitosamente')
+        else:
+            messages.warning(request, 'Ingrese nombre de rol')
+
+    return render(request, 'admin/crear_rol_usuario.html')
+
+def CrearRolGrupo(request):
+    if request.method == 'POST':
+        nombre_rol_grupo = request.POST['nombre_rol_grupo']
+        monto_maximo = request.POST['monto_maximo']
+        monto_minimo = request.POST['monto_minimo']
+        if nombre_rol_grupo.strip() != '':
+            if monto_maximo.strip() != '':
+                if monto_minimo.strip() != '':
+                    diccionario = {f"nombre" : nombre_rol_grupo, 
+                                    "monto_min" : monto_minimo, 
+                                    "monto_max": monto_maximo}
+                    data = rol.Rol_grupo()
+                    data.create(diccionario)
+                    messages.success(request, 'Rol grupo creada exitosamente!!!')
+                else:
+                    messages.warning(request, 'Ingrese el monto mínimo para continuar')
+            else:
+                messages.warning(request, 'Ingrese el monto máximo para continuar')
+        else:
+            messages.warning(request, 'Ingrese un nombre de rol de grupo')
+    return render(request, 'admin/crear_rol_grupo.html')
+
+def MenuCrearUsuario(request):
+    return render(request, 'admin/menu_crear_usuario.html')
+
+def CrearUsuarioGrupo(request):
+    return render(request, 'admin/crear_usuario_grupo.html')
+
+def CrearUsuarioSingular(request):
+    return render(request, 'admin/crear_usuario_singular.html')
+
+def VerRol(request):
+    return render(request, 'admin/ver_rol.html')
+
+def VerUsuario(request):
+    return render(request, 'admin/ver_usuario.html')
+
 
 
 def Login(request):
@@ -30,6 +98,9 @@ def Registrarse(request):
         print('Password2: ', password2)
         print('Correo: ', correo)
     return render(request, 'Registrarse.html')
+
+def MenuAdmin(request):
+    return render(request, 'admin/menu_admin.html')
 
 
 def CrearPermisos(request):

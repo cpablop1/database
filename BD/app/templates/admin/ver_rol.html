@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+<form class="separar" method="POST">
+    <input class="boton" type="submit" value="Ver rol grupo">
+</form>
+<form class="separar" method="POST">
+    <input class="boton" type="submit" value="Ver rol singular">
+</form>
+<form class="separar" method="POST">
+    <input class="boton" type="submit" value="Ver todos los roles">
+</form>
+
+<div class="contenedor">
+
+    <table border="3px">
+        <thead>
+            <tr">
+                <th>ID rol</th>
+                <th>Nombre</th>
+                <th>CRUD usuario</th>
+                <th>Imprimir cheque</th>
+                <th>Anular cheque</th>
+                <th>Modificar cheque</th>
+                <th>Reporte cheque</th>
+                <th>Auditar usuario</th>
+                <th>Administrar cuenta bancaria</th>
+                <th>Auditar cuenta</th>
+                <th>Mostrar bitácora usuario</th>
+                <th>Bitácora grupo</th>
+                <th>Bitácora jefe</th>
+                <th>Jefe</th>
+                </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>No</td>
+                <td>Sí</td>
+                <td>No</td>
+                <td>Sí</td>
+                <td>No</td>
+                <td>No</td>
+                <td>No</td>
+                <td>Sí</td>
+                <td>Sí</td>
+                <td>No</td>
+                <td>Sí</td>
+                <td>Sí</td>
+                <td>Sí</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>No</td>
+                <td>Sí</td>
+                <td>No</td>
+                <td>Sí</td>
+                <td>No</td>
+                <td>No</td>
+                <td>No</td>
+                <td>Sí</td>
+                <td>Sí</td>
+                <td>No</td>
+                <td>Sí</td>
+                <td>Sí</td>
+                <td>Sí</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

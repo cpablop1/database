@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+
+{% block contenido %}
+    {% include 'messages/messages.html' %}
+
+<form class="formulario forrol" method="POST">
+    <h2 style="font-size: 20px;">Crear Roles de Usuario</h2>
+    {% csrf_token %}
+    <div class="contenedor-campos">
+        <div class="campos w-100">
+            <label style="color: white; font-size: 17px; margin: 2px; padding: 12px;" for="nombre_rol">Nombre de
+                rol:</label>
+            <input name="nombre_rol" style="border-radius: 5px; margin: 30px; padding: 10px;" type="text">
+        </div>
+        <select multiple size="12" class="forrol__campo" name="permiso">
+            <option value="crud_users">CRUD usuario</option>
+            <option value="imprimir_cheque">Imprimr cheque</option>
+            <option value="anular_cheque">Anular cheque</option>
+            <option value="modificar_cheque">Modificar cheque</option>
+            <option value="reporte_cheque">Reporte cheque</option>
+            <option value="auditar_user">Auditar usuario</option>
+            <option value="admin_cuenta_banc">Administrar cuenta bancaria</option>
+            <option value="auditar_cuenta">Auditar cuenta bancaria</option>
+            <option value="mostrar_bitacora_user">Mostrar bitácora usuario</option>
+            <option value="mostrar_bitacora_group">Mostrar bitácora grupo</option>
+            <option value="mostrar_bitacora_jefe">Mostrar bitácora jefe</option>
+            <option value="jefe">Jefe</option>
+        </select>
+        <input class="forrol__submit boton" type="submit" EAR">
+    </div>
+</form>
+
+
+
+{% endblock %}

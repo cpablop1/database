@@ -10,11 +10,13 @@
     <link href="https://fonts.googleapis.com/css?family=Krub:400,700" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/main.css">
     <link rel="stylesheet" href="../static/css/Logeo.css">
+    <!-----------------  Alertas      ------------------------------>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 
 <body>
-    <!--  -->
+
     <div class="contenedor sombra">
 
         <header class="header">
@@ -22,49 +24,11 @@
         </header>
 
         <div class="nav-bg">
-
             <nav class="navegacion contenedor">
-
                 <a href="../templates/layout.html">Inicio</a>
 
-                <a href="#">Sobre Nosotros
-                    <ul class="oculto">
-                        <li style="padding: 35px 5px; width:auto;">Somos una empresa <br>
-                            que se
-                            dedida a la compra y venta de produtos genericos, con una gran
-                            cantidad de operaciones, proveedores y compras que realiza diariamente
-                        </li>
-                    </ul>
-                </a>
-
-                <a href="#">Clientes
-                    <ul>
-                        <li>Inenieros</li>
-                        <li>Contadores</li>
-                        <li>Arquitectos</li>
-                        <li>Empresarios</li>
-                        <li>Banqueros</li>
-                        <li>Comerciantes</li>
-                    </ul>
-                </a>
-
-
-                <a href="#">Productos Y Servicios
-                    <ul>
-                        <li>Chequeras</li>
-                        <li>Gerencia</li>
-                        <li>Consultas</li>
-                        <li>Auditorias</li>
-                        <li>Contabilidad</li>
-                        <li>Creditos</li>
-                        <li>Facturas</li>
-                    </ul>
-                </a>
-
-                <!--<a class="logeo" id="axedi" href="login.html">Acceder</a>-->
-                <a href="{% url 'registrarse' %}">Registrarse</a>
+                <a href="{% url 'menu_admin' %}">Administrador</a>
                 <a href="{% url 'login' %}">Acceder</a>
-
             </nav>
         </div>
 
@@ -80,140 +44,10 @@
                     <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
                     <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
                 </svg>
-
                 <a class="boton" href="#contacto">Contactar</a>
             </div>
         </div>
 
-        <!-- <div class="contenedor sombra"> -->
-        <h2>Nuestros Servicios</h2>
-        <main class="servicios">
-            <div class="servicio">
-                <h3>Generacion De Cheques</h3>
-                <div class="iconos">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-notebook" width="60"
-                        height="60" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path
-                            d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18" />
-                        <line x1="13" y1="8" x2="15" y2="8" />
-                        <line x1="13" y1="12" x2="15" y2="12" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-check" width="60"
-                        height="60" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                        <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-                        <path d="M9 15l2 2l4 -4" />
-                    </svg>
-                </div>
-                <p> Permite a nuestros clientes que puedan generar un cheque, considerando que el sistema debe validar
-                    si el usuario tiene permisos para emitir cheques.</p>
-            </div>
-            <div class="servicio">
-                <h3>Liberacion De Auditoria</h3>
-                <div class="iconos">
-
-                    <!-- https://tablericons.com/ -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-check" width="60"
-                        height="60" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <circle cx="9" cy="7" r="4" />
-                        <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                        <path d="M16 11l2 2l4 -4" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-exclamation"
-                        width="60" height="60" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <circle cx="9" cy="7" r="4" />
-                        <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                        <line x1="19" y1="7" x2="19" y2="10" />
-                        <line x1="19" y1="14" x2="19" y2="14.01" />
-                    </svg>
-                </div>
-                <p>Permitiendole a nuestros clientes realizar la liberacion de cheques, por medio del sistema y cumplir
-                    con los requisitos previamente establecidos por la Empresa.</p>
-            </div>
-            <div class="servicio">
-                <h3>Liberacion De Gerencia</h3>
-                <div class="iconos">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clipboard-check"
-                        width="60" height="60" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
-                        <rect x="9" y="3" width="6" height="4" rx="2" />
-                        <path d="M9 14l2 2l4 -4" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-id" width="60"
-                        height="60" viewBox="0 0 24 24" stroke-width="2" stroke="#000000" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <rect x="3" y="4" width="18" height="16" rx="3" />
-                        <circle cx="9" cy="10" r="2" />
-                        <line x1="15" y1="8" x2="17" y2="8" />
-                        <line x1="15" y1="12" x2="17" y2="12" />
-                        <line x1="7" y1="16" x2="17" y2="16" />
-                    </svg>
-                </div>
-                <p>Se pueda Liberar todo cheque valido mediante el sistema. Siempre y cuando cumpla con todos los
-                    requisitos solicitados y haya pasado por los diferentes niveles de Autoridad.</p>
-            </div>
-        </main>
-
-        <div id="contacto" class="contacto">
-            <h2>Ponte En Contactanos Con Nosotros</h2>
-            <form class="formulario" action="" method="POST">
-                <!-- <legend>Contactános llenando todos los campos</legend> -->
-                {% csrf_token %}
-                <div class="contenedor-campos">
-                    <div class="campo">
-                        <label>Nombre:</label>
-
-                        <input id="name" type="text" name="nombre" placeholder="Ingrese Su Nombre" required>
-                    </div>
-
-                    <!-- <div class="campo">
-                        <label>Apellido:</label>
-
-                        <input id="lastname" type="text" name="apellido" placeholder="Ingrese Su Apellido" required>
-                    </div> -->
-
-                    <div class="campo">
-                        <label>Celular:</label>
-
-                        <input id="numero" type="tel" name="celular" placeholder="Numero De Celular">
-                    </div>
-
-                    <!-- <div class="campo">
-                        <label>Direccion:</label>
-
-                        <input id="lugar" type="tel" name="direccion" placeholder="Direccion">
-                    </div> -->
-
-                    <div class="campo w-100">
-                        <label>Correo Electronico:</label>
-
-                        <input id="correo" type="mail" name="correo" placeholder="Correo Personal">
-                    </div>
-                    <div class="campo w-100">
-                        <label>Mensaje:</label>
-
-                        <textarea id="text1" placeholder="Asunto" name="mensaje" id="" cols="30" rows="10"></textarea>
-
-                    </div>
-                </div>
-                <!--.contenedor-campos-->
-                <div class="enviar">
-                    <input class="boton" type="submit" value="Enviar">
-                </div>
-            </form>
-        </div>
-        <!-- </div> -->
 
         {% block contenido %}
         {% endblock %}
@@ -247,7 +81,6 @@
             </a>
 
             <a href="https://github.com/Rychy248">
-
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="36"
                     height="36" viewBox="0 0 24 24" stroke-width="2" stroke="#ff9321" fill="none" stroke-linecap="round"
                     stroke-linejoin="round">
@@ -265,6 +98,7 @@
     </div>
 
 </body>
+
 
 <!-- scripts -->
 

@@ -1,14 +1,16 @@
 :root {
-    --blanco: #ffffff;
     --primario: #FFC107;
     --secundario: #0097A7;
     --gris: #757575;
     --oscuro: #212121;
+    --blanco: #ffffff;
 }
 html {
     box-sizing: border-box;
     min-height: 100%;
+    /* Quite el scrol  */
     /* scroll-snap-type: y mandatory; */
+
 }
 *, *:before, *:after {
     box-sizing: inherit;
@@ -24,11 +26,10 @@ body {
     
 }
 h1 {
-    font-size:1.9rem;
-    margin: 1.7rem;
+    font-size: 1.3rem;
 }
 h1 span {
-    font-size: 1.4rem;
+    font-size: 1rem;
 }
 h1, h2, h3 {
     text-align: center;
@@ -44,69 +45,23 @@ h3 {
 }
 .contenedor {
     margin: 0 auto;
-    max-width: 1515px;
+    max-width: 1200px;
 }
 .sombra {
     padding: 2rem;
     margin-bottom: 3rem;
     background-color: rgba(49, 8, 8, 0.555);
-
     border-radius: 10px;
     -webkit-box-shadow: 0px 11px 15px -9px rgba(0,0,0,0.63);
     -moz-box-shadow: 0px 11px 15px -9px rgba(0,0,0,0.63);
     box-shadow: 0px 11px 15px -9px rgba(0,0,0,0.63);
 }
-
 .nav-bg {
     background-color: var(--oscuro);
 }
-
-
-.navegacion{
-   margin: auto;
-   width:1420px;
-
-}
-
-
-ul li {
-    list-style: none;
-}
-
-.navegacion a li {
-    text-decoration: none;
-    padding: 20px 30px;
-}
-
-.navegacion li {
-    float: left;
-}
-
-
-
-.contenedor>a>ul>li {
-    display: none;
-}
-
-
-
-.contenedor:hover>a>ul>li {
-    display: block;
-    list-style: none;
-    text-decoration: none;
-    padding: 10px 105px;
-    display: flex;
-    justify-content: center;
-}
-
-
-
-
-
-
 .navegacion {
-    /* scroll-snap-align: center;
-    scroll-snap-stop: always; */
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -118,12 +73,13 @@ ul li {
     }
 }
 .navegacion a{
-    padding: 1rem 1rem;
+    padding: 1rem 2rem;
     color: var(--blanco);
     text-decoration: none;
     font-size: 1.2rem;
     font-weight: 700;
 }
+
 .navegacion a:hover {
     color: var(--oscuro);
     background-color: white;
@@ -137,8 +93,8 @@ ul li {
     }
 }
 .hero {
-    height: 700px;
-    background-image: url(../img/git2.png) ;
+    height: 500px;
+    background-image: url(../img/git2.png);
     margin-bottom: 2rem;
     position: relative;
 }
@@ -160,24 +116,28 @@ ul li {
 }
 .boton {
     background-color: var(--secundario);
-    outline: none;
     color: var(--blanco);
-    margin-top: 1rem;
+    margin-top: .5rem;
     padding: .5rem 3rem;
     border-radius: 5px;
     font-weight: 700;
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 1rem;
+    font-size: 1.2rem;
     border:none;
 }
 .boton:hover{
     cursor: pointer;
 }
+
+/* Segunda parte del scrop snap */
 /* .servicios {
     scroll-snap-align: center;
     scroll-snap-stop: always;
 } */
+
+
+
 @media (min-width:768px) {
     .servicios {
         display: grid;
@@ -212,8 +172,9 @@ ul li {
     background-color: #1b1a17;
     padding: 2rem;
     border-radius: 10px;
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
+    /*Tercera parte que tenia scrool snap*/
+    /* scroll-snap-align: center;
+    scroll-snap-stop: always; */
 }
 .formulario legend {
     text-align: center;
@@ -286,7 +247,7 @@ ul li {
     flex: 0 0 100%;
 }
 .campo textarea {
-    height: 12rem;
+    height: 4rem;
 }
 
 .enviar {
@@ -302,4 +263,16 @@ ul li {
 
 .footer {
     text-align: right;
+}
+
+.separar {
+    padding: 10px;
+}
+
+/*Haciendo la tabla*/
+
+table  tr{
+    color: var(--blanco);
+    font-size: 17px;
+   
 }

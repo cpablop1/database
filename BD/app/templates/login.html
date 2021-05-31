@@ -2,10 +2,6 @@
 
 
 {% block contenido %}
-<header class="header">
-    <h1>Empresa <span>Nueva Verapaz</span></h1>
-</header>
-
 <div id="contacto" class="contacto">
     <h2>Iniciar Sesion</h2>
     <form class="formulario" action="" method="POST">
@@ -14,14 +10,13 @@
         <div class="contenedor-campos">
             <div class="campo">
                 <label>Usuario:</label>
-
                 <input id="name" type="text" name="usuario" placeholder="Ingrese Su Usuario" required>
             </div>
-
             <div class="campo">
-                <label for="">Clave</label>
+                <label for="">Clave:</label>
                 <input type="password">
             </div>
+
 
             <div class="campo w-100">
                 <label>Correo Electronico:</label>
@@ -35,16 +30,13 @@
             <input class="boton" type="submit" value="Enviar">
         </div>
 
+        <a href="Registrarse.html">Registrarse</a>
+        <a href="Olvidada.html">Olvide mi Clave</a>
 
 
     </form>
 
-    <a href="Registrarse.html">Registrarse</a>
-    <a href="Olvidada.html">Olvide mi Clave</a>
 
 </div>
 <!-- </div> -->
-
-
-
 {% endblock %}
