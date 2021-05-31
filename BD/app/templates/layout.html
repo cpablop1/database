@@ -46,12 +46,12 @@
 
 
             <ul class="navul">
-                <li><a href="{% url 'menu_admin' %}">Administrador</a></li>
+                <li><a id="botonOcultar" href="{% url 'menu_admin' %}">Administrador</a></li>
             </ul>
 
 
             <ul class="navul">
-                <li><a href="{% url 'login' %}">Acceder</a>
+                <li><a id="btn" href="{% url 'login' %}">Acceder</a>
                 </li>
             </ul>
 
@@ -61,7 +61,7 @@
 
     <div class="contenedor sombra">
 
-        <div class="hero" id="hidden">
+        <div class="hero show" id="hidden">
             <div class="contenido-hero">
                 <h2>Proyecto <br> Base De Datos</h2>
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-database" width="100"
@@ -131,7 +131,7 @@
 
 <!-- scripts -->
 <!-- <script src="../static/js/oculto.js"></script> -->
-<!-- <script src="../static/js/acceso.js"></script> -->
+<script src="../static/js/acceso.js"></script>
 <!-- <script src="../static/js/App.js"></script> -->
 <!-- <script src="../static/js/localstorange.js"></script> -->
 <!-- <script src="../static/js/Main.js"></script> -->
