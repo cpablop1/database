@@ -1,16 +1,18 @@
 'use strict'
+const titulo = document.querySelector('#header');
+const privado = document.getElementById('ocultar');
+const hidden = document.getElementById('hidden');
+const boton = document.querySelector('#foter');
 
-boton = document.getElementById('botonOcultar')
+// titulo.style.display = "none";
+// privado.style.display = 'none';
+hidden.style.display = 'none';
+boton.style.display = 'none';
+// boton.style.display = "none";
+// console.log(titulo)
+// console.log(privado)
+console.log(hidden)
+console.log(boton)
 
 
-function esconder() {
-
-    const privado = document.getElementById('ocultar');
-    const hidden = document.getElementById('hidden');
-    const foter = document.getElementById('foter');
-    privado.style.display = 'none';
-    hidden.style.display = 'none';
-    console.log(privado)
-    console.log(hidden)
-}
 
