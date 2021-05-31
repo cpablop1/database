@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib import messages
 
 import data.rol as rol
+import data.Usuario as user
 import data.Contacto as Contacto
 
 # Create your views here.
@@ -79,7 +80,7 @@ def CrearUsuarioGrupo(request):
         clave.append(fila['id_rol'])
         valor.append(fila['nombre'])
     dic = dict(zip(clave, valor))
-    print(dic)
+
     if request.method == 'POST':
         nombre_usuario = request.POST['nombre_usuario']
         apellido = request.POST['apellido']
@@ -92,17 +93,53 @@ def CrearUsuarioGrupo(request):
         compania = request.POST['compania']
         pais = request.POST['pais']
         rolu = request.POST['rol']
-        print(nombre_usuario)
-        print(apellido)
-        print(dpi)
-        print(direccion)
-        print(clave1)
-        print(clave2)
-        print(correo)
-        print(telefono)
-        print(compania)
-        print(pais)
-        print(rolu)
+        if nombre_usuario.strip() != '' and apellido.strip() != '':
+            if dpi.strip() != '':
+                if direccion.strip() != '':
+                    if clave1.strip() != '' and clave2.strip() != '':
+                        if clave1.strip() == clave2.strip():
+                            if correo.strip() != '':
+                                if telefono.strip() != '':
+                                    if compania.strip() != '':
+                                        if pais.strip() != '':
+                                            if int(rolu) > 0:
+                                                diccionario = {"nombre" : nombre_usuario,
+                                                                "apellido" : apellido,
+                                                                "DPI" : dpi,
+                                                                "direccion" : direccion,
+                                                                "id_rol" : rolu,
+                                                                "clave" : clave1,
+                                                                "correo" : correo,
+                                                                "numero" : telefono,
+                                                                "compania" : compania,
+                                                                "pais" : pais}
+                                                data = user.Usuario()
+                                                try:
+                                                    data.create(diccionario)
+                                                    print(diccionario)
+                                                    messages.success(request, 'Usuario creada correctamente!')
+                                                except:
+                                                    messages.error(request, 'Hubo un error al crear el usuario!')
+                                            else:
+                                                messages.warning(request, 'Seleccione un rol para el usuario.')
+                                        else:
+                                            messages.warning(request, 'Campo país está vacío.')
+                                    else:
+                                        messages.warning(request, 'Ingrese la companía al pertenece el teléfono.')
+                                else:
+                                    messages.warning(request, 'Campo teléfono está vacío.')
+                            else:
+                                messages.warning(request, 'Campo correo está vacío.')
+                        else:
+                            messages.warning(request, 'Las constraseñas no coinciden.')
+                    else:
+                        messages.warning(request, 'Los campos contraseñas están vacíos.')
+                else:
+                    messages.warning(request, 'Campo dirección está vacío.')
+            else:
+                messages.warning(request, 'Campo DPI está vacío.')
+        else:
+            messages.warning(request, 'Alguno de los campos de nombre y apellido están vacíos.')
     
     return render(request, 'admin/crear_usuario_grupo.html', {
         'dic': dic
