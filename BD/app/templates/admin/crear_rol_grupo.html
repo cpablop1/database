@@ -2,15 +2,28 @@
 
 
 {% block contenido %}
-    <h1>Crear Rol Grupo</h1>
-    <form method="post">
-        <label for="nombre_rol_grupo">Nombre rol grupo:</label>
-        <input type="text" name="nombre_rol_grupo">
-        <label for="monto_maximo">Monto máximo:</label>
-        <input type="number" name="monto_maximo">
-        <label for="monto_minimo">Monto mínimo:</label>
-        <input type="number" name="monto_maximo">
+<h1>Crear Rol Grupo</h1>
+<form class="formulario" method="post">
+    {% csrf_token %}
+    <div class="contenedor-campos">
 
-        <input type="submit" value="CREAR">
-    </form>
+        <div class="campo">
+            <label for="nombre_rol_grupo">Nombre rol grupo:</label>
+            <input type="text" name="nombre_rol_grupo">
+        </div>
+
+        <div class="campo">
+            <label for="monto_maximo">Monto máximo:</label>
+            <input type="number" name="monto_maximo">
+        </div>
+
+        <div class="campo">
+            <label for="monto_minimo">Monto mínimo:</label>
+            <input type="number" name="monto_maximo">
+        </div>
+        <div class="enviar">
+            <input class="boton" type="submit" value="CREAR">
+        </div>
+    </div>
+</form>
 {% endblock %}

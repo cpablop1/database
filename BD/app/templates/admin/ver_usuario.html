@@ -1,42 +1,58 @@
 {% extends 'layout.html' %}
 
 {% block contenido %}
-    <h1>Ver usuario</h1>
-    <a href="#"><input type="submit" value="Ver solo usuario"></a>
-    <input type="search" placeholder="Buscar por email">
-    <a href="#"><input type="submit" value="Ver usuarios de grupo"></a>
-    <a href="#"><input type="submit" value="Ver usuarios sigulares"></a>
-    <a href="#"><input type="submit" value="Ver todos los usuarios"></a>
-    <table>
-        <thead>
-            <tr>
-                <th>Id usuario</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>DPI</th>
-                <th>Dirección</th>
-                <th>ID rol</th>
-                <th>Clave</th>
-                <th>Nombre rol</th>
-                <th>Correo</th>
-                <th>Teléfono</th>
-                <th>Companía</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>Pablo</td>
-                <td>Pérez</td>
-                <td>34234234322</td>
-                <td>Joyabaj</td>
-                <td>2</td>
-                <td>324</td>
-                <td>Admin</td>
-                <td>pablo@gmail.com</td>
-                <td>32375649</td>
-                <td>Tigo</td>
-            </tr>
-        </tbody>
-    </table>
+<h1>Ver usuario</h1>
+
+<div class="nav-bg">
+
+    <nav class="navegacion contenedor">
+
+        <!-- <a href="#"><input type="submit" value="Ver solo usuario"></a> -->
+        <a href="#">Ver usuario</a>
+        <!-- <a href="#"><input type="submit" value="Ver usuarios de grupo"></a> -->
+        <a href="#">Ver usuario de grupo</a>
+        <!-- <a href="#"><input type="submit" value="Ver usuarios sigulares"></a> -->
+        <a href="#">Ver usuario singulares</a>
+        <!-- <a href="#"><input type="submit" value="Ver todos los usuarios"></a> -->
+        <a href="#">Ver todos los usuarios</a>
+
+
+
+    </nav>
+</div>
+
+<input class="boton" type="search" placeholder="Buscar por email">
+
+<table border="3px">
+    <thead>
+        <tr>
+            <th>Id usuario</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DPI</th>
+            <th>Dirección</th>
+            <th>ID rol</th>
+            <th>Clave</th>
+            <th>Nombre rol</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Companía</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Pablo</td>
+            <td>Pérez</td>
+            <td>34234234322</td>
+            <td>Joyabaj</td>
+            <td>2</td>
+            <td>324</td>
+            <td>Admin</td>
+            <td>pablo@gmail.com</td>
+            <td>32375649</td>
+            <td>Tigo</td>
+        </tr>
+    </tbody>
+</table>
 {% endblock %}

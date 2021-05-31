@@ -28,6 +28,34 @@
         <input type="submit" value="CREAR">
     </form>
 
+<form class="formulario forrol" action="">
+    <h2 style="font-size: 20px;">Crear Roles de Usuario</h2>
+    {% csrf_token %}
+    <div class="contenedor-campos">
+        <div class="campos w-100">
+            <label style="color: white; font-size: 17px; margin: 2px; padding: 12px;" for="nombre_rol">Nombre de
+                rol:</label>
+            <input style="border-radius: 5px; margin: 30px; padding: 10px;" type="text">
+        </div>
+        <select class="forrol__campo" name="permiso">
+            <option disabled selected>--Selecciones los permisos--</option>
+            <option>CRUD usuario</option>
+            <option>Imprimr cheque</option>
+            <option>Anular cheque</option>
+            <option>Modificar cheque</option>
+            <option>Reporte cheque</option>
+            <option>Auditar usuario</option>
+            <option>Administrar cuenta bancaria</option>
+            <option>Auditar cuenta bancaria</option>
+            <option>Mostrar bitácora usuario</option>
+            <option>Mostrar bitácora grupo</option>
+            <option>Mostrar bitácora jefe</option>
+            <option>Jefe</option>
+        </select>
+        <input class="forrol__submit boton" type="submit" EAR">
+    </div>
+</form>
+
 
 
 {% endblock %}

@@ -1,16 +1,20 @@
 {% extends 'layout.html' %}
 
 {% block contenido %}
-    <form method="POST">
-        <input type="submit" value="Ver rol grupo">
-    </form>
-    <form method="POST">
-        <input type="submit" value="Ver rol singular">
-    </form>
-    <form method="POST">
-        <input type="submit" value="Ver todos los roles">
-    </form>
-    <table>
+<form class="separar" method="POST">
+    <input class="boton" type="submit" value="Ver rol grupo">
+</form>
+<form class="separar" method="POST">
+    <input class="boton" type="submit" value="Ver rol singular">
+</form>
+<form class="separar" method="POST">
+    <input class="boton" type="submit" value="Ver todos los roles">
+</form>
+
+<div class="contenedor sombra">
+
+
+    <table border="3px">
         <thead>
             <tr>
                 <th>ID rol</th>
@@ -64,4 +68,5 @@
             </tr>
         </tbody>
     </table>
+</div>
 {% endblock %}
