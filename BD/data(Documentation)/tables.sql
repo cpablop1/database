@@ -115,6 +115,8 @@ CREATE TABLE cuenta_bancaria(
 CREATE TABLE chequera(
     num_chequera INT UNSIGNED AUTO_INCREMENT,
     num_cuenta BIGINT(16) UNSIGNED,
+    num_cheque_dispo INT UNSIGNED,
+    estado VARCHAR(10),
     PRIMARY KEY(num_chequera),
     INDEX(num_cuenta),
     FOREIGN KEY(num_cuenta) REFERENCES cuenta_bancaria(num_cuenta) ON DELETE CASCADE ON UPDATE CASCADE
@@ -122,6 +124,7 @@ CREATE TABLE chequera(
 
 CREATE TABLE cheque(
     id_cheque INT UNSIGNED AUTO_INCREMENT,
+    num_cheque INT(4) UNSIGNED,
     fecha_emision DATETIME,
     monto DECIMAL(15, 2) UNSIGNED,
     lugar_emision VARCHAR(30),
@@ -160,6 +163,18 @@ CREATE TABLE buffer_cheque_disponible(
     PRIMARY KEY(id_disponible),
     INDEX(id_cheque),
     FOREIGN KEY(id_cheque) REFERENCES cheque(id_cheque) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = INNODB;
+
+CREATE TABLE buffer_llamados_jefe(
+    id_llamada INT UNSIGNED AUTO_INCREMENT,
+    atendido BOOLEAN,
+    id_user INT UNSIGNED,
+    id_cheque INT UNSIGNED,
+    PRIMARY KEY(id_llamada),
+    INDEX(id_cheque),
+    INDEX(id_user),
+    FOREIGN KEY(id_cheque) REFERENCES cheque(id_cheque) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(id_user) REFERENCES usuario(id_user) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
 -- Bitacoras relacionados
@@ -235,13 +250,16 @@ CREATE TABLE bitacora_cuenta(
     PRIMARY KEY(id_b_cuenta)
 ) ENGINE = INNODB;
 
+-- EX HUERFANAS
 CREATE TABLE bitacora_cheque_fallido(
     id_fallo INT UNSIGNED AUTO_INCREMENT,
     fecha_fallo DATETIME,
-    cod_error VARCHAR(50),
+    cod_error VARCHAR(100),
     id_user INT UNSIGNED,
     id_cheque INT UNSIGNED,
-    PRIMARY KEY(id_fallo)
+    PRIMARY KEY(id_fallo),
+    INDEX(id_cheque),
+    FOREIGN KEY(id_cheque) REFERENCES cheque(id_cheque) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
 CREATE TABLE bitacora_cheque_modificado(
@@ -253,7 +271,9 @@ CREATE TABLE bitacora_cheque_modificado(
     benef_post VARCHAR(67),
     id_user INT UNSIGNED,
     id_cheque INT UNSIGNED,
-    PRIMARY KEY(id_mod)
+    PRIMARY KEY(id_mod),
+    INDEX(id_cheque),
+    FOREIGN KEY(id_cheque) REFERENCES cheque(id_cheque) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
 CREATE TABLE bitacora_cheque_liberado(
@@ -262,14 +282,16 @@ CREATE TABLE bitacora_cheque_liberado(
     id_grupo INT UNSIGNED,
     id_user INT UNSIGNED,
     id_cheque INT UNSIGNED,
-    PRIMARY KEY(id_liberacion)
+    PRIMARY KEY(id_liberacion),
+    INDEX(id_cheque),
+    FOREIGN KEY(id_cheque) REFERENCES cheque(id_cheque) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
 -- Contactanos
 CREATE TABLE contactanos(
     id_custom INT UNSIGNED AUTO_INCREMENT,
     nombre VARCHAR(45),
-    num_telefono INT UN SIGNED,
+    num_telefono INT UNSIGNED,
     correo VARCHAR(30),
     mensaje VARCHAR(255),
     estado BOOLEAN,
@@ -295,6 +317,7 @@ DROP TABLE IF EXISTS bitacora_deposito;
 DROP TABLE IF EXISTS bitacora_cheque_emitido;
 DROP TABLE IF EXISTS bitacora_cheque_eliminado;
 
+DROP TABLE IF EXISTS buffer_llamados_jefe;
 DROP TABLE IF EXISTS buffer_cheque_pendiente_autorizacion;
 DROP TABLE IF EXISTS buffer_cheque_disponible;
 
