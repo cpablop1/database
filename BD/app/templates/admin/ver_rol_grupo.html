@@ -1,0 +1,37 @@
+{% extends 'admin/ver_rol.html' %}
+
+{% block tabla %}
+    <div class="contenedor">
+        <table border="3px">
+            <thead>
+                <tr">
+                    <th>ID rol</th>
+                    <th>Nombre</th>
+                    <th>CRUD usuario</th>
+                    <th>Imprimir cheque</th>
+                    <th>Anular cheque</th>
+                    <th>Modificar cheque</th>
+                    <th>Reporte cheque</th>
+                    <th>Auditar usuario</th>
+                    <th>Administrar cuenta bancaria</th>
+                    <th>Auditar cuenta</th>
+                    <th>Mostrar bitácora usuario</th>
+                    <th>Bitácora grupo</th>
+                    <th>Bitácora jefe</th>
+                    <th>Jefe</th>
+                    </tr>
+            </thead>
+            <tbody>
+                {% for i in leer %}
+                    <tr>
+                        {% for j in i.items %}
+                            <td>
+                                {{ j.1 }}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

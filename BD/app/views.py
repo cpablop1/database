@@ -242,6 +242,48 @@ def CrearUsuarioSingular(request):
 def VerRol(request):
     return render(request, 'admin/ver_rol.html')
 
+def VerRolGrupo(request):
+    clave = []
+    try:
+        data = rol.Rol_permiso_sup()
+        leer = data.read()
+        for fila in leer['res']:
+            clave.append(fila)
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar los roles!')
+
+    return render(request, 'admin/ver_rol_grupo.html', {
+        'leer': clave
+    })
+
+def VerRolSingular(request):
+    clave = []
+    try:
+        data = rol.Rol_grupo()
+        leer = data.read()
+        for fila in leer['res']:
+            clave.append(fila)
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar los roles!')
+
+    return render(request, 'admin/ver_rol_singular.html', {
+        'leer': clave
+    })
+
+def VerRolesTodos(request):
+    clave = []
+    try:
+        data = rol.Rol_all()
+        leer = data.read_all()
+        for fila in leer['res']:
+            clave.append(fila)
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar los roles!')
+
+    return render(request, 'admin/ver_rol_todos.html', {
+        'leer': clave
+    })
+
 def VerUsuario(request):
     return render(request, 'admin/ver_usuario.html')
 
