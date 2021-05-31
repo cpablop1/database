@@ -1,24 +1,40 @@
 {% extends 'layout.html' %}
 
 {% block contenido %}
+
 <header class="header">
-    <h1>Menú Admin</h1>
+    <h1>Menú Administrativo</h1>
 </header>
 
-<div class="nav-bg menuadmin">
+<div class="nav-bg menuadmin contenedor sombra">
     <nav class="navegacion contenedor">
         <!-- <a href="{% url 'crear_rol_usuario' %}"><input type="submit" value="Crear rol de usuario"></a> -->
         <!-- <a href="{% url 'crear_rol_grupo' %}"><input type="submit" value="Crear rol de grupo"></a> -->
         <!-- <a href="{% url 'menu_crear_usuario' %}"><input type="submit" value="Crear usuario"></a> -->
         <!-- <a href="{% url 'ver_usuario' %}"><input type="submit" value="Ver usuario"></a> -->
         <!-- <a href="{% url 'ver_rol' %}"><input class="boton" type="submit" value="Ver roles"></a> -->
-        <a href="{% url 'crear_rol_usuario' %}">Crear rol de usuario</a>
-        <a href="{% url 'crear_rol_grupo' %}">Crear rol de grupo</a>
-        <a href="{% url 'menu_crear_usuario' %}">Crear usuario</a>
-        <a href="{% url 'ver_usuario' %}">Ver Usuario</a>
-        <a href="{% url 'ver_rol' %}">Ver Roles</a>
 
 
+
+        <ul class="navul">
+            <li><a href="{% url 'crear_rol_usuario' %}">Crear rol de usuario</a></li>
+        </ul>
+
+
+        <ul class="navul">
+            <li><a href="{% url 'crear_rol_grupo' %}">Crear rol de grupo</a></li>
+        </ul>
+
+        <ul class="navul">
+            <li><a href="{% url 'menu_crear_usuario' %}">Crear Usuario</a></li>
+        </ul>
+
+        <ul class="navul">
+            <li><a href="{% url 'ver_rol' %}">Ver Roles</a></li>
+        </ul>
     </nav>
 </div>
+
+<script src="../../static/js/oculto.js"></script>
+
 {% endblock %}

@@ -45,7 +45,8 @@ h3 {
 }
 .contenedor {
     margin: 0px auto;
-    max-width: 1721px;
+    margin-bottom: 7px;
+    max-width: 1799px;
     padding: 0px;
 }
 
@@ -54,7 +55,7 @@ h3 {
 
 .navul li a {
     text-decoration: none;
-    padding: 15px 21px;
+    padding: 1px 2px;
     display: block;
 }
 
@@ -73,16 +74,17 @@ h3 {
 
 
 .navul li ul {
-    background:var(--oscuro); 
+    /* background:#393e46;  */
+    background-color: rgb(0 0 0 / 70%);
     position:absolute; 
     left:-1px; 
     top:50px; 
     color: var(--blanco);
     font-family: 'Krub', sans-serif;
-    font-size: 20px;
+    font-size: 17px;
     display:none; 
     overflow:hidden; 
-    padding:50px; 
+    padding:10px; 
     z-index:5; 
     width:100%; 
     border:1px solid var(--oscuro);
@@ -107,7 +109,7 @@ h3 {
 .sombra {
     padding: 2rem;
     margin-bottom: 3rem;
-    background-color: rgba(49, 8, 8, 0.555);
+    background-color: rgb(42, 42, 42);
     border-radius: 10px;
     -webkit-box-shadow: 0px 11px 15px -9px rgba(0,0,0,0.63);
     -moz-box-shadow: 0px 11px 15px -9px rgba(0,0,0,0.63);
@@ -129,8 +131,8 @@ h3 {
         justify-content: space-between;
     }
 }
-.navegacion a{
-    padding: 1rem 2rem;
+.navegacion .navul a{
+    padding: 1rem;
     color: var(--blanco);
     text-decoration: none;
     font-size: 1.2rem;
