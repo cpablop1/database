@@ -271,3 +271,8 @@ h3 {
 
 /*Haciendo la tabla*/
 
+table  tr{
+    color: var(--blanco);
+    font-size: 17px;
+   
+}
