@@ -35,6 +35,7 @@ CREATE OR REPLACE TRIGGER after_insert_user
 DELIMITER; 
 
 
+
 -- T R I G G E R    F O R    C U E N T A    B A N C A R I A
 
     -- Trigger for insert into bitacora_cuenta
@@ -52,21 +53,13 @@ CREATE OR REPLACE TRIGGER after_insert_bit_cntban
     //
 DELIMITER ; 
 
-
 -- T R I G G E R    F O R    C H E Q U E
 
     -- Trigger for insert into bitacora_cuenta
                     --  SET estado_var := "Pendiente autorizacion";
                     --  SET estado_var := "Disponible para impresion";
                     -- restar cuenta bancaria
-/*
-INSERT INTO cheque
-    (num_cheque, fecha_emision, monto, lugar_emision, estado,
-    beneficiario, num_cuenta, num_chequera, nit, id_user_genero)
-VALUES
-    (num_cheque_var, CURRENT_TIMESTAMP, monto, lugar_emision, estado,
-    beneficiario, num_cuenta, num_chequera, nit, id_user_genero);
-*/
+
 DELIMITER //
 CREATE OR REPLACE TRIGGER after_insert_cheque
     AFTER INSERT
@@ -114,10 +107,11 @@ CREATE OR REPLACE TRIGGER after_insert_cheque
               (0, new.id_cheque, id_group_var);
         END IF;
     ELSE
+    /*
         SET fondo_var := f_fondo_cuenta(new.num_cuenta);
         SET fondo_var := fondo_var - new.monto;
         UPDATE cuenta_bancaria SET fondo=fondo_var WHERE num_cuenta = new.num_cuenta;
-        
+    */
         INSERT INTO buffer_cheque_disponible
         (atendido, id_cheque)
         VALUES
@@ -128,8 +122,99 @@ CREATE OR REPLACE TRIGGER after_insert_cheque
     //
 DELIMITER ; 
 
+-- UPDATE ON CHEQUE
+DELIMITER //
+CREATE OR REPLACE TRIGGER after_up_cheque
+    AFTER UPDATE
+    ON cheque FOR EACH ROW
+    BEGIN 
+
+    INSERT INTO bitacora_cheque_modificado
+        (fecha_mod, monto_antes, monto_post, benef_antes, benef_post, id_user, id_cheque)
+    VALUES
+        (CURRENT_TIMESTAMP, old.monto,new.monto, old.beneficiario, new.beneficiario,
+        old.id_user_genero,old.id_cheque);
+    END;
+
+    //
+DELIMITER ; 
+
+-- T R I G G E R    F O R    i n s e r t    O N   bitacora_cheque_emitido
+
+    -- Trigger for insert into bitacora_cuenta
+DELIMITER //
+CREATE OR REPLACE TRIGGER after_in_emit_cheque
+    AFTER INSERT
+    ON bitacora_cheque_emitido FOR EACH ROW
+    BEGIN
+    DECLARE fondo_var DECIMAL(20, 2);
+    DECLARE fondo_res_var DECIMAL(20, 2);
+    DECLARE monto_var DECIMAL(20, 2);
+    DECLARE num_cuenta_var BIGINT(16);
+    
+        SELECT ch.num_cuenta
+         INTO num_cuenta_var
+         FROM cheque AS ch
+        WHERE ch.id_cheque = new.id_cheque;
+
+        SELECT fdc.fondo
+          INTO fondo_var
+          FROM cuenta_bancaria AS fdc
+         WHERE fdc.num_cuenta = num_cuenta_var;
+            
+        SELECT ch.monto
+          INTO monto_var
+          FROM cheque AS ch
+         WHERE ch.id_cheque = new.id_cheque;
+
+        SET fondo_res_var := fondo_var - monto_var;
+        UPDATE cuenta_bancaria SET fondo=fondo_res_var
+        WHERE cuenta_bancaria.num_cuenta = num_cuenta_var;
+
+        SET monto_var := monto_var *-1;
+        INSERT INTO bitacora_movimiento_cuenta
+          (monto_movido, fondo_resultante, num_cuenta, no_deposito, id_emision)
+        VALUES
+          (monto_var, fondo_res_var, num_cuenta_var, NULL, new.id_emision);
+
+    END;
+    //
+DELIMITER ;
 
 
+-- T R I G G E R    F O R    i n s e r t    O N   bitacora_cheque_liberado
+
+    -- Trigger for insert into bitacora_cuenta
+/* DELIMITER //
+CREATE OR REPLACE TRIGGER after_in_liberar_cheque
+    AFTER INSERT
+    ON bitacora_cheque_liberado FOR EACH ROW
+    BEGIN
+    DECLARE fondo_var DECIMAL(20, 2);
+    DECLARE monto_var DECIMAL(20, 2);
+    DECLARE num_cuenta_var BIGINT(16);
+    
+        SELECT ch.num_cuenta
+         INTO num_cuenta_var
+         FROM cheque AS ch
+        WHERE ch.id_cheque = new.id_cheque;
+
+        SELECT fdc.fondo
+          INTO fondo_var
+          FROM cuenta_bancaria AS fdc
+         WHERE num_cuenta = num_cuenta_var;
+            
+        SELECT ch.monto
+          INTO monto_var
+          FROM cheque AS ch
+         WHERE ch.id_cheque = new.id_cheque;
+
+        SET fondo_var := fondo_var - monto_var;
+        UPDATE cuenta_bancaria SET fondo=fondo_var WHERE num_cuenta = num_cuenta_var;
+
+    END;
+    //
+DELIMITER ; */
 
 -- D R O P P I N G
 -- DROP TRIGGER [IF EXISTS] [schema_name.]trigger_name
@@ -137,3 +222,6 @@ DROP TRIGGER IF EXISTS after_insert_bit_cntban;
 DROP TRIGGER IF EXISTS after_insert_user;
 
 DROP TRIGGER IF EXISTS after_insert_cheque;
+DROP TRIGGER IF EXISTS after_in_emit_cheque;
+
+/* DROP TRIGGER IF EXISTS after_in_liberar_cheque; */

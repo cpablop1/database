@@ -660,10 +660,20 @@ BEGIN
                     SELECT MAX(num_cheque_dispo) INTO num_cheque_dispo_var
                     FROM chequera AS cheq
                     WHERE num_chequera = cheq.num_chequera;
+
                     IF num_cheque_dispo_var IS NULL THEN
-                        SET num_chequera_var := 1;
+                        SET num_cheque_dispo_var := 1;
                     END IF;
+                    
                     SET num_cheque_dispo_var := num_cheque_dispo_var-1;
+                    
+                    IF num_cheque_dispo_var = 5 THEN
+                        UPDATE chequera SET estado='Alerta' WHERE chequera.num_chequera = num_chequera;
+                    END IF;
+                    
+                    IF num_cheque_dispo_var = 0 THEN
+                        UPDATE chequera SET estado='Agotado' WHERE chequera.num_chequera = num_chequera;
+                    END IF;
 
                     UPDATE chequera SET num_cheque_dispo = num_cheque_dispo_var
                     WHERE num_chequera = chequera.num_chequera;
@@ -700,6 +710,438 @@ DELIMITER ;
 -- SELECT @resultado;
 -- monto, lugar_emision, num_cuenta, num_chequera, nit, id_user_genero
 
+
+
+    -- Procedure v a l i d a r    c h e q u e
+DELIMITER //
+CREATE OR REPLACE PROCEDURE pa_validar_cheque_grupo(
+    IN id_pendencia INT,
+    IN id_user INT,
+    OUT resultado INT
+)
+BEGIN
+  DECLARE id_cheque_var INT;
+  DECLARE id_group_var INT;
+  DECLARE id_pendencia_var INT;
+  DECLARE res_var INT;
+    
+    SELECT bf.id_pendencia INTO id_pendencia_var
+    FROM  buffer_cheque_pendiente_autorizacion AS bf
+    WHERE id_pendencia = bf.id_pendencia;
+
+    IF id_pendencia_var IS NOT NULL THEN
+        SELECT bf.id_cheque INTO id_cheque_var
+        FROM  buffer_cheque_pendiente_autorizacion AS bf
+        WHERE id_pendencia = bf.id_pendencia;
+
+        SELECT bft.id_group INTO id_group_var
+        FROM  buffer_cheque_pendiente_autorizacion AS bft
+        WHERE id_pendencia = bft.id_pendencia;
+        -- Cuenta creating
+        INSERT INTO buffer_cheque_disponible
+            (atendido, id_cheque)
+        VALUES (0,id_cheque_var);
+
+        INSERT INTO bitacora_cheque_liberado
+            (fecha_liberacion, id_grupo, id_user, id_cheque)
+        VALUES (CURRENT_TIMESTAMP,id_group_var,id_user,id_cheque_var);
+
+        UPDATE cheque SET estado='Disponible para impresion' WHERE cheque.id_cheque = id_cheque_var; 
+
+        DELETE FROM buffer_cheque_pendiente_autorizacion
+        WHERE buffer_cheque_pendiente_autorizacion.id_pendencia = id_pendencia_var;
+
+        SELECT MAX(id_liberacion) INTO res_var
+            FROM bitacora_cheque_liberado;
+        SET resultado := res_var;
+        COMMIT;
+    ELSE
+        SET resultado := 0;
+    END IF;
+    
+END;
+ //
+DELIMITER ;
+
+-- CALL pa_validar_cheque_grupo(1,3,@resultado);
+-- SELECT @resultado;
+
+-- PROCEDURE para solicitar modificar
+DELIMITER //
+CREATE OR REPLACE PROCEDURE pa_solicitar_modificar_elimi(
+    IN id_pendencia INT,
+
+    OUT resultado INT
+)
+BEGIN
+  DECLARE id_cheque_var INT;
+  DECLARE id_pendencia_var INT;
+  DECLARE res_var INT;
+  DECLARE id_user_var INT;
+    
+    SELECT bf.id_pendencia INTO id_pendencia_var
+    FROM  buffer_cheque_pendiente_autorizacion AS bf
+    WHERE bf.id_pendencia = id_pendencia;
+
+    IF id_pendencia_var IS NOT NULL THEN
+        SELECT bfr.id_cheque INTO id_cheque_var
+        FROM  buffer_cheque_pendiente_autorizacion AS bfr
+        WHERE id_pendencia = bfr.id_pendencia;
+
+        SELECT MAX(us.id_user) INTO id_user_var
+            FROM usuario AS us
+            WHERE us.id_rol = (
+                SELECT MIN(r.id_rol)
+            	FROM rol AS r
+            	WHERE r.id_permiso_sup = (
+            		SELECT MIN(id_permiso_sup)
+            		FROM permiso_sup AS ps
+            		WHERE ps.nombre REGEXP'Depar+')
+                     );
+
+        -- Cuenta creating
+        -- si user es NUll se desa modificar
+        INSERT INTO buffer_llamados_jefe
+            (atendido, id_user, id_cheque)
+        VALUES (0,id_user_var, id_cheque_var);
+
+        DELETE FROM buffer_cheque_pendiente_autorizacion
+        WHERE buffer_cheque_pendiente_autorizacion.id_pendencia = id_pendencia_var;
+
+        SELECT MAX(id_llamada) INTO res_var
+            FROM buffer_llamados_jefe;
+        SET resultado := res_var;
+        COMMIT;
+    ELSE
+        SET resultado := 0;
+    END IF;
+    
+END;
+ //
+DELIMITER ;
+-- CALL pa_solicitar_modificar_elimi(3,@resultado);
+-- SELECT @resultado;
+
+
+-- PROCEDURE para modificar esto para jefes
+DELIMITER //
+CREATE OR REPLACE PROCEDURE pa_modificar_cheque(
+    IN id_llamada INT,
+    IN monto_post DECIMAL(15,2),
+    IN nit_post INT,
+    OUT resultado VARCHAR(67)
+)
+BEGIN
+  DECLARE id_llamada_var INT;
+  DECLARE id_cheque_var INT;
+  
+  DECLARE benef_post VARCHAR(67);
+  DECLARE resultado_var VARCHAR(67);
+    
+    SELECT bj.id_llamada INTO id_llamada_var
+    FROM  buffer_llamados_jefe AS bj
+    WHERE bj.id_llamada = id_llamada;
+
+    IF id_llamada_var IS NOT NULL THEN
+        IF monto_post >= 0 THEN
+        
+            SET benef_post := f_get_benef_prov(nit_post);
+
+            SELECT bfr.id_cheque INTO id_cheque_var
+            FROM  buffer_llamados_jefe AS bfr
+            WHERE id_llamada = bfr.id_llamada;
+            
+            SELECT CONCAT('Chequera : ',num_chequera,' ,Cheque: ',num_cheque)
+            INTO resultado_var
+            FROM  cheque
+            WHERE cheque.id_cheque = id_cheque_var;
+    
+            -- Update
+            UPDATE cheque 
+            SET monto=monto_post,beneficiario=benef_post, nit=nit_post
+            WHERE id_cheque_var = cheque.id_cheque;
+
+            SET resultado := CONCAT(resultado_var,' modificado');
+            COMMIT;
+        ELSE
+            SET resultado := 'Monto no puede ser negativo';
+        END IF;
+    ELSE
+        SET resultado := 'id_llamada invalido';
+    END IF;
+   
+END;
+ //
+DELIMITER ;
+
+-- CALL pa_modificar_cheque(1, 1000, 465456,@resultado);
+-- SELECT @resultado;
+-- id_llamada, monto_post, nit_post
+
+  -- Procedure v a l i d a r    c h e q u e JEFE
+DELIMITER //
+CREATE OR REPLACE PROCEDURE pa_validar_cheque_jefe(
+    IN id_llamada INT,
+    OUT resultado INT
+)
+BEGIN
+  DECLARE id_cheque_var INT;
+  DECLARE id_llamada_var INT;
+  DECLARE id_user_var INT;
+  DECLARE res_var INT;
+    
+    SELECT bf.id_llamada INTO id_llamada_var
+    FROM  buffer_llamados_jefe AS bf
+    WHERE id_llamada = bf.id_llamada;
+
+    IF id_llamada_var IS NOT NULL THEN
+        SELECT bf.id_cheque INTO id_cheque_var
+        FROM buffer_llamados_jefe AS bf
+        WHERE id_llamada = bf.id_llamada;
+        
+        SELECT bfr.id_user INTO id_user_var
+        FROM buffer_llamados_jefe AS bfr
+        WHERE id_llamada = bfr.id_llamada;
+
+        -- Cuenta creating
+        INSERT INTO buffer_cheque_disponible
+            (atendido, id_cheque)
+        VALUES (0,id_cheque_var);
+
+        INSERT INTO bitacora_cheque_liberado
+            (fecha_liberacion, id_grupo, id_user, id_cheque)
+        VALUES (CURRENT_TIMESTAMP,NULL,id_user_var,id_cheque_var);
+
+        UPDATE cheque SET estado='Disponible para impresion'
+        WHERE cheque.id_cheque = id_cheque_var; 
+
+        DELETE FROM buffer_llamados_jefe
+        WHERE buffer_llamados_jefe.id_llamada = id_llamada_var;
+
+        SELECT MAX(id_liberacion) INTO res_var
+            FROM bitacora_cheque_liberado;
+        SET resultado := res_var;
+        COMMIT;
+    ELSE
+        SET resultado := 0;
+    END IF;
+    
+END;
+ //
+DELIMITER ;
+
+-- CALL pa_validar_cheque_jefe (1,@resultado);
+-- SELECT @resultado;
+-- id_llamada
+
+  -- Procedure E L I M I N A R    c h e q u e    J E F E
+DELIMITER //
+CREATE OR REPLACE PROCEDURE pa_eliminar_cheque_jefe(
+    IN id_llamada INT,
+    OUT resultado INT
+)
+BEGIN
+  DECLARE id_cheque_var INT;
+  DECLARE id_llamada_var INT;
+  DECLARE id_user_var INT;
+  DECLARE res_var INT;
+    
+    SELECT bf.id_llamada INTO id_llamada_var
+    FROM  buffer_llamados_jefe AS bf
+    WHERE id_llamada = bf.id_llamada;
+
+    IF id_llamada_var IS NOT NULL THEN
+        SELECT bf.id_cheque INTO id_cheque_var
+        FROM buffer_llamados_jefe AS bf
+        WHERE id_llamada = bf.id_llamada;
+        
+        SELECT bfr.id_user INTO id_user_var
+        FROM buffer_llamados_jefe AS bfr
+        WHERE id_llamada = bfr.id_llamada;
+
+        -- Cuenta creating
+        INSERT INTO bitacora_cheque_eliminado
+            (fecha_anulacion, id_user, id_cheque)
+        VALUES (CURRENT_TIMESTAMP,id_user_var,id_cheque_var);
+
+        UPDATE cheque SET estado='Anulado'
+        WHERE cheque.id_cheque = id_cheque_var; 
+
+        DELETE FROM buffer_llamados_jefe
+        WHERE buffer_llamados_jefe.id_llamada = id_llamada_var;
+
+        SELECT MAX(id_eliminado) INTO res_var
+            FROM bitacora_cheque_eliminado;
+        SET resultado := res_var;
+        COMMIT;
+    ELSE
+        SET resultado := 0;
+    END IF;
+    
+END;
+ //
+DELIMITER ;
+
+-- CALL pa_eliminar_cheque_jefe (3,@resultado);
+-- SELECT @resultado;
+-- id_llamada
+
+-- CALL pa_validar_cheque_jefe (1,@resultado);
+-- SELECT @resultado;
+-- id_llamada
+
+
+        -- function get beneficiary for cheque from proveedor
+DELIMITER //
+CREATE OR REPLACE FUNCTION f_get_user_name(
+        id_user INT
+    )
+    RETURNS VARCHAR(67)
+    NOT DETERMINISTIC
+    BEGIN
+    DECLARE name_var VARCHAR(67);
+    DECLARE res_iner_var VARCHAR(67);
+    -- CONCAT it's for concatenate the select result
+        SELECT CONCAT (u.nombre,' ',u.apellido) INTO name_var
+        FROM usuario AS u
+        WHERE u.id_user= id_user;
+        IF name_var IS NULL THEN
+           SET res_iner_var := CONCAT('Error whit id_user : ',NIT);
+        ELSE
+           SET res_iner_var := name_var;
+        END IF;
+        RETURN res_iner_var;
+END;
+//
+DELIMITER ; 
+-- SELECT f_get_user_name(1);
+
+
+  -- Procedure E M I T I R    c h e q u e 
+DELIMITER //
+CREATE OR REPLACE PROCEDURE pa_emitir_cheque(
+    IN id_disponible INT,
+    IN id_user INT,
+    OUT resultado INT
+)
+BEGIN
+  DECLARE id_cheque_var INT;
+  DECLARE id_disponible_var INT;
+  DECLARE id_user_var INT;
+  DECLARE res_var INT;
+    
+    SELECT bf.id_disponible INTO id_disponible_var
+    FROM  buffer_cheque_disponible AS bf
+    WHERE id_disponible = bf.id_disponible;
+
+    IF id_disponible_var IS NOT NULL THEN
+        SELECT bf.id_cheque INTO id_cheque_var
+        FROM buffer_cheque_disponible AS bf
+        WHERE id_disponible = bf.id_disponible;
+        
+        SELECT bfr.id_user INTO id_user_var
+        FROM v_users_rol_sup AS bfr
+        WHERE id_user = bfr.id_user;
+
+        IF id_user_var IS NOT NULL THEN
+            -- Cuenta creating
+            INSERT INTO bitacora_cheque_emitido
+                (fecha_entrega, nombre_cajero, id_user, id_cheque)
+            VALUES (CURRENT_TIMESTAMP,f_get_user_name(id_user_var),id_user_var,id_cheque_var);
+
+            UPDATE cheque SET estado='Impreso/emitido'
+            WHERE cheque.id_cheque = id_cheque_var; 
+
+            DELETE FROM buffer_cheque_disponible
+            WHERE buffer_cheque_disponible.id_disponible = id_disponible_var;
+
+            SELECT MAX(id_emision) INTO res_var
+                FROM bitacora_cheque_emitido;
+            SET resultado := res_var;
+            COMMIT;    
+        ELSE
+            SET resultado := 0;
+        END IF;
+    ELSE
+        SET resultado := 0;
+    END IF;
+    
+END;
+ //
+DELIMITER ;
+
+-- CALL  pa_emitir_cheque(1,10,@resultado);
+-- SELECT @resultado;
+-- id_disponible, id_user
+
+  -- Procedure R E G I S T R A R   D E P O S I T O
+DELIMITER //
+CREATE OR REPLACE PROCEDURE pa_resgistrar_deposito(
+    IN no_deposito INT,
+    IN monto DECIMAL(15, 2),
+    IN num_cuenta BIGINT(16),
+    
+    OUT resultado VARCHAR(30)
+)
+BEGIN
+  DECLARE num_cuenta_var BIGINT(16);
+  DECLARE no_deposito_var INT;
+  DECLARE fondo_res_var DECIMAL(20, 2);
+  DECLARE fondo_var DECIMAL(20, 2);
+
+    SELECT cb.num_cuenta INTO num_cuenta_var
+    FROM cuenta_bancaria AS cb
+    WHERE cb.num_cuenta = num_cuenta;
+
+    IF num_cuenta_var IS NOT NULL THEN
+        IF monto > 0 THEN
+            SELECT bd.no_deposito INTO no_deposito_var
+            FROM bitacora_deposito AS bd
+            WHERE bd.no_deposito = no_deposito;
+            IF no_deposito_var IS NULL THEN
+                SELECT fdc.fondo
+                INTO fondo_var
+                FROM cuenta_bancaria AS fdc
+                WHERE fdc.num_cuenta = num_cuenta_var;
+                -- Depositando
+                INSERT INTO bitacora_deposito
+                 (no_deposito, fecha_deposito, monto, num_cuenta)
+                VALUES
+                 (no_deposito,CURRENT_TIMESTAMP,monto,num_cuenta_var);
+
+                SET fondo_res_var := fondo_var + monto;
+                UPDATE cuenta_bancaria SET fondo=fondo_res_var
+                WHERE cuenta_bancaria.num_cuenta = num_cuenta_var;
+
+                INSERT INTO bitacora_movimiento_cuenta
+                 (monto_movido, fondo_resultante, num_cuenta, no_deposito, id_emision)
+                VALUES
+                 (monto, fondo_res_var, num_cuenta_var, no_deposito, NULL);
+
+                SET resultado := CONCAT('Deposito ',no_deposito,' registrado');
+                COMMIT;
+            ELSE    
+                SET resultado := CONCAT('Nol. ',no_deposito,' YA existente');
+            END IF; 
+        ELSE
+            SET resultado := 'Monto invalido';
+        END IF;
+    ELSE
+        SET resultado := 'Cuenta no existente';
+    END IF;
+    
+END;
+ //
+DELIMITER ;
+
+-- CALL pa_resgistrar_deposito(11231,100,465456,@resultado);
+-- SELECT @resultado;
+-- CALL pa_resgistrar_deposito(11131,200,426556,@resultado);
+-- SELECT @resultado;
+-- no_deposito, monto, num_cuenta
+
+
+
 -- D R O P P I N G
 DROP FUNCTION IF EXISTS f_id_rol;
 DROP FUNCTION IF EXISTS f_id_group;
@@ -714,6 +1156,9 @@ DROP FUNCTION IF EXISTS f_get_benef_prov;
 DROP FUNCTION IF EXISTS f_id_cheque;
 DROP FUNCTION IF EXISTS f_fondo_cuenta;
 
+DROP FUNCTION IF EXISTS f_get_user_name;
+
+
 DROP PROCEDURE IF EXISTS pa_new_group_rol;
 DROP PROCEDURE IF EXISTS pa_new_permis_sup_rol;
 
@@ -725,4 +1170,9 @@ DROP PROCEDURE IF EXISTS pa_new_cuenta_bancaria;
 DROP PROCEDURE IF EXISTS pa_new_chequera;
 DROP PROCEDURE IF EXISTS pa_new_cheque;
 
+DROP PROCEDURE IF EXISTS pa_validar_cheque_grupo;
+DROP PROCEDURE IF EXISTS pa_solicitar_modificar_elimi;
 
+DROP PROCEDURE IF EXISTS pa_modificar_cheque;
+DROP PROCEDURE IF EXISTS pa_validar_cheque_jefe
+DROP PROCEDURE IF EXISTS pa_resgistrar_deposito;
