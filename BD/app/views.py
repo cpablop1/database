@@ -46,6 +46,25 @@ def CrearRolUsuario(request):
     return render(request, 'admin/crear_rol_usuario.html')
 
 def CrearRolGrupo(request):
+    if request.method == 'POST':
+        nombre_rol_grupo = request.POST['nombre_rol_grupo']
+        monto_maximo = request.POST['monto_maximo']
+        monto_minimo = request.POST['monto_minimo']
+        if nombre_rol_grupo.strip() != '':
+            if monto_maximo.strip() != '':
+                if monto_minimo.strip() != '':
+                    diccionario = {f"nombre" : nombre_rol_grupo, 
+                                    "monto_min" : monto_minimo, 
+                                    "monto_max": monto_maximo}
+                    data = rol.Rol_grupo()
+                    data.create(diccionario)
+                    messages.success(request, 'Rol grupo creada exitosamente!!!')
+                else:
+                    messages.warning(request, 'Ingrese el monto mínimo para continuar')
+            else:
+                messages.warning(request, 'Ingrese el monto máximo para continuar')
+        else:
+            messages.warning(request, 'Ingrese un nombre de rol de grupo')
     return render(request, 'admin/crear_rol_grupo.html')
 
 def MenuCrearUsuario(request):
