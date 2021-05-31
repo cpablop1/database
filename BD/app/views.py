@@ -71,7 +71,42 @@ def MenuCrearUsuario(request):
     return render(request, 'admin/menu_crear_usuario.html')
 
 def CrearUsuarioGrupo(request):
-    return render(request, 'admin/crear_usuario_grupo.html')
+    data = rol.Rol_grupo()
+    leer = data.read()
+    clave = []
+    valor = []
+    for fila in leer['res']:
+        clave.append(fila['id_rol'])
+        valor.append(fila['nombre'])
+    dic = dict(zip(clave, valor))
+    print(dic)
+    if request.method == 'POST':
+        nombre_usuario = request.POST['nombre_usuario']
+        apellido = request.POST['apellido']
+        dpi = request.POST['dpi']
+        direccion = request.POST['direccion']
+        clave1 = request.POST['clave1']
+        clave2 = request.POST['clave2']
+        correo = request.POST['correo']
+        telefono = request.POST['telefono']
+        compania = request.POST['compania']
+        pais = request.POST['pais']
+        rolu = request.POST['rol']
+        print(nombre_usuario)
+        print(apellido)
+        print(dpi)
+        print(direccion)
+        print(clave1)
+        print(clave2)
+        print(correo)
+        print(telefono)
+        print(compania)
+        print(pais)
+        print(rolu)
+    
+    return render(request, 'admin/crear_usuario_grupo.html', {
+        'dic': dic
+    })
 
 def CrearUsuarioSingular(request):
     return render(request, 'admin/crear_usuario_singular.html')
