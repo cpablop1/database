@@ -1,9 +1,11 @@
 from django.contrib.messages.api import warning
+from django.http import request
 from django.shortcuts import render
 from django.contrib import messages
 
 import data.rol as rol
 import data.Usuario as user
+import data.Proveedor as proveedor
 import data.Contacto as Contacto
 
 # Create your views here.
@@ -329,7 +331,66 @@ def VerUsuarioTodos(request):
         'leer': clave
     })
 
+def CrearProveedor(request):
+    if request.method == 'POST':
 
+        empresa = request.POST['empresa']
+        nombre = request.POST['nombre']
+        apellido = request.POST['apellido']
+        nit = request.POST['nit']
+        direccion = request.POST['direccion']
+        correo = request.POST['correo']
+        telefono = request.POST['telefono']
+        compania = request.POST['compania']
+        pais = request.POST['pais']
+
+        if empresa.strip() == '':
+            messages.warning(request, 'Ingrese el nombre de la empresa.')
+        elif nombre.strip() == '':
+            messages.warning(request, 'Ingrese nombre del proveedor.')
+        elif apellido.strip() == '':
+            messages.warning(request, 'Ingrese apellido del proveedor.')
+        elif nit.strip() == '':
+            messages.warning(request, 'Ingrese NIT del proveedor.')
+        elif direccion.strip() == '':
+            messages.warning(request, 'Ingrese la dirección del proveedor.')
+        elif correo.strip() == '':
+            messages.warning(request, 'Ingrese el correo electrónico del proveedor.')
+        elif telefono.strip() == '':
+            messages.warning(request, 'Ingrese el número de teléfono del proveedor.')
+        elif compania.strip() == '': 
+            messages.warning(request, 'Ingrese la companía al que pertenece el teléfono del proveedor.')
+        elif pais.strip() == '':
+            messages.warning(request, 'Ingrese el país del proveedor.')
+        else:
+            diccionario = {"nit":nit,
+                            "nombre_empresa" : empresa,
+                            "prov_name" : nombre,
+                            "prov_lastname" : apellido,
+                            "direccion" : direccion,
+                            "correo" : correo,
+                            "numero" : telefono,
+                            "compania" : compania,
+                            "pais" : pais}
+            data = proveedor.Proveedor()
+            try:
+                result = data.create(diccionario)
+                print(result)
+                if result['id'] != 'Nit, ya existente':
+                    if result['id'] != 'Numero de telefono, ya existente':
+                        if result['id'] != 'Correo, ya existente':
+                            messages.success(request, 'Proveedor creada correctamente!')
+                        else:
+                            messages.error(request, result['id'])
+                    else:
+                        messages.error(request, result['id'])
+                else:
+                    messages.error(request, result['id'])
+            except:
+                messages.error(request, 'Hubo un error al crear el usuario!')
+            
+
+    return render(request, 'admin/crear_proveedor.html')
 
 def Login(request):
     return render(request, 'login.html')
