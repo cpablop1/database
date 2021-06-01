@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+    {% include 'messages/messages.html' %}
+<h1>Crear proveedor</h1>
+<form class="formulario" method="post">
+    {% csrf_token %}
+    <div class="campo">
+        <label for="empresa">Empresa:</label>
+        <input type="text" name="empresa">
+    </div>
+    <div class="campo">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre">
+    </div>
+    <div class="campo">
+        <label for="apellido">Apellido:</label>
+        <input type="text" name="apellido">
+    </div>
+    <div class="contenedor-campos">
+        <div class="campo">
+            <label for="nit">NIT:</label>
+            <input type="text" name="nit">
+        </div>
+        <div class="campo">
+            <label for="direccion">Dirección:</label>
+            <input type="text" name="direccion">
+        </div>
+        <div class="campo">
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" name="correo">
+        </div>
+        <div class="campo">
+            <label for="telefono">Teléfono:</label>
+            <input type="text" name="telefono">
+        </div>
+        <div class="campo">
+            <label for="compania">Companía de teléfono:</label>
+            <input type="text" name="compania">
+        </div>
+        <div class="campo">
+            <label for="pais">País:</label>
+            <input type="text" name="pais">
+        </div>
+        <div class="enviar">
+            <input class="boton" type="submit" value="CREAR">
+        </div>
+    </div>
+</form>
+<script src="../../static/js/oculto.js"></script>
+{% endblock %}
