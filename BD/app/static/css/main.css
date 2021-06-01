@@ -185,6 +185,23 @@ h3 {
     font-size: 1.2rem;
     border:none;
 }
+
+.botonG {
+
+    background-color: var(--secundario);
+    color: var(--blanco);
+    margin-top: 9rem;
+    padding: .5rem 3rem;
+    border-radius: 5px;
+    width: 10rem;
+    height: 5rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    border:none;
+}
+
 .boton:hover{
     cursor: pointer;
 }
