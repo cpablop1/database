@@ -138,7 +138,6 @@ CREATE OR REPLACE VIEW v_users_rol_sup AS
     ;
 -- SELECT * FROM v_users_rol_sup;
 
-
 -- view for SELECT all users
 CREATE OR REPLACE VIEW v_all_users
  AS
@@ -176,6 +175,27 @@ CREATE OR REPLACE VIEW v_all_users
     
 -- SELECT * FROM v_all_users;
 
+-- view for SELECT usuarios con permiso sup
+CREATE OR REPLACE VIEW v_proveedor AS
+    SELECT
+        p.nit,
+        p.nombre_empresa,
+        p.prov_name,
+        p.prov_lastname,
+        p.direccion,
+        p.estado,
+        cp.correo,
+        tfp.numero,
+        tfp.compania
+    FROM
+        proveedor AS p
+    JOIN correo_prov AS cp
+    ON p.nit = cp.nit
+    JOIN telefono_prov AS tfp
+    ON p.nit = tfp.nit
+    ORDER BY nit
+    ;
+-- SELECT * FROM v_proveedor;
 -- D R O P P I N G
 DROP VIEW IF EXISTS v_rol_group;
 DROP VIEW IF EXISTS v_rol_user;
@@ -187,3 +207,4 @@ DROP VIEW IF EXISTS v_contactanos_si;
 DROP VIEW IF EXISTS v_users_rol_group;
 DROP VIEW IF EXISTS v_users_rol_sup;
 DROP VIEW IF EXISTS v_all_users;
+DROP VIEW IF EXISTS v_proveedor;
