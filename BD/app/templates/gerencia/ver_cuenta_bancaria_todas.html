@@ -1,0 +1,28 @@
+{% extends 'gerencia/ver_cuenta_bancaria.html' %}
+
+{% block tabla %}
+    <table border="3px">
+        <thead>
+            <tr>
+                <th>Número cuenta</th>
+                <th>Nombre banco</th>
+                <th>Nombre cuenta</th>
+                <th>Fecha creación</th>
+                <th>Fondo</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in leer %}
+                <tr>
+                    {% for j in i.items %}
+                        <td>
+                            {{ j.1 }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+{% endblock %}

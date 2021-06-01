@@ -1,0 +1,17 @@
+{% extends 'gerencia/menu_gerencia.html' %}
+
+{% block cuerpo %}
+    <h2>Ver chequeras</h2>
+    {% include 'messages/messages.html' %}
+    <div class="nav-bg">
+        <nav class="navegacion contenedor">
+            <form class="separar" action="{% url 'ver_cuenta_bancaria_todas' %}">
+                <input class="boton" type="submit" value="Ver todos">
+            </form>
+    </div>
+    
+    {% block tabla %}
+    {% endblock %}
+
+    
+{% endblock %}

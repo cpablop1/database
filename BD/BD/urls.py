@@ -42,4 +42,11 @@ urlpatterns = [
     path('crear-cuenta-bancaria/', views.CrearCuentaBancaria, name='crear_cuenta_bancaria'),
     path('crear-chequera/', views.CrearChequera, name='crear_chequera'),
     path('registrar-deposito/', views.RegistrarDeposito, name='registrar_deposito'),
+    path('ver-chequera/', views.VerChequera, name='ver_chequera'),
+    path('ver-chequera-todos/', views.VerChequeraTodos, name='ver_chequera_todos'),
+    path('ver-chequera-alerta/', views.VerChequeraAlerta, name='ver_chequera_alerta'),
+    path('ver-chequera-agotado/', views.VerChequeraAgotado, name='ver_chequera_agotado'),
+    path('ver-chequera-disponible/', views.VerChequeraDisponible, name='ver_chequera_disponible'),
+    path('ver-cuenta-bancaria/', views.VerCuentaBancaria, name='ver_cuenta_bancaria'),
+    path('ver-cuenta-banciaria-todas/', views.VerCuentaBancariaTodas, name='ver_cuenta_bancaria_todas'),
 ]

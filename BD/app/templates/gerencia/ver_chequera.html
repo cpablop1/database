@@ -1,0 +1,27 @@
+{% extends 'gerencia/menu_gerencia.html' %}
+
+{% block cuerpo %}
+    <h2>Ver chequeras</h2>
+    {% include 'messages/messages.html' %}
+    <div class="nav-bg">
+        <nav class="navegacion contenedor">
+            <form class="separar" action="{% url 'ver_chequera_todos' %}">
+                <input class="boton" type="submit" value="Ver todos">
+            </form>
+            <form class="separar" action="{% url 'ver_chequera_alerta' %}">
+                <input class="boton" type="submit" value="En estado alerta">
+            </form>
+            <form class="separar" action="{% url 'ver_chequera_agotado' %}">
+                <input class="boton" type="submit" value="En estado agotado">
+            </form>
+            <form class="separar" action="{% url 'ver_chequera_disponible' %}">
+                <input class="boton" type="submit" value="En estado disponible">
+            </form>
+        </nav>
+    </div>
+    
+    {% block tabla %}
+    {% endblock %}
+
+    
+{% endblock %}

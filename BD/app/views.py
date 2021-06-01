@@ -498,7 +498,6 @@ def RegistrarDeposito(request):
             data = cuenta_bancaria.Deposito()
             try:
                 result = data.create(diccionario)
-                print(result)
                 if result['id'].find('existente') > 0 :
                     messages.error(request, result['id'])
                 elif result['id'].find('invalido') > 0:
@@ -512,7 +511,90 @@ def RegistrarDeposito(request):
         'leer': clave
     })
 
+def VerChequera(request):
 
+    return render(request, 'gerencia/ver_chequera.html')
+
+def VerChequeraTodos(request):
+    clave = []
+    try:
+        data = cuenta_bancaria.Chequera()
+        leer = data.read()
+        print(leer)
+        for fila in leer['res']:
+            clave.append(fila)
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar las chequeras!')
+
+    return render(request, 'gerencia/ver_chequera_todos.html', {
+        'leer': clave
+    })
+
+def VerChequeraAlerta(request):
+    clave = []
+    try:
+        data = cuenta_bancaria.Chequera()
+        leer = data.read()
+        print(leer)
+        for fila in leer['res']:
+            if fila['estado'] == 'alerta':
+                clave.append(fila)
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar las chequeras!')
+
+    return render(request, 'gerencia/ver_chequera_alerta.html', {
+        'leer': clave
+    })
+
+def VerChequeraAgotado(request):
+    clave = []
+    try:
+        data = cuenta_bancaria.Chequera()
+        leer = data.read()
+        print(leer)
+        for fila in leer['res']:
+            if fila['estado'] == 'agotado':
+                clave.append(fila)
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar las chequeras!')
+
+    return render(request, 'gerencia/ver_chequera_agotado.html', {
+        'leer': clave
+    })
+
+def VerChequeraDisponible(request):
+    clave = []
+    try:
+        data = cuenta_bancaria.Chequera()
+        leer = data.read()
+        print(leer)
+        for fila in leer['res']:
+            if fila['estado'] == 'disponible':
+                clave.append(fila)
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar las chequeras!')
+
+    return render(request, 'gerencia/ver_chequera_disponible.html', {
+        'leer': clave
+    })
+
+def VerCuentaBancaria(request):
+    return render(request, 'gerencia/ver_cuenta_bancaria.html')
+
+def VerCuentaBancariaTodas(request):
+    clave = []
+    try:
+        data = cuenta_bancaria.Cuenta_bancaria()
+        leer = data.read()
+        print(leer)
+        for fila in leer['res']:
+            clave.append(fila)
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar los usuarios!')
+
+    return render(request, 'gerencia/ver_cuenta_bancaria_todas.html', {
+        'leer': clave
+    })
 
 
 

@@ -1,0 +1,26 @@
+{% extends 'gerencia/ver_chequera.html' %}
+
+{% block tabla %}
+    <table border="3px">
+        <thead>
+            <tr>
+                <th>No. chequera</th>
+                <th>No. cuenta bancaria</th>
+                <th>No. de cheques disponibles</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in leer %}
+                <tr>
+                    {% for j in i.items %}
+                        <td>
+                            {{ j.1 }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+{% endblock %}
