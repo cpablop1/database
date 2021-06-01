@@ -377,7 +377,6 @@ def CrearProveedor(request):
             data = proveedor.Proveedor()
             try:
                 result = data.create(diccionario)
-                print(result)
                 if result['id'] != 'Nit, ya existente':
                     if result['id'] != 'Numero de telefono, ya existente':
                         if result['id'] != 'Correo, ya existente':
@@ -439,7 +438,7 @@ def CrearChequera(request):
         for fila in leer['res']:
             clave.append(fila['num_cuenta'])
     except:
-        messages.error(request, 'Error de conexión, no se podrán visualizar las cuentas!')
+        messages.error(request, 'Error de conexión, no se podrán visualizar los números de cuentas!')
 
     if request.method == 'POST':
         numero_chequera = request.POST['numero_chequera']
@@ -466,9 +465,50 @@ def CrearChequera(request):
                 else:
                     messages.success(request, 'Chequera creada correctamente!')
             except:
-                messages.error(request, 'Hubo un error al crear el usuario!')
+                messages.error(request, 'Hubo un error al crear la chequera!')
 
     return render(request, 'gerencia/crear_chequera.html', {
+        'leer': clave
+    })
+
+def RegistrarDeposito(request):
+    clave = []
+    try:
+        data = cuenta_bancaria.Cuenta_bancaria()
+        leer = data.read()
+        for fila in leer['res']:
+            clave.append(fila['num_cuenta'])
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar los números de cuentas!')
+
+    if request.method == 'POST':
+        numero_deposito = request.POST['numero_deposito']
+        monto = request.POST['monto']
+        numero_cuenta = request.POST['numero_cuenta']
+        if numero_deposito.strip() == '':
+            messages.warning(request, 'Ingrese el número de depósito.')
+        elif monto.strip() == '':
+            messages.warning(request, 'Ingrese el monto del depósito.')
+        elif numero_cuenta == '0':
+            messages.warning(request, 'Seleccione el número de cuenta.')
+        else:
+            diccionario = {'no_deposito':numero_deposito,
+                            'monto':monto,
+                            'num_cuenta':numero_cuenta}
+            data = cuenta_bancaria.Deposito()
+            try:
+                result = data.create(diccionario)
+                print(result)
+                if result['id'].find('existente') > 0 :
+                    messages.error(request, result['id'])
+                elif result['id'].find('invalido') > 0:
+                    messages.error(request, result['id'])
+                else:
+                    messages.success(request, 'Depósito registrada correctamente!')
+            except:
+                messages.error(request, 'Hubo un error al registrar el depósito!')
+
+    return render(request, 'gerencia/registrar_deposito.html', {
         'leer': clave
     })
 

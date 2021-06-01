@@ -1,0 +1,35 @@
+{% extends 'gerencia/menu_gerencia.html' %}
+
+{% block cuerpo %}
+    {% include 'messages/messages.html' %}
+    <h2 style="font-size: 20px;">Registrar depósito</h2>
+
+    <form class="formulario" method="post">
+        {% csrf_token %}
+        <div class="contenedor-campos">
+    
+            <div class="campo">
+                <label for="numero_deposito">Número de depósito:</label>
+                <input type="text" name="numero_deposito">
+            </div>    
+            <div class="campo">
+                <label for="monto">Monto:</label>
+                <input type="text" name="monto">
+            </div>    
+            <div class="campo">
+                <label for="numero_cuenta">Número de cuenta:</label>
+                <select name="numero_cuenta">
+                    <option value="0">Seleccione número cuenta</option>
+                    {% for clave in leer %}
+                        <option value="{{ clave }}">{{ clave }}</option>
+                    {% endfor %}
+                </select>
+            </div>    
+
+            <div class="enviar">
+                <input class="boton" type="submit" value="CREAR">
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

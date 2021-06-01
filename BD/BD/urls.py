@@ -41,4 +41,5 @@ urlpatterns = [
     path('menu-gerencia/', views.MenuGerencia, name='menu_gerencia'),
     path('crear-cuenta-bancaria/', views.CrearCuentaBancaria, name='crear_cuenta_bancaria'),
     path('crear-chequera/', views.CrearChequera, name='crear_chequera'),
+    path('registrar-deposito/', views.RegistrarDeposito, name='registrar_deposito'),
 ]
