@@ -1,6 +1,7 @@
 {% extends 'gerencia/menu_gerencia.html' %}
 
 {% block cuerpo %}
+    {% include 'messages/messages.html' %}
     <h2 style="font-size: 20px;">Crear chequera</h2>
 
     <form class="formulario" method="post">
@@ -13,11 +14,11 @@
             </div>
             <div class="campo">
                 <label for="numero_cuenta">Número cuenta:</label>
-                <select name="numero_cuenta" id="">
-                    <option value="0">cuenta 1</option>
-                    <option value="0">cuenta 2</option>
-                    <option value="0">cuenta 3</option>
-                    <option value="0">cuenta 4</option>
+                <select name="numero_cuenta">
+                    <option value="0">Seleccione número cuenta</option>
+                    {% for clave in leer %}
+                        <option value="{{ clave }}">{{ clave }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="campo">

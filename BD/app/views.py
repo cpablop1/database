@@ -432,7 +432,45 @@ def CrearCuentaBancaria(request):
     return render(request, 'gerencia/crear_cuenta_bancaria.html')
 
 def CrearChequera(request):
-    return render(request, 'gerencia/crear_chequera.html')
+    clave = []
+    try:
+        data = cuenta_bancaria.Cuenta_bancaria()
+        leer = data.read()
+        for fila in leer['res']:
+            clave.append(fila['num_cuenta'])
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar las cuentas!')
+
+    if request.method == 'POST':
+        numero_chequera = request.POST['numero_chequera']
+        numero_cuenta = request.POST['numero_cuenta']
+        numero_cheque_disponible = request.POST['numero_cheque_disponible']
+        if numero_chequera.strip() == '':
+            messages.warning(request, 'Ingrese el número de la chequera.')
+        elif numero_cuenta == '0':
+            messages.warning(request, 'Seleccione el número de la cuenta.')
+        elif numero_cheque_disponible.strip() == '':
+            messages.warning(request, 'Ingrese el número de cheques disponibles.')
+        else:
+            diccionario = {'num_chequera':numero_chequera,
+                            'num_cuenta':numero_cuenta,
+                            'num_cheque_dispo':numero_cheque_disponible}
+            data = cuenta_bancaria.Chequera()
+            try:
+                result = data.create(diccionario)
+                print(result)
+                if result['id'] == 'Numero de chequera, ya existente':
+                    messages.error(request, result['id'])
+                elif result['id'] == 'Fondo, no puede ser negativo':
+                    messages.error(request, result['id'])
+                else:
+                    messages.success(request, 'Chequera creada correctamente!')
+            except:
+                messages.error(request, 'Hubo un error al crear el usuario!')
+
+    return render(request, 'gerencia/crear_chequera.html', {
+        'leer': clave
+    })
 
 
 
