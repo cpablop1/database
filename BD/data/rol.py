@@ -60,8 +60,10 @@ class Rol_grupo():
     
     def read(self,**kwargs):
         """
-        Puede recibir cualquier un campo o serie de campos, con su valor, 
-        read(id_rol=4,nomre='sdf')
+        Puede recibir cualquier campo o serie de campos, con su valor, 
+        
+        ejemplo *read*.(campo1=valor1, campo2=valor2... campon=valorn)
+        
         siendo todos los campos posibles 
         ['id_rol', 'nombre', 'monto_min', 'monto_max','generar_cheque', 'validar_cheque']
         

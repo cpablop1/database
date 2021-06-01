@@ -11,6 +11,9 @@ class Usuario:
     Estos metodos pueden recibir nada, o dos parametros, el primero un string (NOMBRE DEL CAMPO),
     con culquiera de los campos para cada metodo, el segundo parametro es el VALUE
     
+    ejemplo *read*.(campo1=valor1, campo2=valor2... campon=valorn)
+    los campos posibles, aparecen con cada metodo read*
+    
     read_grup        = lectura de usuarios con rol de grupo
     read_permiso_sup = lectura de usuarios con rol singular
     read_all_user    = lee todos los usuarios sin importar su rol
@@ -76,8 +79,8 @@ class Usuario:
         return retorno
     
     def read_grup(self,**kwargs):
-        #campos aceptados ['id_user', 'nombre', 'apellido','DPI', 'direccion',
-        #               'id_rol', 'clave', 'nombre_grupo', 'correo', 'numero', 'compania']
+        """campos aceptados ['id_user', 'nombre', 'apellido','DPI', 'direccion',
+                             'id_rol', 'clave', 'nombre_grupo', 'correo', 'numero', 'compania']"""
         
         labels = ['id_user', 'nombre', 'apellido', 'DPI', 'direccion',
                   'id_rol', 'clave', 'nombre_grupo', 'correo', 'numero', 'compania']
