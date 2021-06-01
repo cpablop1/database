@@ -33,5 +33,8 @@ urlpatterns = [
     path('ver-rol-singular/', views.VerRolSingular, name='ver_rol_singular'),
     path('ver-rol-todos/', views.VerRolesTodos, name='ver_rol_todos'),
     path('ver-usuario/', views.VerUsuario, name='ver_usuario'),
+    path('ver-usuario-grupo/', views.VerUsuarioGrupo, name='ver_usuario_grupo'),
+    path('ver-usuario-singular/', views.VerUsuarioSingular, name='ver_usuario_singular'),
+    path('ver-usuario-todos/', views.VerUsuarioTodos, name='ver_usuario_todos'),
     path('crear-permiso/', views.CrearPermisos, name='crear_permiso'),
 ]
