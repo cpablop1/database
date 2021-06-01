@@ -1,6 +1,6 @@
 
-from mySql import mySql
-#from data.mySql import mySql
+#from mySql import mySql
+from data.mySql import mySql
 
 maria = mySql() #objeto global de la base de datos 
 
