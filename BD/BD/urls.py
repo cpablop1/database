@@ -37,4 +37,5 @@ urlpatterns = [
     path('ver-usuario-singular/', views.VerUsuarioSingular, name='ver_usuario_singular'),
     path('ver-usuario-todos/', views.VerUsuarioTodos, name='ver_usuario_todos'),
     path('crear-permiso/', views.CrearPermisos, name='crear_permiso'),
+    path('crear-proveedor/', views.CrearProveedor, name='crear_proveedor'),
 ]

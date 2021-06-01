@@ -3,42 +3,35 @@
 from data.mySql import mySql
 
 maria = mySql() #objeto global de la base de datos 
-def sql_builder(procedure,labels,data):
-        
-    sql = f"CALL {procedure}("
 
-    for label in labels:
-        if type(data[label]) != type('str'):
-            sql += f"{data[label]},"
-        else:
-            text = str(data[label])
-            sql += f"'{text}',"
+#SOBRE LA LECTURA DE DATOS DENTRO DE LAS CLASES, metodos read*
+"""
+Estos metodos pueden recibir nada, o dos parametros, el primero unNOMBRE DEL CAMPO,
+con cualquiera de los campos para cada metodo, el segundo parametro es el VALUE
 
-    sql += "@resultado);"
+ejemplo *read*.(campo1=valor1, campo2=valor2... campon=valorn)
+los campos posibles aparecen con cada metodo read* de las clases
 
-    return sql
+--si no recibe nada, devuelve todos los registros existentes
+--si recibe un nombre_Campo, y valor, devuelve las coincidencias con ese campo y valor
+--si no se hayan resgistros en la clave 'res' se adjunta 'No hay registros que mostrar'
+
+estructura del retorno
+dict = {
+    'error':'error_type, or no_error'
+    'res' : list{
+        fila1= dict{'field1':value, 'field2':value, ... 'fieldn':value}
+        fila2= dict{'field1':value, 'field2':value, ... 'fieldn':value}
+        ...
+        filan= dict{'field1':value, 'field2':value, ... 'fieldn':value}
+    }
+}
+"""
+
 
 class Cuenta_bancaria():
-    #SOBRE LA LECTURA DE DATOS read_prov()
-    """
-    Estos metodos pueden recibir nada, o dos parametros, el primero un string (NOMBRE DEL CAMPO),
-    con cualquiera de los campos para cada metodo, el segundo parametro es el VALUE
+    """Clase para admin las cuentas bancarias"""
 
-    --si no recibe nada, devuelve todos los registros existentes
-    --si recibe un nombre_Campo, y valor, devuelve las coincidencias con ese campo y valor
-    --si no se hayan resgistros en la clave 'res' se adjunta 'No hay registros que mostrar'
-    
-    estructura del retorno
-    dict = {
-        'error':'error_type, or no_error'
-        'res' : list{
-            fila1= dict{'field1':value, 'field2':value, ... 'fieldn':value}
-            fila2= dict{'field1':value, 'field2':value, ... 'fieldn':value}
-            ...
-            filan= dict{'field1':value, 'field2':value, ... 'fieldn':value}
-        }
-    }
-    """
     
     def create(self,data):
 
@@ -52,8 +45,6 @@ class Cuenta_bancaria():
         "nombre_cuenta" : string,
         "fondo" : float}
  
-       
-        
         #Retorna un diccionario de la siguiente forma, 
         #---si no hay errores, o errore en datos dectados en la BD
         # {'Error': 'Sin errores, id del elemento insertado adjunto',
@@ -79,49 +70,139 @@ class Cuenta_bancaria():
         return retorno
     
     def read(self,**kwargs):
-        """  campos aceptados 
+        """ ---campos aceptados 
         ['num_cuenta', 'nombre_banco', 'nombre_cuenta',
          'fecha_creacion', 'fondo', 'estado ',]
         """
         labels = ['num_cuenta', 'nombre_banco', 'nombre_cuenta',
                   'fecha_creacion', 'fondo', 'estado ',]
         
-        vista = "v_proveedor"
+        vista = "cuenta_bancaria"
         retorno = maria.select_vista(vista,labels,**kwargs)
+        return retorno
+    
+    def read_desactiva(self,**kwargs):
+        
+        """                     CUIDADR el que no mostrar el  'id_b_cuenta'
+        ------Campos aceptados
+        ['id_b_cuenta', 'num_cuenta', 'nombre_banco', 'nombre_cuenta',
+         'fecha_creacion', 'fecha_eliminacion', 'fondo']"""
+        
+        labels = ['id_b_cuenta', 'num_cuenta', 'nombre_banco', 'nombre_cuenta',
+                  'fecha_creacion', 'fecha_eliminacion', 'fondo']
+        
+        vista = "bitacora_cuenta"
+        retorno = maria.select_vista(vista,labels,**kwargs)
+        return retorno
+class Chequera():
+    """
+    Clase para administrar la chequera  
+    """
+    
+    def create(self,data):
+
+        """ MUCHO CUIDADO CON METER numero de chequera ya existente,
+        o numero de cuenta no existe
+        devuelve comprobacion en 'id'
+                
+        #recibe un diccionario de la siguiente forma
+        {'num_chequera':integer,
+        'num_cuenta':integer,
+        'num_cheque_dispo':integer}
+        
+        #Retorna un diccionario de la siguiente forma, 
+        #---si no hay errores, o ERRORES dectados en la BD
+        # {'Error': 'Sin errores, id del elemento insertado adjunto',
+        # 'id': num_chequera'}
+        
+        #--
+        posibles valores para 'id'
+        1- "Numero de chequera, ya existente";    (dato no insertado)
+        2- "Numero de cuenta, no existente";      (dato no insertado)
+        2-  num_chequera;                         (dato insertado)
+        
+        #---Con error interno
+        # {'Error': 'Error!'}
+        """
+        labels = ['num_chequera', 'num_cuenta', 'num_cheque_dispo']
+        procedure = 'pa_new_chequera'
+        sql = sql_builder(procedure,labels,data)
+        retorno = maria.insertar( sql )
         return retorno
     
     def read(self,**kwargs):
-        #campos aceptados ['nit','nombre_empresa', 'prov_name', 'prov_lastname',
-        #          'direccion', 'correo', 'numero', 'compania', 'pais']
+        """ ---campos aceptados 
+        ['num_chequera', 'num_cuenta', 'num_cheque_dispo', 'estado']
         
-        labels = ['nit','nombre_empresa', 'prov_name', 'prov_lastname',
-                  'direccion', 'estado', 'correo', 'numero', 'compania']
-        vista = "v_proveedor"
+        valores para estado = 'activo', 'Alerta' , 'Agotado'
+        """
+        labels = ['num_chequera', 'num_cuenta', 'num_cheque_dispo', 'estado']
+        
+        vista = "chequera"
+        retorno = maria.select_vista(vista,labels,**kwargs)
+        return retorno
+class Deposito():
+    """
+    Clase para administrar los depositos
+    """
+    
+    def create(self,data):
+
+        """ MUCHO CUIDADO CON METER numero de chequera ya existente,
+        o numero de cuenta no existe
+        devuelve comprobacion en 'id'
+                
+        #recibe un diccionario de la siguiente forma
+        {'no_deposito':integer,
+        'monto':float,
+        'num_cuenta':integer}
+        
+        #Retorna un diccionario de la siguiente forma, 
+        #---si no hay errores, o ERRORES dectados en la BD
+        # {'Error': 'Sin errores, id del elemento insertado adjunto',
+        # 'id': num_chequera'}
+        
+        #--
+        posibles valores para 'id'
+        1- 'Cuenta no existente';                   (dato no insertado)
+        2- 'Monto invalido';                        (dato no insertado)
+        3- 'Nol. ',no_deposito,' YA existente';     (dato no insertado)
+        4- 'Deposito ',no_deposito,' registrado';   (dato INSERTADO)
+        
+        #---Con error interno
+        # {'Error': 'Error!'}
+
+
+
+"""
+        labels = ['no_deposito', 'monto', 'num_cuenta']
+        procedure = 'pa_resgistrar_deposito'
+        sql = sql_builder(procedure,labels,data)
+        retorno = maria.insertar( sql )
+        return retorno
+    
+    def read(self,**kwargs):
+        """ ---campos aceptados 
+        ['no_deposito', 'fecha_deposito', 'monto', 'num_cuenta']
+        
+        """
+        labels = ['no_deposito', 'fecha_deposito', 'monto', 'num_cuenta']
+        
+        vista = "bitacora_deposito"
         retorno = maria.select_vista(vista,labels,**kwargs)
         return retorno
 
-"""
-    pa_new_chequera
+def sql_builder(procedure,labels,data):
+        
+    sql = f"CALL {procedure}("
 
-    IN num_chequera INT,
-    IN num_cuenta BIGINT(16),
-    IN num_cheque_dispo INT,
-    
-    SET res_var := num_chequera;
-    SET res_var := "Numero de chequera, ya existente";
-    SET res_var := "Numero de cuenta, no existente";
-    
-"""
+    for label in labels:
+        if type(data[label]) != type('str'):
+            sql += f"{data[label]},"
+        else:
+            text = str(data[label])
+            sql += f"'{text}',"
 
-"""
-    pa_resgistrar_deposito
-    
-    IN no_deposito INT,
-    IN monto DECIMAL(15, 2),
-    IN num_cuenta BIGINT(16),
-    
-    SET resultado := 'Cuenta no existente';
-    SET resultado := 'Monto invalido';
-    SET resultado := CONCAT('Nol. ',no_deposito,' YA existente');
-    SET resultado := CONCAT('Deposito ',no_deposito,' registrado');
-"""
+    sql += "@resultado);"
+
+    return sql
