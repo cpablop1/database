@@ -1174,5 +1174,5 @@ DROP PROCEDURE IF EXISTS pa_validar_cheque_grupo;
 DROP PROCEDURE IF EXISTS pa_solicitar_modificar_elimi;
 
 DROP PROCEDURE IF EXISTS pa_modificar_cheque;
-DROP PROCEDURE IF EXISTS pa_validar_cheque_jefe
+DROP PROCEDURE IF EXISTS pa_validar_cheque_jefe;
 DROP PROCEDURE IF EXISTS pa_resgistrar_deposito;
