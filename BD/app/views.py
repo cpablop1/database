@@ -287,6 +287,48 @@ def VerRolesTodos(request):
 def VerUsuario(request):
     return render(request, 'admin/ver_usuario.html')
 
+def VerUsuarioGrupo(request):
+    clave = []
+    try:
+        data = user.Usuario()
+        leer = data.read_grup()
+        for fila in leer['res']:
+            clave.append(fila)
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar los usuarios!')
+
+    return render(request, 'admin/ver_usuario_grupo.html', {
+        'leer': clave
+    })
+
+def VerUsuarioSingular(request):
+    clave = []
+    try:
+        data = user.Usuario()
+        leer = data.read_permiso_sup()
+        for fila in leer['res']:
+            clave.append(fila)
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar los usuarios!')
+
+    return render(request, 'admin/ver_usuario_singular.html', {
+        'leer': clave
+    })
+
+def VerUsuarioTodos(request):
+    clave = []
+    try:
+        data = user.Usuario()
+        leer = data.read_all_user()
+        for fila in leer['res']:
+            clave.append(fila)
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar los usuarios!')
+
+    return render(request, 'admin/ver_usuario_todos.html', {
+        'leer': clave
+    })
+
 
 
 def Login(request):

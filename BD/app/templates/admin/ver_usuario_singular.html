@@ -1,0 +1,35 @@
+{% extends 'admin/ver_usuario.html' %}
+
+{% block tabla %}
+    <table border="3px">
+        <thead>
+            <tr>
+                <th>Id usuario</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DPI</th>
+                <th>Dirección</th>
+                <th>ID rol singular</th>
+                <th>Clave</th>
+                <th>Nombre rol singular</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Companía</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+
+                {% for i in leer %}
+                    <tr>
+                        {% for j in i.items %}
+                            <td>
+                                {{ j.1 }}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}
