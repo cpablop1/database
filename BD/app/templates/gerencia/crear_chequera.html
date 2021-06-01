@@ -1,0 +1,35 @@
+{% extends 'gerencia/menu_gerencia.html' %}
+
+{% block cuerpo %}
+    <h2 style="font-size: 20px;">Crear chequera</h2>
+
+    <form class="formulario" method="post">
+        {% csrf_token %}
+        <div class="contenedor-campos">
+    
+            <div class="campo">
+                <label for="numero_chequera">Número chequera:</label>
+                <input type="text" name="numero_chequera">
+            </div>
+            <div class="campo">
+                <label for="numero_cuenta">Número cuenta:</label>
+                <select name="numero_cuenta" id="">
+                    <option value="0">cuenta 1</option>
+                    <option value="0">cuenta 2</option>
+                    <option value="0">cuenta 3</option>
+                    <option value="0">cuenta 4</option>
+                </select>
+            </div>
+            <div class="campo">
+                <label for="numero_cheque_disponible">Número cheques disponibles:</label>
+                <input type="text" name="numero_cheque_disponible">
+            </div>
+    
+
+            <div class="enviar">
+                <input class="boton" type="submit" value="CREAR">
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

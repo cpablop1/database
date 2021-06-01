@@ -6,6 +6,8 @@ from django.contrib import messages
 import data.rol as rol
 import data.Usuario as user
 import data.Proveedor as proveedor
+import data.Cuenta_bancaria as cuenta_bancaria
+
 import data.Contacto as Contacto
 
 # Create your views here.
@@ -391,6 +393,73 @@ def CrearProveedor(request):
             
 
     return render(request, 'admin/crear_proveedor.html')
+
+def MenuGerencia(request):
+    return render(request, 'gerencia/menu_gerencia.html')
+
+def CrearCuentaBancaria(request):
+    if request.method == 'POST':
+        nombre_banco = request.POST['nombre_banco']
+        numero_cuenta = request.POST['numero_cuenta']
+        nombre_cuenta = request.POST['nombre_cuenta']
+        fondo_cuenta = request.POST['fondo_cuenta']
+
+        if nombre_banco.strip() == '':
+            messages.warning(request, 'Ingrese el nombre del banco.')
+        elif numero_cuenta.strip() == '':
+            messages.warning(request, 'Ingrese el número de cuenta.')
+        elif nombre_cuenta.strip() == '':
+            messages.warning(request, 'Ingrese el nombre de la cuenta.')
+        elif fondo_cuenta.strip() == '':
+            messages.warning(request, 'Ingrese el fondo de la cuenta.')
+        else:
+            diccionario = {"num_cuenta":numero_cuenta,
+                            "nombre_banco" : nombre_banco,
+                            "nombre_cuenta" : nombre_cuenta,
+                            "fondo" : fondo_cuenta}
+            data = cuenta_bancaria.Cuenta_bancaria()
+            try:
+                result = data.create(diccionario)
+                if result['id'] == 'Numero de cuenta, ya existente':
+                    messages.error(request, result['id'])
+                elif result['id'] == 'Fondo, no puede ser negativo':
+                    messages.error(request, result['id'])
+                else:
+                    messages.success(request, 'Cuenta bancaria creada correctamente!')
+            except:
+                messages.error(request, 'Hubo un error al crear el usuario!')
+
+    return render(request, 'gerencia/crear_cuenta_bancaria.html')
+
+def CrearChequera(request):
+    return render(request, 'gerencia/crear_chequera.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def Login(request):
     return render(request, 'login.html')
