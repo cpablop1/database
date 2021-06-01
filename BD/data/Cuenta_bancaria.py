@@ -1,6 +1,6 @@
 
-#from mySql import mySql
-from data.mySql import mySql
+from mySql import mySql
+#from data.mySql import mySql
 
 maria = mySql() #objeto global de la base de datos 
 
@@ -94,6 +94,19 @@ class Cuenta_bancaria():
         vista = "bitacora_cuenta"
         retorno = maria.select_vista(vista,labels,**kwargs)
         return retorno
+    
+    def read_mov_cuenta(self,**kwargs):
+        """ ---campos aceptados 
+        ['monto_movido', 'fondo_resultante',
+        'num_cuenta', 'no_deposito', 'id_emision', 'fecha']
+        """
+        labels = ['monto_movido', 'fondo_resultante',
+                  'num_cuenta', 'no_deposito', 'id_emision', 'fecha']
+               
+        vista = "v_mov_cuenta"
+        retorno = maria.select_vista(vista,labels,**kwargs)
+        return retorno
+    
 class Chequera():
     """
     Clase para administrar la chequera  

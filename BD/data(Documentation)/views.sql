@@ -196,6 +196,30 @@ CREATE OR REPLACE VIEW v_proveedor AS
     ORDER BY nit
     ;
 -- SELECT * FROM v_proveedor;
+
+
+-- view for SELECT movimiento cuenta
+CREATE OR REPLACE VIEW v_mov_cuenta AS
+        SELECT
+    bm.monto_movido,
+    bm.fondo_resultante,
+    bm.num_cuenta,
+    bm.no_deposito,
+    bm.id_emision,
+    IF(bm.no_deposito IS NULL, 
+       (SELECT bce.fecha_entrega
+       FROM bitacora_cheque_emitido AS bce
+       WHERE bce.id_emision = bm.id_emision),
+       (SELECT bd.fecha_deposito
+       FROM bitacora_deposito AS bd
+       WHERE bd.no_deposito = bm.no_deposito)
+       ) AS fecha
+    FROM
+        bitacora_movimiento_cuenta AS bm
+    ORDER BY fecha
+    ;
+-- SELECT * FROM mov_cuenta;
+
 -- D R O P P I N G
 DROP VIEW IF EXISTS v_rol_group;
 DROP VIEW IF EXISTS v_rol_user;
@@ -208,3 +232,4 @@ DROP VIEW IF EXISTS v_users_rol_group;
 DROP VIEW IF EXISTS v_users_rol_sup;
 DROP VIEW IF EXISTS v_all_users;
 DROP VIEW IF EXISTS v_proveedor;
+DROP VIEW IF EXISTS v_mov_cuenta;
