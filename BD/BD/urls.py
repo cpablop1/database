@@ -38,4 +38,7 @@ urlpatterns = [
     path('ver-usuario-todos/', views.VerUsuarioTodos, name='ver_usuario_todos'),
     path('crear-permiso/', views.CrearPermisos, name='crear_permiso'),
     path('crear-proveedor/', views.CrearProveedor, name='crear_proveedor'),
+    path('menu-gerencia/', views.MenuGerencia, name='menu_gerencia'),
+    path('crear-cuenta-bancaria/', views.CrearCuentaBancaria, name='crear_cuenta_bancaria'),
+    path('crear-chequera/', views.CrearChequera, name='crear_chequera'),
 ]

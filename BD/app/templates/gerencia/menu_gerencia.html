@@ -3,38 +3,34 @@
 {% block contenido %}
 
 <header class="header">
-    <h2>Menú Administrativo</h2>
+    <h1>Menú Generencia</h1>
 </header>
 
 <div class="nav-bg menuadmin contenedor sombra">
     <nav class="navegacion contenedor">
         <ul class="navul">
-            <li><a href="{% url 'crear_rol_usuario' %}">Crear rol de usuario</a></li>
+            <li><a href="{% url 'crear_cuenta_bancaria' %}">Crear cuenta bancaria</a></li>
         </ul>
-
-
         <ul class="navul">
-            <li><a href="{% url 'crear_rol_grupo' %}">Crear rol de grupo</a></li>
+            <li><a href="{% url 'crear_chequera' %}">Crear chequera</a></li>
         </ul>
-
         <ul class="navul">
-            <li><a href="{% url 'menu_crear_usuario' %}">Crear usuario</a></li>
+            <li><a href="#">Registrar depósitos</a></li>
         </ul>
-
         <ul class="navul">
-            <li><a href="{% url 'crear_proveedor' %}">Crear proveedor</a></li>
+            <li><a href="#">Ver chequeras</a></li>
         </ul>
-
         <ul class="navul">
-            <li><a href="{% url 'ver_usuario' %}">Ver usuarios</a></li>
+            <li><a href="#">Ver cuentas bancarias</a></li>
         </ul>
-
         <ul class="navul">
-            <li><a href="{% url 'ver_rol' %}">Ver Roles</a></li>
+            <li><a href="#">Ver usuarios</a></li>
         </ul>
     </nav>
 </div>
 
+{% block cuerpo %}
+{% endblock %}
 <script src="../../static/js/oculto.js"></script>
 
 {% endblock %}

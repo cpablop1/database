@@ -1,8 +1,8 @@
 {% extends 'layout.html' %}
 
 {% block contenido %}
-    {% include 'messages/messages.html' %}
-<h1>Crear proveedor</h1>
+{% include 'messages/messages.html' %}
+<h2>Crear proveedor</h2>
 <form class="formulario" method="post">
     {% csrf_token %}
     <div class="campo">

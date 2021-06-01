@@ -1,0 +1,34 @@
+{% extends 'gerencia/menu_gerencia.html' %}
+
+{% block cuerpo %}
+    {% include 'messages/messages.html' %}
+    <h2 style="font-size: 20px;">Crear cuenta bancaria</h2>
+
+    <form class="formulario" method="post">
+        {% csrf_token %}
+        <div class="contenedor-campos">
+    
+            <div class="campo">
+                <label for="nombre_banco">Nombre de banco:</label>
+                <input type="text" name="nombre_banco">
+            </div>
+            <div class="campo">
+                <label for="numero_cuenta">Número de cuenta:</label>
+                <input type="text" name="numero_cuenta">
+            </div>
+            <div class="campo">
+                <label for="nombre_cuenta">Nombre de cuenta:</label>
+                <input type="text" name="nombre_cuenta">
+            </div>
+            <div class="campo">
+                <label for="fondo_cuenta">Fondo de cuenta:</label>
+                <input type="text" name="fondo_cuenta">
+            </div>
+    
+
+            <div class="enviar">
+                <input class="boton" type="submit" value="CREAR">
+            </div>
+        </div>
+    </form>
+{% endblock %}
