@@ -2,7 +2,7 @@
 
 {% block contenido %}
 {% include 'messages/messages.html' %}
-<h1>Crear rol de usuario singular</h1>
+<h2>Crear rol de usuario singular</h2>
 <form class="formulario" method="post">
     {% csrf_token %}
     <div class="contenedor-campos">
@@ -50,7 +50,7 @@
             <!--<option disabled selected>--Seleccione un Rol--</option>-->
             <option value="0">--Seleccione un Rol--</option>
             {% for clave, valor in dic.items %}
-                <option value="{{ clave }}">{{ valor }}</option>
+            <option value="{{ clave }}">{{ valor }}</option>
             {% endfor %}
         </select>
         <div class="enviar">

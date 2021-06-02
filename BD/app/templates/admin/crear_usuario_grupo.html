@@ -1,8 +1,8 @@
 {% extends 'layout.html' %}
 
 {% block contenido %}
-    {% include 'messages/messages.html' %}
-<h1>Crear rol de usuario para grupo</h1>
+{% include 'messages/messages.html' %}
+<h2>Crear rol de usuario para grupo</h2>
 <form class="formulario" method="post">
     {% csrf_token %}
     <div class="contenedor-campos">
@@ -49,7 +49,7 @@
         <select name="rol">
             <option value="-1">Seleccione un rol</option>
             {% for clave, valor in dic.items %}
-                <option value="{{ clave }}">{{ valor }}</option>
+            <option value="{{ clave }}">{{ valor }}</option>
             {% endfor %}
         </select>
         <div class="enviar">
