@@ -17,7 +17,7 @@ import data.Contacto as Contacto
 
 def Index(request):
 
-    return render(request, 'layout.html')
+    return render(request, 'inicio.html')
 
 def CrearRolUsuario(request):
     dicccionario = {"nombre": "nombre",                   
