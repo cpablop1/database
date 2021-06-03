@@ -1,14 +1,15 @@
-{% extends 'layout.html' %}
+{% extends 'admin/menu_admin.html' %}
 
-{% block contenido %}
+{% block cuerpo %}
 <header>
     <h2>Crear usuario</h2>
 </header>
 
 
 <a href="{% url 'crear_usuario_grupo' %}"><input class="boton" type="submit" value="Crear usuario para grupo"></a>
-<a href="{% url 'crear_usuario_singular' %}"><input class="boton" type="submit"
-        value="Crear usuario para un rol singular"></a>
+<a href="{% url 'crear_usuario_singular' %}"><input class="boton" type="submit" value="Crear usuario para un rol singular"></a>
 
+{% block formulario %}
+{% endblock %}
 <script src="../../static/js/oculto.js"></script>
 {% endblock %}

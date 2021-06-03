@@ -2,6 +2,7 @@
 
 
 {% block contenido %}
+    {% include 'messages/messages.html' %}
 <div id="contacto" class="contacto">
 
     <!-- <form class="formulario" action="" method="POST">
@@ -31,7 +32,7 @@
 
 
             <label for="clave">Clave</label>
-            <input type="password" placeholder="Clave">
+            <input type="password" name="password" placeholder="Clave">
 
             <label>Correo Electronico</label>
             <input id="correo" type="mail" name="correo" placeholder="Correo Personal">

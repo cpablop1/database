@@ -1,6 +1,7 @@
 from django.contrib.messages.api import warning
 from django.http import request
-from django.shortcuts import render
+from django.http.response import HttpResponse
+from django.shortcuts import redirect, render
 from django.contrib import messages
 
 import data.rol as rol
@@ -520,7 +521,6 @@ def VerChequeraTodos(request):
     try:
         data = cuenta_bancaria.Chequera()
         leer = data.read()
-        print(leer)
         for fila in leer['res']:
             clave.append(fila)
     except:
@@ -535,7 +535,6 @@ def VerChequeraAlerta(request):
     try:
         data = cuenta_bancaria.Chequera()
         leer = data.read()
-        print(leer)
         for fila in leer['res']:
             if fila['estado'] == 'alerta':
                 clave.append(fila)
@@ -551,7 +550,6 @@ def VerChequeraAgotado(request):
     try:
         data = cuenta_bancaria.Chequera()
         leer = data.read()
-        print(leer)
         for fila in leer['res']:
             if fila['estado'] == 'agotado':
                 clave.append(fila)
@@ -567,7 +565,6 @@ def VerChequeraDisponible(request):
     try:
         data = cuenta_bancaria.Chequera()
         leer = data.read()
-        print(leer)
         for fila in leer['res']:
             if fila['estado'] == 'disponible':
                 clave.append(fila)
@@ -586,16 +583,35 @@ def VerCuentaBancariaTodas(request):
     try:
         data = cuenta_bancaria.Cuenta_bancaria()
         leer = data.read()
-        print(leer)
         for fila in leer['res']:
             clave.append(fila)
     except:
-        messages.error(request, 'Error de conexión, no se podrán visualizar los usuarios!')
+        messages.error(request, 'Error de conexión, no se podrán visualizar las cuentas bancarias!')
 
     return render(request, 'gerencia/ver_cuenta_bancaria_todas.html', {
         'leer': clave
     })
 
+def VerCuentaBancariaActiva(request):
+    clave = []
+    try:
+        data = cuenta_bancaria.Cuenta_bancaria()
+        leer = data.read()
+        print(leer)
+        for fila in leer['res']:
+            if fila['estado '] == 'activo':
+                clave.append(fila)
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar las cuentas bancarias!')
+
+    return render(request, 'gerencia/ver_cuenta_bancaria_activa.html', {
+        'leer': clave
+    })
+
+def VerCuentaBancariaNoActiva(request):
+    
+
+    return render(request, 'gerencia/ver_cuenta_bancaria_no_activa.html')
 
 
 
@@ -622,6 +638,37 @@ def VerCuentaBancariaTodas(request):
 
 
 def Login(request):
+    if request.method == 'POST':
+        usuario = request.POST['usuario']
+        password = request.POST['password']
+        correo = request.POST['correo']
+        if usuario.strip() == '':
+            messages.warning(request, 'Ingrese el usuario.')
+        elif password.strip() == '':
+            messages.warning(request, 'Ingrese la contraseña.')
+        elif correo.strip() == '':
+            messages.warning(request, 'Ingrese el correo electrónico.')
+        else:
+            data = user.Usuario()
+            try:
+                result = data.read_all_user(nombre=usuario,clave=password,correo=correo)
+                if result['res'] == 'No hay registros que mostrar':
+                    messages.error(request, 'Usuario inválido!')
+                    print(result['res'])
+                else:
+                    #https://programmerclick.com/article/8199519103/
+                    response = HttpResponse("""
+                    <script type="text/javascript">
+                        window.location="http://127.0.0.1:8000/";
+                    </script>
+                    """)
+                    for id in result['res']:
+                        print(id)
+                        response.set_cookie('nombre_rol', f'{id["nombre_rol"]}')
+                    messages.success(request, 'Usuario correcto!!')
+                    return response
+            except:
+                messages.error(request, 'Error de conexión, No es posible autenticarse por el momento!')
     return render(request, 'login.html')
 
 def Registrarse(request):
