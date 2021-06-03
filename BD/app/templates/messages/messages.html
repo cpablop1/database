@@ -25,6 +25,16 @@
                     icon: 'error'
                 })
             </script>
+        {% elif msg.tags == 'info' %}
+        <script>
+            Swal.fire({
+                title: '{{ msg }}',
+                icon: 'info',
+                showConfirmButton: false,
+                timer: 5000,
+                position: 'top-end'
+            })
+        </script>
         {% endif %}
     {% endfor %}
 {% endif %}

@@ -1,13 +1,11 @@
-{% extends 'gerencia/menu_gerencia.html' %}
+{% extends 'layout.html' %}
 
-{% block cuerpo %}
+{% block contenido %}
     {% include 'messages/messages.html' %}
     <h2 style="font-size: 20px;">Registrar depósito</h2>
-
     <form class="formulario" method="post">
         {% csrf_token %}
         <div class="contenedor-campos">
-    
             <div class="campo">
                 <label for="numero_deposito">Número de depósito:</label>
                 <input type="text" name="numero_deposito">
@@ -25,11 +23,9 @@
                     {% endfor %}
                 </select>
             </div>    
-
             <div class="enviar">
                 <input class="boton" type="submit" value="CREAR">
             </div>
         </div>
     </form>
-
 {% endblock %}

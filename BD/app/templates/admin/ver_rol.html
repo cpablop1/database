@@ -1,19 +1,22 @@
-{% extends 'admin/menu_admin.html' %}
+{% extends 'layout.html' %}
 
-{% block cuerpo %}
-<form class="separar" action="{% url 'ver_rol_grupo' %}">
-    <input class="boton" type="submit" value="Ver rol grupo">
-</form>
-<form class="separar" action="{% url 'ver_rol_singular' %}">
-    <input class="boton" type="submit" value="Ver rol singular">
-</form>
-<form class="separar" action="{% url 'ver_rol_todos' %}">
-    <input class="boton" type="submit" value="Ver todos los roles">
-</form>
+{% block contenido %}
+    <div class="nav-bg">
+        <nav class="navegacion contenedor">
+            <form class="separar" action="{% url 'ver_rol_grupo' %}">
+                <input class="boton" type="submit" value="Ver rol grupo">
+            </form>
+            <form class="separar" action="{% url 'ver_rol_singular' %}">
+                <input class="boton" type="submit" value="Ver rol singular">
+            </form>
+            <form class="separar" action="{% url 'ver_rol_todos' %}">
+                <input class="boton" type="submit" value="Ver todos los roles">
+            </form>
+        </nav>
+    </div>
 
 {% block tabla %}
 {% endblock %}
 
-
-<script src="../../static/js/oculto.js"></script>
+<!--<script src="../../static/js/oculto.js"></script>-->
 {% endblock %}

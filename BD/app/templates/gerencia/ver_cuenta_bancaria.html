@@ -1,7 +1,7 @@
-{% extends 'gerencia/menu_gerencia.html' %}
+{% extends 'layout.html' %}
 
-{% block cuerpo %}
-    <h2>Ver chequeras</h2>
+{% block contenido %}
+    <h2>Ver cuentas bancarias</h2>
     {% include 'messages/messages.html' %}
     <div class="nav-bg">
         <nav class="navegacion contenedor">
@@ -14,10 +14,8 @@
             <form class="separar" action="{% url 'ver_cuenta_bancaria_no_activa' %}">
                 <input class="boton" type="submit" value="Ver no activas">
             </form>
+        </nav>
     </div>
-    
     {% block tabla %}
     {% endblock %}
-
-    
 {% endblock %}

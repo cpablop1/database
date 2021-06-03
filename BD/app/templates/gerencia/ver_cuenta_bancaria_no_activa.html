@@ -1,15 +1,16 @@
 {% extends 'gerencia/ver_cuenta_bancaria.html' %}
 
 {% block tabla %}
-    <!--<table border="3px">
+    <table border="3px">
         <thead>
             <tr>
+                <th>ID cuenta</th>
                 <th>Número cuenta</th>
                 <th>Nombre banco</th>
                 <th>Nombre cuenta</th>
                 <th>Fecha creación</th>
+                <th>Fecha eliminación</th>
                 <th>Fondo</th>
-                <th>Estado</th>
             </tr>
         </thead>
         <tbody>
@@ -23,14 +24,6 @@
                 </tr>
             {% endfor %}
             </tbody>
-        </table>-->
-        
-        <form method="post">
-            {% csrf_token %}
-            <input type="submit" value="ENVIAR">
-        </form>
-
-        {{ session }}
-        {{ id }}
+        </table>
         
 {% endblock %}
