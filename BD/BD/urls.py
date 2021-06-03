@@ -40,13 +40,7 @@ urlpatterns = [
     path('ver-usuario-todos/', views.VerUsuarioTodos, name='ver_usuario_todos'),
     path('crear-permiso/', views.CrearPermisos, name='crear_permiso'),
     path('crear-proveedor/', views.CrearProveedor, name='crear_proveedor'),
-<<<<<<< HEAD
     path('crear-cuenta-bancaria/', views.CrearCuentaBancaria, name='crear_cuenta_bancaria'),
-=======
-    path('menu-gerencia/', views.MenuGerencia, name='menu_gerencia'),
-    path('crear-cuenta-bancaria/', views.CrearCuentaBancaria,
-         name='crear_cuenta_bancaria'),
->>>>>>> 644e18cddb334e34098cf01bdeaa7f0d28852296
     path('crear-chequera/', views.CrearChequera, name='crear_chequera'),
     path('registrar-deposito/', views.RegistrarDeposito, name='registrar_deposito'),
     path('ver-chequera/', views.VerChequera, name='ver_chequera'),
