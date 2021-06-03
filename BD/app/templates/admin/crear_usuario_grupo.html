@@ -1,14 +1,9 @@
 {% extends 'admin/menu_crear_usuario.html' %}
 
-<<<<<<< HEAD
 {% block formulario %}
-    {% include 'messages/messages.html' %}
-<h1>Crear rol de usuario para grupo</h1>
-=======
-{% block contenido %}
 {% include 'messages/messages.html' %}
 <h2>Crear rol de usuario para grupo</h2>
->>>>>>> 4d4e49bbca3a64716014a26a6cbf659178dc62c1
+
 <form class="formulario" method="post">
     {% csrf_token %}
     <div class="contenedor-campos">
@@ -63,5 +58,5 @@
         </div>
     </div>
 </form>
-<script src="../../static/js/oculto.js"></script>
+<!--<script src="../../static/js/oculto.js"></script>-->
 {% endblock %}

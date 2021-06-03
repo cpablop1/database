@@ -1,6 +1,6 @@
-{% extends 'gerencia/menu_gerencia.html' %}
+{% extends 'layout.html' %}
 
-{% block cuerpo %}
+{% block contenido %}
     <h2>Ver chequeras</h2>
     {% include 'messages/messages.html' %}
     <div class="nav-bg">
@@ -19,9 +19,6 @@
             </form>
         </nav>
     </div>
-    
     {% block tabla %}
     {% endblock %}
-
-    
 {% endblock %}

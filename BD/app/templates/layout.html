@@ -18,22 +18,21 @@
 
 <body>
     {% include 'messages/messages.html' %}
-
     <header class="header" id="header">
         <!-- <h1>Empresa <span>Nueva Verapaz</span></h1> -->
         <a href="{% url 'inicio' %}"><img src="../static/img/empresa.png" alt="Logo De La Empresa NUEVA VERAPAZ"></a>
     </header>
-
-
-
     <div class="nav-bg" id="ocultar">
         <nav class="navegacion contenedor">
+<<<<<<< HEAD
             <!-- <ul class="navul">
                 <li><a href="layout.html">Inicio</a></li>
             </ul> -->
 
+=======
+>>>>>>> 0c91a44bc5af4bc2d924625afca4771073dc9feb
             <ul class="navul">
-                <li><a href="#">Sobre Nosotros</a>
+                <li><a href="">Sobre Nosotros</a>
                     <ul>
                         <li class="item">Somos una empresa que se dedica a la compra y venta de productos genericos
                             contamos con gran cantidad de proveedores, y manejamos los cheques y chequeras de
@@ -45,27 +44,38 @@
                     </ul>
                 </li>
             </ul>
-
-
             <ul class="navul">
-                <li><a id="botonOcultar" href="{% url 'menu_admin' %}">Administrador</a></li>
+                <li><a id="botonOcultar" href="">Administrador</a>
+                    <ul>
+                        <li><a href="{% url 'crear_rol_usuario' %}">Crear rol usuario</a></li>
+                        <li><a href="{% url 'crear_rol_grupo' %}">Crear rol grupo</a></li>
+                        <li><a href="{% url 'menu_crear_usuario' %}">Crear usuario</a></li>
+                        <li><a href="{% url 'crear_proveedor' %}">Crear proveedor</a></li>
+                        <li><a href="{% url 'ver_usuario' %}">Ver usuarios</a></li>
+                        <li><a href="{% url 'ver_rol' %}">Ver roles</a></li>
+                    </ul>
+                </li>
             </ul>
             <ul class="navul">
-                <li><a id="botonOcultar" href="{% url 'menu_gerencia' %}">Gerencia</a></li>
+                <li><a id="botonOcultar" href="">Gerencia</a>
+                    <ul>
+                        <li><a href="{% url 'crear_cuenta_bancaria' %}">Crear cuenta bancaria</a></li>
+                        <li><a href="{% url 'crear_chequera' %}">Crear chequera</a></li>
+                        <li><a href="{% url 'registrar_deposito' %}">Registrar depósito</a></li>
+                        <li><a href="{% url 'ver_chequera' %}">Ver chequera</a></li>
+                        <li><a href="{% url 'ver_cuenta_bancaria' %}">Ver cuenta bancaria</a></li>
+                        <li><a href="{% url 'ver_usuario' %}">Ver usuario</a></li>
+                    </ul>
+                </li>
             </ul>
-
-
             <ul class="navul">
                 <li><a id="btn" href="{% url 'login' %}">Acceder</a></li>
             </ul>
-
         </nav>
     </div>
-
-
     <div class="contenedor sombra">
 
-        <div class="hero show" id="hidden">
+        <!--<div class="hero show" id="hidden">
             <div class="contenido-hero">
                 <h2>Proyecto <br> Base De Datos</h2>
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-database" width="100"
@@ -78,12 +88,10 @@
                 </svg>
                 <a class="boton" href="#">Contactar</a>
             </div>
-        </div>
-
+        </div>-->
 
         {% block contenido %}
         {% endblock %}
-
 
         <footer class="footer" id="foter">
 

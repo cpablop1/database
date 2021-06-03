@@ -17,7 +17,7 @@ import data.Contacto as Contacto
 
 def Index(request):
 
-    return render(request, 'layout.html')
+    return render(request, 'inicio.html')
 
 def CrearRolUsuario(request):
     dicccionario = {"nombre": "nombre",                   
@@ -394,9 +394,6 @@ def CrearProveedor(request):
 
     return render(request, 'admin/crear_proveedor.html')
 
-def MenuGerencia(request):
-    return render(request, 'gerencia/menu_gerencia.html')
-
 def CrearCuentaBancaria(request):
     if request.method == 'POST':
         nombre_banco = request.POST['nombre_banco']
@@ -609,33 +606,19 @@ def VerCuentaBancariaActiva(request):
     })
 
 def VerCuentaBancariaNoActiva(request):
+    clave = []
+    try:
+        data = cuenta_bancaria.Cuenta_bancaria()
+        leer = data.read_desactiva()
+        for fila in leer['res']:
+            clave.append(fila)
+            print(fila)
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar las cuentas bancarias!')
     
-
-    return render(request, 'gerencia/ver_cuenta_bancaria_no_activa.html')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return render(request, 'gerencia/ver_cuenta_bancaria_no_activa.html', {
+        'leer': clave
+    })
 
 def Login(request):
     if request.method == 'POST':
@@ -671,6 +654,40 @@ def Login(request):
                 messages.error(request, 'Error de conexión, No es posible autenticarse por el momento!')
     return render(request, 'login.html')
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def Registrarse(request):
     if request.method == 'POST':
         usuario = request.POST['usuario']
@@ -682,10 +699,6 @@ def Registrarse(request):
         print('Password2: ', password2)
         print('Correo: ', correo)
     return render(request, 'Registrarse.html')
-
-def MenuAdmin(request):
-    return render(request, 'admin/menu_admin.html')
-
 
 def CrearPermisos(request):
     if request.method == 'POST':

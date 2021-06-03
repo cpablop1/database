@@ -1,6 +1,6 @@
-{% extends 'admin/menu_admin.html' %}
+{% extends 'layout.html' %}
 
-{% block cuerpo %}
+{% block contenido %}
 <h2>Ver usuarios</h2>
 
 <div class="nav-bg">
@@ -18,12 +18,12 @@
             <input class="boton" type="submit" value="Ver todos usuarios">
         </form>
     </nav>
+    <input class="boton" type="search" placeholder="Buscar por email">
 </div>
-<input class="boton" type="search" placeholder="Buscar por email">
 
 {% block tabla %}
 {% endblock %}
 
 
-<script src="../../static/js/oculto.js"></script>
+<!--<script src="../../static/js/oculto.js"></script>-->
 {% endblock %}
