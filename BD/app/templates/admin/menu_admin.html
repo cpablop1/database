@@ -9,6 +9,9 @@
 <div class="nav-bg menuadmin contenedor sombra">
     <nav class="navegacion contenedor">
         <ul class="navul">
+            <li><a href="{% url 'inicio' %}">Inicio</a></li>
+        </ul>
+        <ul class="navul">
             <li><a href="{% url 'crear_rol_usuario' %}">Crear rol de usuario</a></li>
         </ul>
 
@@ -35,6 +38,8 @@
     </nav>
 </div>
 
+{% block cuerpo %}
+{% endblock %}
 <script src="../../static/js/oculto.js"></script>
 
 {% endblock %}

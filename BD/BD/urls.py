@@ -48,5 +48,7 @@ urlpatterns = [
     path('ver-chequera-agotado/', views.VerChequeraAgotado, name='ver_chequera_agotado'),
     path('ver-chequera-disponible/', views.VerChequeraDisponible, name='ver_chequera_disponible'),
     path('ver-cuenta-bancaria/', views.VerCuentaBancaria, name='ver_cuenta_bancaria'),
-    path('ver-cuenta-banciaria-todas/', views.VerCuentaBancariaTodas, name='ver_cuenta_bancaria_todas'),
+    path('ver-cuenta-bancaria-todas/', views.VerCuentaBancariaTodas, name='ver_cuenta_bancaria_todas'),
+    path('ver-cuenta-bancaria-activa/', views.VerCuentaBancariaActiva, name='ver_cuenta_bancaria_activa'),
+    path('ver-cuenta-banciaria-no-activa/', views.VerCuentaBancariaNoActiva, name='ver_cuenta_bancaria_no_activa'),
 ]

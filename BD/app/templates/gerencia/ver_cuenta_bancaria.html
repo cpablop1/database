@@ -8,6 +8,12 @@
             <form class="separar" action="{% url 'ver_cuenta_bancaria_todas' %}">
                 <input class="boton" type="submit" value="Ver todos">
             </form>
+            <form class="separar" action="{% url 'ver_cuenta_bancaria_activa' %}">
+                <input class="boton" type="submit" value="Ver activas">
+            </form>
+            <form class="separar" action="{% url 'ver_cuenta_bancaria_no_activa' %}">
+                <input class="boton" type="submit" value="Ver no activas">
+            </form>
     </div>
     
     {% block tabla %}
