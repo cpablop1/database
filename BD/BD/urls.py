@@ -48,7 +48,6 @@ urlpatterns = [
     path('registrar-deposito/', views.RegistrarDeposito, name='registrar_deposito'),
     path('ver-chequera/', views.VerChequera, name='ver_chequera'),
     path('ver-chequera-todos/', views.VerChequeraTodos, name='ver_chequera_todos'),
-<<<<<<< HEAD
     path('ver-chequera-alerta/', views.VerChequeraAlerta,
          name='ver_chequera_alerta'),
     path('ver-chequera-agotado/', views.VerChequeraAgotado,
@@ -59,14 +58,18 @@ urlpatterns = [
          name='ver_cuenta_bancaria'),
     path('ver-cuenta-banciaria-todas/', views.VerCuentaBancariaTodas,
          name='ver_cuenta_bancaria_todas'),
-
-=======
-    path('ver-chequera-alerta/', views.VerChequeraAlerta, name='ver_chequera_alerta'),
-    path('ver-chequera-agotado/', views.VerChequeraAgotado, name='ver_chequera_agotado'),
-    path('ver-chequera-disponible/', views.VerChequeraDisponible, name='ver_chequera_disponible'),
-    path('ver-cuenta-bancaria/', views.VerCuentaBancaria, name='ver_cuenta_bancaria'),
-    path('ver-cuenta-bancaria-todas/', views.VerCuentaBancariaTodas, name='ver_cuenta_bancaria_todas'),
-    path('ver-cuenta-bancaria-activa/', views.VerCuentaBancariaActiva, name='ver_cuenta_bancaria_activa'),
-    path('ver-cuenta-banciaria-no-activa/', views.VerCuentaBancariaNoActiva, name='ver_cuenta_bancaria_no_activa'),
->>>>>>> dc0c3e2e0de70389eb7f004bcbb67dc381c23be7
+    path('ver-chequera-alerta/', views.VerChequeraAlerta,
+         name='ver_chequera_alerta'),
+    path('ver-chequera-agotado/', views.VerChequeraAgotado,
+         name='ver_chequera_agotado'),
+    path('ver-chequera-disponible/', views.VerChequeraDisponible,
+         name='ver_chequera_disponible'),
+    path('ver-cuenta-bancaria/', views.VerCuentaBancaria,
+         name='ver_cuenta_bancaria'),
+    path('ver-cuenta-bancaria-todas/', views.VerCuentaBancariaTodas,
+         name='ver_cuenta_bancaria_todas'),
+    path('ver-cuenta-bancaria-activa/', views.VerCuentaBancariaActiva,
+         name='ver_cuenta_bancaria_activa'),
+    path('ver-cuenta-banciaria-no-activa/', views.VerCuentaBancariaNoActiva,
+         name='ver_cuenta_bancaria_no_activa'),
 ]
