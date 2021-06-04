@@ -356,8 +356,17 @@ img {
 
 /*Haciendo la tabla*/
 
-table  tr{
-    color: var(--blanco);
-    font-size: 17px;
-   
+
+table {
+    width: 100%;
+}
+
+table, thead, tr th {
+    border: 0.1rem solid var(--blanco);
+    border-collapse: collapse;
+    text-align: center;
+    table-layout: fixed;
+    background-color: var(--oscuro);
+    font-weight: bold;
+    color: white;
 }
