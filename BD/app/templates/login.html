@@ -2,51 +2,36 @@
 
 
 {% block contenido %}
-    {% include 'messages/messages.html' %}
-<div id="contacto" class="contacto">
+{% include 'messages/messages.html' %}
 
-    <!-- <form class="formulario" action="" method="POST">
+<div class="login-box">
+    <h1>Iniciar Sesion</h1>
+    <form method="POST">
+        {% csrf_token %}
+
         <label>Usuario:</label>
         <input id="name" type="text" name="usuario" placeholder="Ingrese Su Usuario" required>
 
-        <label for="">Clave:</label>
-        <input type="password">
+        <label for="clave">Clave</label>
+        <input type="password" name="password" placeholder="Clave">
 
-
-        <label>Correo Electronico:</label>
+        <label>Correo Electronico</label>
         <input id="correo" type="mail" name="correo" placeholder="Correo Personal">
+
         <input type="submit" value="Enviar">
-    </form> -->
+        <a href="Olvidada.html">Olvide mi Clave</a>
 
-
-
-    <!-- </div> -->
-
-    <div class="login-box">
-        <h1>Iniciar Sesion</h1>
-        <form method="POST">
-            {% csrf_token %}
-
-            <label>Usuario:</label>
-            <input id="name" type="text" name="usuario" placeholder="Ingrese Su Usuario" required>
-
-
-            <label for="clave">Clave</label>
-            <input type="password" name="password" placeholder="Clave">
-
-            <label>Correo Electronico</label>
-            <input id="correo" type="mail" name="correo" placeholder="Correo Personal">
-
-            <input type="submit" value="Enviar">
-            <a href="Registrarse.html">Registrarse</a><br>
-            <a href="Olvidada.html">Olvide mi Clave</a>
-
-        </form>
-    </div>
-
+    </form>
 </div>
 
 <script src="../static/js/acceso.js"></script>
+
+
+<script>
+    const abajito = document.querySelector('#foter');
+    abajito.style.display = 'none';
+    console.log(abajito)
+</script>
 
 <style>
     body {
