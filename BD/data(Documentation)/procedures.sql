@@ -829,6 +829,7 @@ CREATE OR REPLACE PROCEDURE pa_modificar_cheque(
     IN id_llamada INT,
     IN monto_post DECIMAL(15,2),
     IN nit_post INT,
+    IN id_user_modifico INT,
     OUT resultado VARCHAR(67)
 )
 BEGIN
@@ -837,6 +838,9 @@ BEGIN
   
   DECLARE benef_post VARCHAR(67);
   DECLARE resultado_var VARCHAR(67);
+
+  DECLARE monto_antes_var DECIMAL(15, 2);
+  DECLARE benef_antes_var VARCHAR(67);
     
     SELECT bj.id_llamada INTO id_llamada_var
     FROM  buffer_llamados_jefe AS bj
@@ -844,7 +848,6 @@ BEGIN
 
     IF id_llamada_var IS NOT NULL THEN
         IF monto_post >= 0 THEN
-        
             SET benef_post := f_get_benef_prov(nit_post);
 
             SELECT bfr.id_cheque INTO id_cheque_var
@@ -855,14 +858,31 @@ BEGIN
             INTO resultado_var
             FROM  cheque
             WHERE cheque.id_cheque = id_cheque_var;
-    
+
+              -- DATA for bitacora cheque modificado
+            SELECT chq.monto INTO monto_antes_var
+            FROM cheque AS chq
+            WHERE chq.id_cheque = id_cheque_var;
+
+            SELECT chq.beneficiario INTO benef_antes_var
+            FROM cheque AS chq
+            WHERE chq.id_cheque = id_cheque_var;
+
             -- Update
             UPDATE cheque 
             SET monto=monto_post,beneficiario=benef_post, nit=nit_post
             WHERE id_cheque_var = cheque.id_cheque;
 
             SET resultado := CONCAT(resultado_var,' modificado');
+            -- insertar en bitacora
+            
+            INSERT INTO bitacora_cheque_modificado
+                (fecha_mod, monto_antes, monto_post, benef_antes, benef_post, id_user, id_cheque)
+            VALUES
+                (CURRENT_TIMESTAMP, monto_antes_var,monto_post, benef_antes_var, benef_post,
+                id_user_modifico,id_cheque_var);
             COMMIT;
+            
         ELSE
             SET resultado := 'Monto no puede ser negativo';
         END IF;
@@ -876,12 +896,13 @@ DELIMITER ;
 
 -- CALL pa_modificar_cheque(1, 1000, 465456,@resultado);
 -- SELECT @resultado;
--- id_llamada, monto_post, nit_post
+-- id_llamada, monto_post, nit_post, id_user_modifico
 
   -- Procedure v a l i d a r    c h e q u e JEFE
 DELIMITER //
 CREATE OR REPLACE PROCEDURE pa_validar_cheque_jefe(
     IN id_llamada INT,
+    IN id_user INT,
     OUT resultado INT
 )
 BEGIN
@@ -899,6 +920,7 @@ BEGIN
         FROM buffer_llamados_jefe AS bf
         WHERE id_llamada = bf.id_llamada;
         
+        -- inabilitado, de momento
         SELECT bfr.id_user INTO id_user_var
         FROM buffer_llamados_jefe AS bfr
         WHERE id_llamada = bfr.id_llamada;
@@ -910,7 +932,7 @@ BEGIN
 
         INSERT INTO bitacora_cheque_liberado
             (fecha_liberacion, id_grupo, id_user, id_cheque)
-        VALUES (CURRENT_TIMESTAMP,NULL,id_user_var,id_cheque_var);
+        VALUES (CURRENT_TIMESTAMP,NULL,id_user,id_cheque_var);
 
         UPDATE cheque SET estado='Disponible para impresion'
         WHERE cheque.id_cheque = id_cheque_var; 
@@ -932,12 +954,13 @@ DELIMITER ;
 
 -- CALL pa_validar_cheque_jefe (1,@resultado);
 -- SELECT @resultado;
--- id_llamada
+-- id_llamada, id_user
 
   -- Procedure E L I M I N A R    c h e q u e    J E F E
 DELIMITER //
 CREATE OR REPLACE PROCEDURE pa_eliminar_cheque_jefe(
     IN id_llamada INT,
+    IN id_user INT,
     OUT resultado INT
 )
 BEGIN
@@ -955,6 +978,7 @@ BEGIN
         FROM buffer_llamados_jefe AS bf
         WHERE id_llamada = bf.id_llamada;
         
+        -- inabilitado, de momento
         SELECT bfr.id_user INTO id_user_var
         FROM buffer_llamados_jefe AS bfr
         WHERE id_llamada = bfr.id_llamada;
@@ -962,7 +986,7 @@ BEGIN
         -- Cuenta creating
         INSERT INTO bitacora_cheque_eliminado
             (fecha_anulacion, id_user, id_cheque)
-        VALUES (CURRENT_TIMESTAMP,id_user_var,id_cheque_var);
+        VALUES (CURRENT_TIMESTAMP,id_user, id_cheque_var);
 
         UPDATE cheque SET estado='Anulado'
         WHERE cheque.id_cheque = id_cheque_var; 
@@ -984,7 +1008,7 @@ DELIMITER ;
 
 -- CALL pa_eliminar_cheque_jefe (3,@resultado);
 -- SELECT @resultado;
--- id_llamada
+-- id_llamada, id_user, 
 
 -- CALL pa_validar_cheque_jefe (1,@resultado);
 -- SELECT @resultado;
@@ -1107,7 +1131,7 @@ BEGIN
                 INSERT INTO bitacora_deposito
                  (no_deposito, fecha_deposito, monto, num_cuenta)
                 VALUES
-                 (no_deposito,CURRENT_TIMESTAMP,monto,num_cuenta_var);
+                 (no_deposito, CURRENT_TIMESTAMP,monto,num_cuenta_var);
 
                 SET fondo_res_var := fondo_var + monto;
                 UPDATE cuenta_bancaria SET fondo=fondo_res_var
@@ -1175,4 +1199,8 @@ DROP PROCEDURE IF EXISTS pa_solicitar_modificar_elimi;
 
 DROP PROCEDURE IF EXISTS pa_modificar_cheque;
 DROP PROCEDURE IF EXISTS pa_validar_cheque_jefe;
+DROP PROCEDURE IF EXISTS pa_eliminar_cheque_jefe;
+
 DROP PROCEDURE IF EXISTS pa_resgistrar_deposito;
+DROP PROCEDURE IF EXISTS pa_emitir_cheque;
+
