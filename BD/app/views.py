@@ -1,5 +1,6 @@
 from django.contrib.messages.api import warning
 from django.http import request
+from django.http import response
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
@@ -11,15 +12,19 @@ import data.Cuenta_bancaria as cuenta_bancaria
 
 import data.Contacto as Contacto
 
-# Create your views here.
-# Modificado
-
 
 def Index(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
 
     return render(request, 'inicio.html')
 
 def CrearRolUsuario(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     dicccionario = {"nombre": "nombre",                   
                         "crud_users": 0,
                         "imprimir_cheque": 0,
@@ -53,6 +58,10 @@ def CrearRolUsuario(request):
     return render(request, 'admin/crear_rol_usuario.html')
 
 def CrearRolGrupo(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     if request.method == 'POST':
         nombre_rol_grupo = request.POST['nombre_rol_grupo']
         monto_maximo = request.POST['monto_maximo']
@@ -75,9 +84,17 @@ def CrearRolGrupo(request):
     return render(request, 'admin/crear_rol_grupo.html')
 
 def MenuCrearUsuario(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     return render(request, 'admin/menu_crear_usuario.html')
 
 def CrearUsuarioGrupo(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     valor = []
     dic = ''
@@ -161,6 +178,10 @@ def CrearUsuarioGrupo(request):
     })
 
 def CrearUsuarioSingular(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     valor = []
     dic = ''
@@ -245,9 +266,17 @@ def CrearUsuarioSingular(request):
     })
 
 def VerRol(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     return render(request, 'admin/ver_rol.html')
 
 def VerRolGrupo(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     try:
         data = rol.Rol_permiso_sup()
@@ -262,6 +291,10 @@ def VerRolGrupo(request):
     })
 
 def VerRolSingular(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     try:
         data = rol.Rol_grupo()
@@ -276,6 +309,10 @@ def VerRolSingular(request):
     })
 
 def VerRolesTodos(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     try:
         data = rol.Rol_all()
@@ -290,9 +327,17 @@ def VerRolesTodos(request):
     })
 
 def VerUsuario(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     return render(request, 'admin/ver_usuario.html')
 
 def VerUsuarioGrupo(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     try:
         data = user.Usuario()
@@ -307,6 +352,10 @@ def VerUsuarioGrupo(request):
     })
 
 def VerUsuarioSingular(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     try:
         data = user.Usuario()
@@ -321,6 +370,10 @@ def VerUsuarioSingular(request):
     })
 
 def VerUsuarioTodos(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     try:
         data = user.Usuario()
@@ -335,6 +388,10 @@ def VerUsuarioTodos(request):
     })
 
 def CrearProveedor(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     if request.method == 'POST':
 
         empresa = request.POST['empresa']
@@ -395,6 +452,10 @@ def CrearProveedor(request):
     return render(request, 'admin/crear_proveedor.html')
 
 def CrearCuentaBancaria(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     if request.method == 'POST':
         nombre_banco = request.POST['nombre_banco']
         numero_cuenta = request.POST['numero_cuenta']
@@ -429,6 +490,10 @@ def CrearCuentaBancaria(request):
     return render(request, 'gerencia/crear_cuenta_bancaria.html')
 
 def CrearChequera(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     try:
         data = cuenta_bancaria.Cuenta_bancaria()
@@ -470,6 +535,10 @@ def CrearChequera(request):
     })
 
 def RegistrarDeposito(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     try:
         data = cuenta_bancaria.Cuenta_bancaria()
@@ -510,10 +579,17 @@ def RegistrarDeposito(request):
     })
 
 def VerChequera(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
 
     return render(request, 'gerencia/ver_chequera.html')
 
 def VerChequeraTodos(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     try:
         data = cuenta_bancaria.Chequera()
@@ -528,6 +604,10 @@ def VerChequeraTodos(request):
     })
 
 def VerChequeraAlerta(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     try:
         data = cuenta_bancaria.Chequera()
@@ -543,6 +623,10 @@ def VerChequeraAlerta(request):
     })
 
 def VerChequeraAgotado(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     try:
         data = cuenta_bancaria.Chequera()
@@ -558,6 +642,10 @@ def VerChequeraAgotado(request):
     })
 
 def VerChequeraDisponible(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     try:
         data = cuenta_bancaria.Chequera()
@@ -573,9 +661,17 @@ def VerChequeraDisponible(request):
     })
 
 def VerCuentaBancaria(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     return render(request, 'gerencia/ver_cuenta_bancaria.html')
 
 def VerCuentaBancariaTodas(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     try:
         data = cuenta_bancaria.Cuenta_bancaria()
@@ -590,6 +686,10 @@ def VerCuentaBancariaTodas(request):
     })
 
 def VerCuentaBancariaActiva(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     try:
         data = cuenta_bancaria.Cuenta_bancaria()
@@ -606,6 +706,10 @@ def VerCuentaBancariaActiva(request):
     })
 
 def VerCuentaBancariaNoActiva(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
     clave = []
     try:
         data = cuenta_bancaria.Cuenta_bancaria()
@@ -648,14 +752,28 @@ def Login(request):
                     for id in result['res']:
                         print(id)
                         response.set_cookie('nombre_rol', f'{id["nombre_rol"]}')
+                        response.set_cookie('id_user', f'{id["id_user"]}')
+                        response.set_cookie('nombre', f'{id["nombre"]}')
+                        response.set_cookie('correo', f'{id["correo"]}')
                     messages.success(request, 'Usuario correcto!!')
                     return response
             except:
                 messages.error(request, 'Error de conexión, No es posible autenticarse por el momento!')
     return render(request, 'login.html')
 
+def Salir(request):
 
+    response = HttpResponse("""
+    <script type="text/javascript">
+        window.location="http://127.0.0.1:8000/login/";
+    </script>
+    """)
+    response.delete_cookie('correo')
+    response.delete_cookie('nombre_rol')
+    response.delete_cookie('nombre')
+    response.delete_cookie('id_user')
 
+    return response
 
 
 
