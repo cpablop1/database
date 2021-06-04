@@ -123,6 +123,7 @@ CREATE OR REPLACE TRIGGER after_insert_cheque
 DELIMITER ; 
 
 -- UPDATE ON CHEQUE
+/* it was inserted into pa_modificar_cheque, procedure
 DELIMITER //
 CREATE OR REPLACE TRIGGER after_up_cheque
     AFTER UPDATE
@@ -137,7 +138,7 @@ CREATE OR REPLACE TRIGGER after_up_cheque
     END;
 
     //
-DELIMITER ; 
+DELIMITER ; */
 
 -- T R I G G E R    F O R    i n s e r t    O N   bitacora_cheque_emitido
 

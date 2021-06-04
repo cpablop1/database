@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+    <table border="3px">
+        <thead>
+            <tr>
+                <th>No. depósito</th>
+                <th>Fecha depósito</th>
+                <th>Monto</th>
+                <th>No. cuenta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in leer %}
+                <tr>
+                    {% for j in i.items %}
+                        <td>
+                            {{ j.1 }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

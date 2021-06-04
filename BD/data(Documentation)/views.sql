@@ -220,6 +220,153 @@ CREATE OR REPLACE VIEW v_mov_cuenta AS
     ;
 -- SELECT * FROM mov_cuenta;
 
+-- view for SELECT cheques eliminados
+CREATE OR REPLACE VIEW v_b_cheq_emitido AS
+    SELECT
+    
+    chq.id_cheque,
+    chq.num_cheque,
+    chq.fecha_emision,
+    chq.monto,
+    chq.lugar_emision,
+    chq.estado,
+    chq.beneficiario,
+    chq.num_cuenta,
+    chq.num_chequera,
+    chq.nit,
+    chq.id_user_genero,
+    bce.id_emision,
+    bce.fecha_entrega,
+    bce.nombre_cajero,
+    bce.id_user AS id_user_emitio
+
+    FROM
+        cheque AS chq
+    JOIN bitacora_cheque_emitido AS bce
+    ON chq.id_cheque = bce.id_cheque
+    ORDER BY fecha_entrega
+    ;
+-- SELECT * FROM v_b_cheq_emitido;
+
+-- view for SELECT cheques eliminados o anulados
+CREATE OR REPLACE VIEW v_b_cheq_eliminado AS
+    SELECT
+    
+    chq.id_cheque,
+    chq.num_cheque,
+    chq.fecha_emision,
+    chq.monto,
+    chq.lugar_emision,
+    chq.estado,
+    chq.beneficiario,
+    chq.num_cuenta,
+    chq.num_chequera,
+    chq.nit,
+    chq.id_user_genero,
+    
+    bce.id_eliminado,
+    bce.fecha_anulacion,
+    bce.id_user AS id_user_elimino
+
+    FROM
+        cheque AS chq
+    JOIN bitacora_cheque_eliminado AS bce
+    ON chq.id_cheque = bce.id_cheque
+    ORDER BY fecha_anulacion
+    ;
+-- SELECT * FROM v_b_cheq_eliminado;
+
+-- view for SELECT cheques fallidos
+CREATE OR REPLACE VIEW v_b_cheq_fallido AS
+    SELECT
+    
+    chq.id_cheque,
+    chq.num_cheque,
+    chq.fecha_emision,
+    chq.monto,
+    chq.lugar_emision,
+    chq.estado,
+    chq.beneficiario,
+    chq.num_cuenta,
+    chq.num_chequera,
+    chq.nit,
+    chq.id_user_genero,
+    
+    cf.id_fallo,
+    cf.fecha_fallo,
+    cf.cod_error,
+    cf.id_user AS id_user_fallo
+
+    FROM
+        cheque AS chq
+    JOIN bitacora_cheque_fallido AS cf
+    ON chq.id_cheque = cf.id_cheque
+    ORDER BY fecha_fallo
+    ;
+-- SELECT * FROM v_b_cheq_eliminado;
+
+-- view for SELECT movimiento cuenta
+CREATE OR REPLACE VIEW v_b_cheq_liberado AS
+    SELECT
+    
+    chq.id_cheque,
+    chq.num_cheque,
+    chq.fecha_emision,
+    chq.monto,
+    chq.lugar_emision,
+    chq.estado,
+    chq.beneficiario,
+    chq.num_cuenta,
+    chq.num_chequera,
+    chq.nit,
+    chq.id_user_genero,
+    
+    bcl.id_liberacion,
+    bcl.fecha_liberacion,
+    bcl.id_grupo,
+    bcl.id_user AS id_user_libero
+
+    FROM
+        cheque AS chq
+    JOIN bitacora_cheque_liberado AS bcl
+    ON chq.id_cheque = bcl.id_cheque
+    ORDER BY fecha_liberacion
+    ;
+-- SELECT * FROM v_b_cheq_liberado;
+
+-- view for SELECT movimiento cuenta
+CREATE OR REPLACE VIEW v_b_cheq_modif AS
+    SELECT
+    
+    chq.id_cheque,
+    chq.num_cheque,
+    chq.fecha_emision,
+    chq.monto,
+    chq.lugar_emision,
+    chq.estado,
+    chq.beneficiario,
+    chq.num_cuenta,
+    chq.num_chequera,
+    chq.nit,
+    chq.id_user_genero,
+    
+    bcm.id_mod,
+    bcm.fecha_mod,
+    bcm.monto_antes,
+    bcm.monto_post,
+    bcm.benef_antes,
+    bcm.benef_post,
+    bcm.id_user AS id_user_modifico
+
+    FROM
+        cheque AS chq
+    JOIN bitacora_cheque_modificado AS bcm
+    ON chq.id_cheque = bcm.id_cheque
+    ORDER BY chq.id_cheque
+    ;
+-- SELECT * FROM v_b_cheq_modif;
+
+
 -- D R O P P I N G
 DROP VIEW IF EXISTS v_rol_group;
 DROP VIEW IF EXISTS v_rol_user;
@@ -231,5 +378,13 @@ DROP VIEW IF EXISTS v_contactanos_si;
 DROP VIEW IF EXISTS v_users_rol_group;
 DROP VIEW IF EXISTS v_users_rol_sup;
 DROP VIEW IF EXISTS v_all_users;
+
 DROP VIEW IF EXISTS v_proveedor;
 DROP VIEW IF EXISTS v_mov_cuenta;
+
+DROP VIEW IF EXISTS v_b_cheq_emitido;
+DROP VIEW IF EXISTS v_b_cheq_eliminado;
+
+DROP VIEW IF EXISTS v_b_cheq_fallido;
+DROP VIEW IF EXISTS v_b_cheq_liberado;
+DROP VIEW IF EXISTS v_b_cheq_modif;
