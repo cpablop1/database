@@ -48,7 +48,6 @@ def CrearRolUsuario(request):
             else:
                 for i in permiso:
                     dicccionario[i] = 1
-                print(dicccionario)
                 data = rol.Rol_permiso_sup()
                 data.create(dicccionario)
                 messages.success(request, 'Rol de usuario creado exitosamente')
@@ -192,7 +191,6 @@ def CrearUsuarioSingular(request):
             clave.append(fila['id_rol'])
             valor.append(fila['nombre'])
         dic = dict(zip(clave, valor))
-        print(dic)
     except:
         messages.error(request, 'Error de conexión, no se podrán visualizar los roles!')
 
@@ -520,7 +518,6 @@ def CrearChequera(request):
             data = cuenta_bancaria.Chequera()
             try:
                 result = data.create(diccionario)
-                print(result)
                 if result['id'] == 'Numero de chequera, ya existente':
                     messages.error(request, result['id'])
                 elif result['id'] == 'Fondo, no puede ser negativo':
@@ -575,6 +572,24 @@ def RegistrarDeposito(request):
                 messages.error(request, 'Hubo un error al registrar el depósito!')
 
     return render(request, 'gerencia/registrar_deposito.html', {
+        'leer': clave
+    })
+
+def VerDeposito(request):
+    if request.method == 'GET':
+        if ('correo' in request.COOKIES) == False:
+            return redirect('login')
+
+    clave = []
+    try:
+        data = cuenta_bancaria.Deposito()
+        leer = data.read()
+        for fila in leer['res']:
+            clave.append(fila)
+    except:
+        messages.error(request, 'Error de conexión, no se podrán visualizar las chequeras!')
+
+    return render(request, 'gerencia/ver_deposito.html', {
         'leer': clave
     })
 
@@ -694,7 +709,6 @@ def VerCuentaBancariaActiva(request):
     try:
         data = cuenta_bancaria.Cuenta_bancaria()
         leer = data.read()
-        print(leer)
         for fila in leer['res']:
             if fila['estado '] == 'activo':
                 clave.append(fila)
@@ -716,7 +730,6 @@ def VerCuentaBancariaNoActiva(request):
         leer = data.read_desactiva()
         for fila in leer['res']:
             clave.append(fila)
-            print(fila)
     except:
         messages.error(request, 'Error de conexión, no se podrán visualizar las cuentas bancarias!')
     
@@ -741,7 +754,6 @@ def Login(request):
                 result = data.read_all_user(nombre=usuario,clave=password,correo=correo)
                 if result['res'] == 'No hay registros que mostrar':
                     messages.error(request, 'Usuario inválido!')
-                    print(result['res'])
                 else:
                     #https://programmerclick.com/article/8199519103/
                     response = HttpResponse("""
@@ -750,7 +762,6 @@ def Login(request):
                     </script>
                     """)
                     for id in result['res']:
-                        print(id)
                         response.set_cookie('nombre_rol', f'{id["nombre_rol"]}')
                         response.set_cookie('id_user', f'{id["id_user"]}')
                         response.set_cookie('nombre', f'{id["nombre"]}')
@@ -812,10 +823,6 @@ def Registrarse(request):
         password1 = request.POST['password1']
         password2 = request.POST['password2']
         correo = request.POST['correo']
-        print('Usuario: ', usuario)
-        print('Password1: ', password1)
-        print('Password2: ', password2)
-        print('Correo: ', correo)
     return render(request, 'Registrarse.html')
 
 def CrearPermisos(request):
@@ -833,10 +840,8 @@ def CrearPermisos(request):
                 "mostrar_bitacora_group": 0,
                 "mostrar_bitacora_jefe": 0,
                 "jefe": 0}
-            
         data = rol.Rol_permiso_sup()
         #resultado = data.create(dicccionario)
         resultado = data.read(2)
-        print (resultado)
     return render(request, 'crear_permiso.html')
 
