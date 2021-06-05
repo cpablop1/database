@@ -305,7 +305,7 @@ CREATE OR REPLACE VIEW v_b_cheq_fallido AS
     ;
 -- SELECT * FROM v_b_cheq_eliminado;
 
--- view for SELECT movimiento cuenta
+-- view for SELECT cheques liberados
 CREATE OR REPLACE VIEW v_b_cheq_liberado AS
     SELECT
     
@@ -334,37 +334,50 @@ CREATE OR REPLACE VIEW v_b_cheq_liberado AS
     ;
 -- SELECT * FROM v_b_cheq_liberado;
 
--- view for SELECT movimiento cuenta
-CREATE OR REPLACE VIEW v_b_cheq_modif AS
+-- view for SELECT cheques en buffer pendientes
+CREATE OR REPLACE VIEW v_chq_pendient_valid AS
     SELECT
     
     chq.id_cheque,
-    chq.num_cheque,
+    bcpa.id_pendencia,
     chq.fecha_emision,
     chq.monto,
-    chq.lugar_emision,
     chq.estado,
     chq.beneficiario,
     chq.num_cuenta,
-    chq.num_chequera,
-    chq.nit,
-    chq.id_user_genero,
+    bcpa.id_group
     
-    bcm.id_mod,
-    bcm.fecha_mod,
-    bcm.monto_antes,
-    bcm.monto_post,
-    bcm.benef_antes,
-    bcm.benef_post,
-    bcm.id_user AS id_user_modifico
-
     FROM
         cheque AS chq
-    JOIN bitacora_cheque_modificado AS bcm
-    ON chq.id_cheque = bcm.id_cheque
-    ORDER BY chq.id_cheque
+    JOIN buffer_cheque_pendiente_autorizacion AS bcpa
+    ON chq.id_cheque = bcpa.id_cheque
+    ORDER BY bcpa.id_pendencia
     ;
--- SELECT * FROM v_b_cheq_modif;
+-- SELECT * FROM v_chq_pendient_valid;
+
+
+-- view for SELECT cheques modificados
+CREATE OR REPLACE VIEW v_chq_dispon AS
+    SELECT
+    
+    chq.id_cheque,
+    bcds.id_disponible,
+    chq.fecha_emision,
+    chq.monto,
+    chq.estado,
+    chq.beneficiario,
+    chq.num_cuenta,
+    bcds.id_group
+    
+    FROM
+        cheque AS chq
+    JOIN buffer_cheque_disponible AS bcds
+    ON chq.id_cheque = bcds.id_cheque
+    ORDER BY bcpa.id_pendencia
+    ;
+-- SELECT * FROM v_chq_pendient_valid;
+
+
 
 
 -- D R O P P I N G
@@ -388,3 +401,6 @@ DROP VIEW IF EXISTS v_b_cheq_eliminado;
 DROP VIEW IF EXISTS v_b_cheq_fallido;
 DROP VIEW IF EXISTS v_b_cheq_liberado;
 DROP VIEW IF EXISTS v_b_cheq_modif;
+
+DROP VIEW IF EXISTS v_chq_pendient_valid;
+DROP VIEW IF EXISTS v_chq_dispon;

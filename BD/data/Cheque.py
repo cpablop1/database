@@ -28,7 +28,6 @@ maria = mySql()
     }
 """
 
-
 class Cheque():
     """
         Clase para generar los cheques
@@ -49,12 +48,15 @@ class Cheque():
         'nit': integer,
         'id_user_genero': integer}
         
+        el id_user_genero, será el id del usuario con
+        sesion abierta
+        
         #---Retorna un diccionario de la siguiente forma, 
         ---si no hay errores, o ERRORES dectados en la BD
          {'Error': 'Sin errores, id del elemento insertado adjunto',
          'id': id_cheque'}
         
-        #---posibles valores para 'id'                                          (dato no insertado)
+        #---posibles valores para 'id'
         1 - "Cuenta con saldo insuficiente";                                (dato no insertado)
         2 - "Solo un usuario de grupo de pagos, puede generar cheques";     (dato no insertado)
         3 - "Numero de NIT, no existente";                                  (dato no insertado)
