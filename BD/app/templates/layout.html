@@ -45,6 +45,13 @@
                 </li>
             </ul>
             <ul class="navul">
+                <li><a id="btn" href="">Funcionalidades nuevas</a>
+                    <ul>
+                        <li><a href="{% url 'crear_cheque' %}">Crear cheque</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navul">
                 <li><a id="botonOcultar" href="">Administrador</a>
                     <ul>
                         <li><a href="{% url 'crear_rol_usuario' %}">Crear rol usuario</a></li>
@@ -74,8 +81,7 @@
                 </li>
             </ul> -->
             <ul class="navul">
-                <li><a id="btn" href="{% url 'salir' %}">Salir</a>
-                </li>
+                <li><a id="btn" href="{% url 'salir' %}">Salir</a></li>
             </ul>
         </nav>
     </div>

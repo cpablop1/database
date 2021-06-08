@@ -9,6 +9,7 @@ import data.rol as rol
 import data.Usuario as user
 import data.Proveedor as proveedor
 import data.Cuenta_bancaria as cuenta_bancaria
+import data.Cheque as cheque
 
 import data.Contacto as Contacto
 
@@ -876,6 +877,92 @@ def Salir(request):
     response.delete_cookie('id_user')
 
     return response
+
+def CrearCheque(request):
+
+    clave = []
+    clave1 = []
+    try:
+        data = cuenta_bancaria.Cuenta_bancaria()
+        data1 = cuenta_bancaria.Chequera()
+        leer = data.read()
+        leer1 = data1.read()
+        for fila1 in leer1['res']:
+            clave1.append((fila1['num_chequera'],fila1['num_cuenta'],fila1['num_cheque_dispo'],fila1['estado']))
+        for fila in leer['res']:
+            clave.append((fila['nombre_banco'],fila['num_cuenta'],fila['nombre_cuenta']))
+    except:
+        messages.error(
+            request, 'Error de conexión, no se podrán visualizar las cuentas bancarias!')
+    if request.method == 'POST':
+        monto = request.POST['monto']
+        lugar_emision = request.POST['lugar_emision']
+        num_cuenta = request.POST['num_cuenta']
+        num_chequera = request.POST['num_chequera']
+        nit = request.POST['nit']
+
+        if monto.strip() == '':
+            messages.warning(request, 'Ingrese el monto.')
+        elif lugar_emision.strip() == '':
+            messages.warning(request, 'Ingrese el lugar de emisión.')
+        elif int(num_cuenta) == 0:
+            messages.warning(request, 'Seleccione el número de cuenta.')
+        elif int(num_chequera) == 0:
+            messages.warning(request, 'Seleccione el número de chequera.')
+        elif nit.strip() == '':
+            messages.warning(request, 'Ingrese el número de NIT.')
+        else:
+            diccionario = {'monto': monto,
+                            'lugar_emision':lugar_emision,
+                            'num_cuenta': num_cuenta,
+                            'num_chequera': num_chequera,
+                            'nit': nit,
+                            'id_user_genero': request.COOKIES['id_user']}
+
+            try:
+                data = cheque.Cheque()
+                result = data.create(diccionario)
+                if result['id'] == 'Solo un usuario de grupo de pagos, puede generar cheques':
+                    messages.warning(request, result['id'])
+                elif result['id'] == 'Cuenta con saldo insuficiente':
+                    messages.warning(request, result['id'])
+                elif result['id'] == 'Numero de NIT, no existente':
+                    messages.warning(request, result['id'])
+                elif result['id'] == 'Numero de chequera, no existente':
+                    messages.warning(request, result['id'])
+                elif result['id'] == 'Numero de cuenta, no existente':
+                    messages.warning(request, result['id'])
+                elif result['id'] == 'El monto no puede ser negativo':
+                    messages.warning(request, result['id'])
+                elif result['id'] == 'El monto no puede ser negativo':
+                    messages.warning(request, result['id'])
+                else:
+                    messages.success(request, 'Cheque creado correctamente!!')
+            except:
+                messages.error(request, 'Algo salió mal, no se pudo crear el cheque!!')
+    return render(request, 'cheque/crear_cheque.html', {
+        'leer': clave,
+        'leer1': clave1
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def Registrarse(request):

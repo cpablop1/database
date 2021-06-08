@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+    <h2>Crear Cheque</h2>
+    <form class="formulario" method="post">
+        {% csrf_token %}
+        <div class="campo">
+            <label for="monto">Monto:</label>
+            <input type="text" name="monto" required>
+        </div>
+        <div class="campo">
+            <label for="lugar_emision">Lugar emisión:</label>
+            <input type="text" name="lugar_emision" required>
+        </div>
+        <div class="campo">
+            <label for="num_cuenta">Número cuenta:</label>
+            <select name="num_cuenta">
+                <option value="0">Selecione número cuenta</option>
+                {% for i in leer %}
+                    <optgroup label="{{ i.0 }}">
+                        <option value="{{ i.1 }}">{{ i.1 }}</option>
+                        <option value="{{  i.1 }}" disabled>{{ i.2 }}</option>
+                    </optgroup>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="campo">
+            <label for="num_chequera">Número chequera:</label>
+            <select name="num_chequera">
+                <option value="0">Selecione No. chequera</option>
+                {% for i in leer1 %}
+                    <optgroup label="No. cuenta: {{ i.1 }}">
+                        <option value="{{ i.0 }}">No. chequera: {{ i.0 }}</option>
+                        <option value="{{ i.0 }}"disabled>No. cheque disponible: {{ i.2 }}</option>
+                        <option value="{{ i.0 }}"disabled>Estado: {{ i.3 }}</option>
+                    </optgroup>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="campo">
+            <label for="nit">NIT:</label>
+            <input type="number" name="nit" required>
+        </div>
+        
+        <div class="enviar">
+            <input class="boton" type="submit" value="CREAR">
+        </div>
+    </form>
+{% endblock %}
