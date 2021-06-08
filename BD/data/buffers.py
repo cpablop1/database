@@ -27,18 +27,20 @@ maria = mySql()
         }
     }
 """
-class buffer_chq_pendt_autorizacion():
+class Buffer_chq_pendt_autorizacion():
     """Acciones sobre el Buffer Cheques pendientes de autorizacion     
     """
     
     def read(self,**kwargs):
         """ ---campos aceptados 
         ['id_cheque', 'id_pendencia', 'fecha_emision', 'monto',
-        'estado', 'beneficiario', 'num_cuenta', 'id_group']
+        'estado', 'beneficiario', 'num_cuenta', 'id_group', 'nombre']
     
         """
+
         labels = ['id_cheque', 'id_pendencia', 'fecha_emision', 'monto',
-                  'estado', 'beneficiario', 'num_cuenta', 'id_group']
+                  'estado', 'beneficiario', 'num_cuenta', 'id_group', 'nombre']
+
         
         vista = "v_chq_pendient_valid"
         retorno = maria.select_vista(vista,labels,**kwargs)
@@ -46,7 +48,7 @@ class buffer_chq_pendt_autorizacion():
 
     def validar(self,data):
         """
-        #---Aca un usuario de grupo valida los cheques
+        #---Aca un usuario de grupo validar los cheques
         dependiendo el nivel del grupo, le aparecera los cheques
         que estan dentro del monto permitido para su grupo
                 
@@ -103,19 +105,12 @@ class buffer_chq_pendt_autorizacion():
         retorno = maria.insertar( sql )
         return retorno
 
-class buffer_chq_disponible():
+class Buffer_chq_disponible():
     """Acciones sobre el Buffer Cheques disponibles
-    
-    DROP PROCEDURE IF EXISTS pa_emitir_cheque;
     """
     
     def imprimir(self,data):
-        """
-        #---MUCHO CUIDADO CON METER numero de chequera ya existente,
-        o numero de cuenta no existe devuelve comprobacion en 'id'
-        SOLO LOS USUARIOS QUE PERTENECEN AL GRUPO DE PAGOS PUEDEN
-        GENERAR CHEQUES
-                
+        """                
         #---recibe un diccionario de la siguiente forma
         {'id_disponible':integer,
          'id_user':integer}
@@ -130,175 +125,122 @@ class buffer_chq_disponible():
         
         #---posibles valores para 'id'
         1 - 0                       (dato no insertado, error en el id_user o en el id_disponible)
-        7 - "Retorna el id_emision " (dato INSERTADO)
+        7 - "Retorna el id_emision" (dato INSERTADO)
         
-        #---Con error interno
+        #---Con error interno, error interno se refiere a fuera de la base de datos, internamente en modulos Py
             {'Error': 'Error!'}
-        """
-         
-                
+        """     
         labels = ['id_disponible', 'id_user']
         procedure = 'pa_emitir_cheque'
         sql = sql_builder(procedure,labels,data)
         retorno = maria.insertar( sql )
         return retorno
     
-    def read_all(self,**kwargs):
-        """ ---campos aceptados 
-        ['id_cheque', 'num_cheque', 'fecha_emision', 'monto',
-        'lugar_emision', 'estado', 'beneficiario', 'num_cuenta',
-        'num_chequera', 'nit', 'id_user_genero']
-        """
-        labels = ['id_cheque', 'num_cheque', 'fecha_emision', 'monto',
-        'lugar_emision', 'estado', 'beneficiario', 'num_cuenta',
-        'num_chequera', 'nit', 'id_user_genero']
+    def read(self,**kwargs):
+        """ ---campos aceptados
         
-        vista = "cheque"
+        ['id_cheque', 'id_disponible', 'fecha_emision',
+        'monto', 'estado', 'beneficiario', 'num_cuenta ']
+        """
+        labels = ['id_cheque', 'id_disponible', 'fecha_emision',
+                  'monto', 'estado', 'beneficiario', 'num_cuenta ']
+        
+        vista = "v_chq_dispon"
         retorno = maria.select_vista(vista,labels,**kwargs)
         return retorno
 
-class buffer_llam_jefe():
+class Buffer_llam_jefe():
     """
         Acciones sobre el Buffer llamados de jefe
-DROP PROCEDURE IF EXISTS pa_validar_cheque_jefe;
-DROP PROCEDURE IF EXISTS pa_modificar_cheque;
-DROP PROCEDURE IF EXISTS pa_eliminar_cheque_jefe;
     """
     
     def validar(self,data):
-        """
-        #---MUCHO CUIDADO CON METER numero de chequera ya existente,
-        o numero de cuenta no existe devuelve comprobacion en 'id'
-        SOLO LOS USUARIOS QUE PERTENECEN AL GRUPO DE PAGOS PUEDEN
-        GENERAR CHEQUES
-                
+        """     
         #---recibe un diccionario de la siguiente forma
-        {'monto': float,
-        'lugar_emision':string,
-        'num_cuenta': integer,
-        'num_chequera': integer,
-        'nit': integer,
-        'id_user_genero': integer}
+        {'id_llamada':integer,
+        'id_user':integer}
         
         #---Retorna un diccionario de la siguiente forma, 
         ---si no hay errores, o ERRORES dectados en la BD
          {'Error': 'Sin errores, id del elemento insertado adjunto',
-         'id': id_cheque'}
+         'id': id_liberacion'}
         
-        #---posibles valores para 'id'                                          (dato no insertado)
-        1 - "Cuenta con saldo insuficiente";                                (dato no insertado)
-        2 - "Solo un usuario de grupo de pagos, puede generar cheques";     (dato no insertado)
-        3 - "Numero de NIT, no existente";                                  (dato no insertado)
-        4 - "Numero de chequera, no existente";                             (dato no insertado)
-        5 - "Numero de cuenta, no existente";                               (dato no insertado)
-        6 - "El monto no puede ser negativo";                               (dato no insertado)
-        7 - "Retorna el id_cheque "                                         (dato INSERTADO)
+        #---posibles valores para 'id'
+        1 - 0                          (dato no insertado, error en el id_user o el id_llamada)
+        2 - "Retorna el id_liberacion" (dato INSERTADO)
         
         #---Con error interno
             {'Error': 'Error!'}
         """
          
                 
-        labels = ['monto', 'lugar_emision', 'num_cuenta', 
-        'num_chequera', 'nit', 'id_user_genero']
-        procedure = 'pa_new_cheque'
+        labels = ['id_llamada', 'id_user']
+        procedure = 'pa_validar_cheque_jefe'
         sql = sql_builder(procedure,labels,data)
         retorno = maria.insertar( sql )
         return retorno
     
     def modificar(self,data):
-        """
-        #---MUCHO CUIDADO CON METER numero de chequera ya existente,
-        o numero de cuenta no existe devuelve comprobacion en 'id'
-        SOLO LOS USUARIOS QUE PERTENECEN AL GRUPO DE PAGOS PUEDEN
-        GENERAR CHEQUES
-                
+        """   
         #---recibe un diccionario de la siguiente forma
-        {'monto': float,
-        'lugar_emision':string,
-        'num_cuenta': integer,
-        'num_chequera': integer,
-        'nit': integer,
-        'id_user_genero': integer}
+        {'id_llamada':integer,
+        'monto_post':float,
+        'nit_post':integer,
+        'id_user_modifico':integer}
         
         #---Retorna un diccionario de la siguiente forma, 
         ---si no hay errores, o ERRORES dectados en la BD
          {'Error': 'Sin errores, id del elemento insertado adjunto',
-         'id': id_cheque'}
+         'id': mensaje'}
         
-        #---posibles valores para 'id'                                          (dato no insertado)
-        1 - "Cuenta con saldo insuficiente";                                (dato no insertado)
-        2 - "Solo un usuario de grupo de pagos, puede generar cheques";     (dato no insertado)
-        3 - "Numero de NIT, no existente";                                  (dato no insertado)
-        4 - "Numero de chequera, no existente";                             (dato no insertado)
-        5 - "Numero de cuenta, no existente";                               (dato no insertado)
-        6 - "El monto no puede ser negativo";                               (dato no insertado)
-        7 - "Retorna el id_cheque "                                         (dato INSERTADO)
+        #---posibles valores para 'id'        
+        1 - 'Monto no puede ser negativo';                           (dato no INSERTADO)
+        2 - 'id_llamada invalido'                                    (dato no INSERTADO)
+        3 - 'Chequera : num_chequera ,Cheque: num_cheque modificado' (dato INSERTADO)
         
         #---Con error interno
             {'Error': 'Error!'}
         """
-         
-                
-        labels = ['monto', 'lugar_emision', 'num_cuenta', 
-        'num_chequera', 'nit', 'id_user_genero']
-        procedure = 'pa_new_cheque'
+        labels = ['id_llamada', 'monto_post', 'nit_post', 'id_user_modifico']
+        procedure = 'pa_modificar_cheque'
         sql = sql_builder(procedure,labels,data)
         retorno = maria.insertar( sql )
         return retorno
     
     def anular(self,data):
-        """
-        #---MUCHO CUIDADO CON METER numero de chequera ya existente,
-        o numero de cuenta no existe devuelve comprobacion en 'id'
-        SOLO LOS USUARIOS QUE PERTENECEN AL GRUPO DE PAGOS PUEDEN
-        GENERAR CHEQUES
-                
+        """        
         #---recibe un diccionario de la siguiente forma
-        {'monto': float,
-        'lugar_emision':string,
-        'num_cuenta': integer,
-        'num_chequera': integer,
-        'nit': integer,
-        'id_user_genero': integer}
+        {'id_llamada':integer,
+        'id_user':integer}
         
         #---Retorna un diccionario de la siguiente forma, 
         ---si no hay errores, o ERRORES dectados en la BD
          {'Error': 'Sin errores, id del elemento insertado adjunto',
-         'id': id_cheque'}
+         'id': id_eliminado'}
         
-        #---posibles valores para 'id'                                          (dato no insertado)
-        1 - "Cuenta con saldo insuficiente";                                (dato no insertado)
-        2 - "Solo un usuario de grupo de pagos, puede generar cheques";     (dato no insertado)
-        3 - "Numero de NIT, no existente";                                  (dato no insertado)
-        4 - "Numero de chequera, no existente";                             (dato no insertado)
-        5 - "Numero de cuenta, no existente";                               (dato no insertado)
-        6 - "El monto no puede ser negativo";                               (dato no insertado)
-        7 - "Retorna el id_cheque "                                         (dato INSERTADO)
+        #---posibles valores para 'id'
+        1 - 0                (dato no insertado, id_llamada o id_user, invalido)
+        2 - el id_eliminado  (dato INSERTADO)
         
         #---Con error interno
             {'Error': 'Error!'}
-        """
-         
-                
-        labels = ['monto', 'lugar_emision', 'num_cuenta', 
-        'num_chequera', 'nit', 'id_user_genero']
-        procedure = 'pa_new_cheque'
+        """       
+        labels = ['id_llamada', 'id_user']
+        procedure = 'pa_eliminar_cheque_jefe'
         sql = sql_builder(procedure,labels,data)
         retorno = maria.insertar( sql )
         return retorno
     
-    def read_all(self,**kwargs):
+    def read(self,**kwargs):
         """ ---campos aceptados 
-        ['id_cheque', 'num_cheque', 'fecha_emision', 'monto',
-        'lugar_emision', 'estado', 'beneficiario', 'num_cuenta',
-        'num_chequera', 'nit', 'id_user_genero']
+        ['id_cheque', 'id_llamada', 'fecha_emision', 'monto',
+        'estado', 'beneficiario', 'num_cuenta']
+
         """
-        labels = ['id_cheque', 'num_cheque', 'fecha_emision', 'monto',
-        'lugar_emision', 'estado', 'beneficiario', 'num_cuenta',
-        'num_chequera', 'nit', 'id_user_genero']
+        labels = ['id_cheque', 'id_llamada', 'fecha_emision', 'monto',
+                  'estado', 'beneficiario', 'num_cuenta']
         
-        vista = "cheque"
+        vista = "v_llamada_jefe"
         retorno = maria.select_vista(vista,labels,**kwargs)
         return retorno
 

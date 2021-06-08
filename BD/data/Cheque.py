@@ -30,7 +30,7 @@ maria = mySql()
 
 class Cheque():
     """
-        Clase para generar los cheques
+        Clase para generar los cheques, y leer los cheques
     """
     
     def create(self,data):
@@ -93,14 +93,18 @@ class Cheque():
 
     def read_cheque_modificado(self,**kwargs):
         """  ---campos aceptados
-        ['id_cheque', 'num_cheque', 'fecha_emision', 'monto', 'lugar_emision', 'estado',
-        'beneficiario', 'num_cuenta', 'num_chequera', 'nit', 'id_user_genero', 'id_mod', 
-        'fecha_mod', 'monto_antes', 'monto_post', 'benef_antes', 'benef_post', 'id_user_modifico']
+        
+        ['id_cheque', 'num_cheque', 'fecha_emision', 'monto', 'lugar_emision',
+        'estado', 'num_cuenta', 'num_chequera', 'id_user_genero', 'id_mod',
+        'fecha_modificacion', 'monto_antes', 'monto_post', 'benef_antes',
+        'benef_post', 'id_user_modifico']
+        
         """
         
-        labels = ['id_cheque', 'num_cheque', 'fecha_emision', 'monto', 'lugar_emision', 'estado',
-                  'beneficiario', 'num_cuenta', 'num_chequera', 'nit', 'id_user_genero', 'id_mod', 
-                  'fecha_mod', 'monto_antes', 'monto_post', 'benef_antes', 'benef_post', 'id_user_modifico']
+        labels = ['id_cheque', 'num_cheque', 'fecha_emision', 'monto', 'lugar_emision',
+        'estado', 'num_cuenta', 'num_chequera', 'id_user_genero', 'id_mod',
+        'fecha_modificacion', 'monto_antes', 'monto_post', 'benef_antes',
+        'benef_post', 'id_user_modifico']
     
         vista = "v_b_cheq_modif"
         retorno = maria.select_vista(vista,labels,**kwargs)

@@ -1,89 +1,121 @@
 /*
-CREATE VIEW view_name as
-  SELECT BODY
-
+ CREATE VIEW view_name as
+ SELECT BODY
+ 
  SELECT * FROM view_name;
+ 
+ CREATE VIEW view_name as
+ SELECT BODY
+ 
+ FROM other_View
+ WHERE;
+ 
+ 
+ */
+-- view for SELECT rol_group
+CREATE
+    OR REPLACE VIEW v_rol_group AS
+    SELECT
+        r.id_rol,
+        g.nombre,
+        g.monto_min,
+        g.monto_max,
+        g.generar_cheque,
+        g.validar_cheque
+    FROM
+        rol AS r
+        JOIN grupo AS g on r.id_group = g.id_group
+    ORDER BY
+        id_rol;
 
-CREATE VIEW view_name as
-  SELECT BODY
-
-  FROM other_View
-  WHERE;
-
-
-*/
-
-    -- view for SELECT rol_group
-CREATE OR REPLACE VIEW v_rol_group AS
-    SELECT r.id_rol, g.nombre, g.monto_min, g.monto_max, g.generar_cheque, g.validar_cheque
-    FROM rol AS r
-    JOIN  grupo AS g
-    on r.id_group = g.id_group
-    ORDER BY id_rol;
 -- SELECT * FROM v_rol_group;
 
-    -- view for SELECT show sup users
-CREATE OR REPLACE VIEW v_rol_user AS
-    SELECT r.id_rol,
-           p.nombre,
-           p.crud_users,
-           p.imprimir_cheque,
-           p.anular_cheque,
-           p.modificar_cheque,
-           p.reporte_cheque,
-           p.auditar_user,
-           p.admin_cuenta_banc,
-           p.auditar_cuenta,
-           p.mostrar_bitacora_user,
-           p.mostrar_bitacora_group,
-           p.mostrar_bitacora_jefe,
-           p.jefe
-    FROM rol AS r
-    JOIN  permiso_sup AS p
-    on r.id_permiso_sup = p.id_permiso_sup
-    ORDER BY id_rol;
+-- view for SELECT show sup users
+CREATE
+    OR REPLACE VIEW v_rol_user AS
+    SELECT
+        r.id_rol,
+        p.nombre,
+        p.crud_users,
+        p.imprimir_cheque,
+        p.anular_cheque,
+        p.modificar_cheque,
+        p.reporte_cheque,
+        p.auditar_user,
+        p.admin_cuenta_banc,
+        p.auditar_cuenta,
+        p.mostrar_bitacora_user,
+        p.mostrar_bitacora_group,
+        p.mostrar_bitacora_jefe,
+        p.jefe
+    FROM
+        rol AS r
+        JOIN permiso_sup AS p on r.id_permiso_sup = p.id_permiso_sup
+    ORDER BY
+        id_rol;
+
 -- SELECT * FROM v_rol_user;
 
-    -- view for SELECT rol_group
-CREATE OR REPLACE VIEW v_all_rol AS
-    SELECT 
-    id_rol,
-    nombre as nombre_rol
-    FROM v_rol_group
-    UNION 
-    SELECT 
-    id_rol,
-    nombre as nombre_rol
-    FROM v_rol_user
-    ORDER BY id_rol
-    ;
+-- view for SELECT rol_group
+CREATE
+    OR REPLACE VIEW v_all_rol AS
+    SELECT
+        id_rol,
+        nombre as nombre_rol
+    FROM
+        v_rol_group
+    UNION
+    SELECT
+        id_rol,
+        nombre as nombre_rol
+    FROM
+        v_rol_user
+    ORDER BY
+        id_rol;
+
 -- SELECT * FROM v_all_rol;
 
+-- view for SELECT contactos no atendidos
+CREATE
+    OR REPLACE VIEW v_contactanos_no AS
+    SELECT
+        c.nombre,
+        c.num_telefono,
+        c.correo,
+        c.mensaje
+    FROM
+        contactanos AS c
+    WHERE
+        c.estado = 0
+    ORDER BY
+        nombre;
 
-
-    -- view for SELECT contactos no atendidos
-CREATE OR REPLACE VIEW v_contactanos_no AS
-    SELECT c.nombre, c.num_telefono, c.correo, c.mensaje
-    FROM contactanos AS c
-    WHERE c.estado = 0
-    ORDER BY nombre
-    ;
 -- SELECT * FROM v_contactanos_no;
 
 -- view for SELECT contactos si atendidos
-CREATE OR REPLACE VIEW v_contactanos_si AS
-    SELECT c.nombre, c.num_telefono, c.correo, c.mensaje, u.nombre as user_name, u.apellido, u.id_user
-    FROM contactanos AS c
-    JOIN  usuario AS u
-    on u.id_user = c.id_user
-    where c.estado = 1
-    ORDER BY id_user
-    ;
+CREATE
+    OR REPLACE VIEW v_contactanos_si AS
+    SELECT
+        c.nombre,
+        c.num_telefono,
+        c.correo,
+        c.mensaje,
+        u.nombre as user_name,
+        u.apellido,
+        u.id_user
+    FROM
+        contactanos AS c
+        JOIN usuario AS u on u.id_user = c.id_user
+    where
+        c.estado = 1
+    ORDER BY
+        id_user;
 
 -- SELECT * FROM v_contactanos_si;
 
 -- view for SELECT usuarios de grupo
-CREATE OR REPLACE VIEW v_users_rol_group AS
+CREATE
+    OR REPLACE VIEW v_users_rol_group AS
     SELECT
         u.id_user,
         u.nombre,
@@ -98,20 +130,18 @@ CREATE OR REPLACE VIEW v_users_rol_group AS
         tfu.compania
     FROM
         usuario AS u
-    JOIN rol AS r
-    ON u.id_rol = r.id_rol
-    JOIN grupo AS g
-    ON r.id_group = g.id_group
-    JOIN correo_user AS cu
-    ON u.id_user = cu.id_user
-    JOIN telefono_user AS tfu
-    ON u.id_user = tfu.id_user
-    ORDER BY id_user
-    ;
+        JOIN rol AS r ON u.id_rol = r.id_rol
+        JOIN grupo AS g ON r.id_group = g.id_group
+        JOIN correo_user AS cu ON u.id_user = cu.id_user
+        JOIN telefono_user AS tfu ON u.id_user = tfu.id_user
+    ORDER BY
+        id_user;
+
 -- SELECT * FROM v_users_rol_group;
 
 -- view for SELECT usuarios con permiso sup
-CREATE OR REPLACE VIEW v_users_rol_sup AS
+CREATE
+    OR REPLACE VIEW v_users_rol_sup AS
     SELECT
         u.id_user,
         u.nombre,
@@ -126,21 +156,18 @@ CREATE OR REPLACE VIEW v_users_rol_sup AS
         tfu.compania
     FROM
         usuario AS u
-    JOIN rol AS r
-    ON u.id_rol = r.id_rol
-    JOIN permiso_sup AS ps
-    ON r.id_permiso_sup = ps.id_permiso_sup
-    JOIN correo_user AS cu
-    ON u.id_user = cu.id_user
-    JOIN telefono_user AS tfu
-    ON u.id_user = tfu.id_user
-    ORDER BY id_user
-    ;
+        JOIN rol AS r ON u.id_rol = r.id_rol
+        JOIN permiso_sup AS ps ON r.id_permiso_sup = ps.id_permiso_sup
+        JOIN correo_user AS cu ON u.id_user = cu.id_user
+        JOIN telefono_user AS tfu ON u.id_user = tfu.id_user
+    ORDER BY
+        id_user;
+
 -- SELECT * FROM v_users_rol_sup;
 
 -- view for SELECT all users
-CREATE OR REPLACE VIEW v_all_users
- AS
+CREATE
+    OR REPLACE VIEW v_all_users AS
     SELECT
         id_user,
         nombre,
@@ -170,13 +197,13 @@ CREATE OR REPLACE VIEW v_all_users
         compania
     FROM
         v_users_rol_group AS v_r_grp
-    ORDER BY id_user
-    ;  
-    
--- SELECT * FROM v_all_users;
+    ORDER BY
+        id_user;
 
+-- SELECT * FROM v_all_users;
 -- view for SELECT usuarios con permiso sup
-CREATE OR REPLACE VIEW v_proveedor AS
+CREATE
+    OR REPLACE VIEW v_proveedor AS
     SELECT
         p.nit,
         p.nombre_empresa,
@@ -189,195 +216,242 @@ CREATE OR REPLACE VIEW v_proveedor AS
         tfp.compania
     FROM
         proveedor AS p
-    JOIN correo_prov AS cp
-    ON p.nit = cp.nit
-    JOIN telefono_prov AS tfp
-    ON p.nit = tfp.nit
-    ORDER BY nit
-    ;
+        JOIN correo_prov AS cp ON p.nit = cp.nit
+        JOIN telefono_prov AS tfp ON p.nit = tfp.nit
+    ORDER BY
+        nit;
+
 -- SELECT * FROM v_proveedor;
 
-
 -- view for SELECT movimiento cuenta
-CREATE OR REPLACE VIEW v_mov_cuenta AS
-        SELECT
-    bm.monto_movido,
-    bm.fondo_resultante,
-    bm.num_cuenta,
-    bm.no_deposito,
-    bm.id_emision,
-    IF(bm.no_deposito IS NULL, 
-       (SELECT bce.fecha_entrega
-       FROM bitacora_cheque_emitido AS bce
-       WHERE bce.id_emision = bm.id_emision),
-       (SELECT bd.fecha_deposito
-       FROM bitacora_deposito AS bd
-       WHERE bd.no_deposito = bm.no_deposito)
-       ) AS fecha
+CREATE
+    OR REPLACE VIEW v_mov_cuenta AS
+    SELECT
+        bm.monto_movido,
+        bm.fondo_resultante,
+        bm.num_cuenta,
+        bm.no_deposito,
+        bm.id_emision,
+        IF(
+            bm.no_deposito IS NULL,
+            (
+                SELECT
+                    bce.fecha_entrega
+                FROM
+                    bitacora_cheque_emitido AS bce
+                WHERE
+                    bce.id_emision = bm.id_emision
+            ),
+            (
+                SELECT
+                    bd.fecha_deposito
+                FROM
+                    bitacora_deposito AS bd
+                WHERE
+                    bd.no_deposito = bm.no_deposito
+            )
+        ) AS fecha
     FROM
         bitacora_movimiento_cuenta AS bm
-    ORDER BY fecha
-    ;
+    ORDER BY
+        fecha;
+
 -- SELECT * FROM mov_cuenta;
 
 -- view for SELECT cheques eliminados
-CREATE OR REPLACE VIEW v_b_cheq_emitido AS
+CREATE
+    OR REPLACE VIEW v_b_cheq_emitido AS
     SELECT
-    
-    chq.id_cheque,
-    chq.num_cheque,
-    chq.fecha_emision,
-    chq.monto,
-    chq.lugar_emision,
-    chq.estado,
-    chq.beneficiario,
-    chq.num_cuenta,
-    chq.num_chequera,
-    chq.nit,
-    chq.id_user_genero,
-    bce.id_emision,
-    bce.fecha_entrega,
-    bce.nombre_cajero,
-    bce.id_user AS id_user_emitio
-
+        chq.id_cheque,
+        chq.num_cheque,
+        chq.fecha_emision,
+        chq.monto,
+        chq.lugar_emision,
+        chq.estado,
+        chq.beneficiario,
+        chq.num_cuenta,
+        chq.num_chequera,
+        chq.nit,
+        chq.id_user_genero,
+        bce.id_emision,
+        bce.fecha_entrega,
+        bce.nombre_cajero,
+        bce.id_user AS id_user_emitio
     FROM
         cheque AS chq
-    JOIN bitacora_cheque_emitido AS bce
-    ON chq.id_cheque = bce.id_cheque
-    ORDER BY fecha_entrega
-    ;
+        JOIN bitacora_cheque_emitido AS bce ON chq.id_cheque = bce.id_cheque
+    ORDER BY
+        fecha_entrega;
+
 -- SELECT * FROM v_b_cheq_emitido;
 
 -- view for SELECT cheques eliminados o anulados
-CREATE OR REPLACE VIEW v_b_cheq_eliminado AS
+CREATE
+    OR REPLACE VIEW v_b_cheq_eliminado AS
     SELECT
-    
-    chq.id_cheque,
-    chq.num_cheque,
-    chq.fecha_emision,
-    chq.monto,
-    chq.lugar_emision,
-    chq.estado,
-    chq.beneficiario,
-    chq.num_cuenta,
-    chq.num_chequera,
-    chq.nit,
-    chq.id_user_genero,
-    
-    bce.id_eliminado,
-    bce.fecha_anulacion,
-    bce.id_user AS id_user_elimino
-
+        chq.id_cheque,
+        chq.num_cheque,
+        chq.fecha_emision,
+        chq.monto,
+        chq.lugar_emision,
+        chq.estado,
+        chq.beneficiario,
+        chq.num_cuenta,
+        chq.num_chequera,
+        chq.nit,
+        chq.id_user_genero,
+        bce.id_eliminado,
+        bce.fecha_anulacion,
+        bce.id_user AS id_user_elimino
     FROM
         cheque AS chq
-    JOIN bitacora_cheque_eliminado AS bce
-    ON chq.id_cheque = bce.id_cheque
-    ORDER BY fecha_anulacion
-    ;
--- SELECT * FROM v_b_cheq_eliminado;
+        JOIN bitacora_cheque_eliminado AS bce ON chq.id_cheque = bce.id_cheque
+    ORDER BY
+        fecha_anulacion;
 
+-- SELECT * FROM v_b_cheq_fallido;
 -- view for SELECT cheques fallidos
-CREATE OR REPLACE VIEW v_b_cheq_fallido AS
+CREATE
+    OR REPLACE VIEW v_b_cheq_fallido AS
     SELECT
-    
-    chq.id_cheque,
-    chq.num_cheque,
-    chq.fecha_emision,
-    chq.monto,
-    chq.lugar_emision,
-    chq.estado,
-    chq.beneficiario,
-    chq.num_cuenta,
-    chq.num_chequera,
-    chq.nit,
-    chq.id_user_genero,
-    
-    cf.id_fallo,
-    cf.fecha_fallo,
-    cf.cod_error,
-    cf.id_user AS id_user_fallo
-
+        chq.id_cheque,
+        chq.num_cheque,
+        chq.fecha_emision,
+        chq.monto,
+        chq.lugar_emision,
+        chq.estado,
+        chq.beneficiario,
+        chq.num_cuenta,
+        chq.num_chequera,
+        chq.nit,
+        chq.id_user_genero,
+        cf.id_fallo,
+        cf.fecha_fallo,
+        cf.cod_error,
+        cf.id_user AS id_user_fallo
     FROM
         cheque AS chq
-    JOIN bitacora_cheque_fallido AS cf
-    ON chq.id_cheque = cf.id_cheque
-    ORDER BY fecha_fallo
-    ;
--- SELECT * FROM v_b_cheq_eliminado;
+        JOIN bitacora_cheque_fallido AS cf ON chq.id_cheque = cf.id_cheque
+    ORDER BY
+        fecha_fallo;
 
--- view for SELECT cheques liberados
-CREATE OR REPLACE VIEW v_b_cheq_liberado AS
-    SELECT
-    
-    chq.id_cheque,
-    chq.num_cheque,
-    chq.fecha_emision,
-    chq.monto,
-    chq.lugar_emision,
-    chq.estado,
-    chq.beneficiario,
-    chq.num_cuenta,
-    chq.num_chequera,
-    chq.nit,
-    chq.id_user_genero,
-    
-    bcl.id_liberacion,
-    bcl.fecha_liberacion,
-    bcl.id_grupo,
-    bcl.id_user AS id_user_libero
-
-    FROM
-        cheque AS chq
-    JOIN bitacora_cheque_liberado AS bcl
-    ON chq.id_cheque = bcl.id_cheque
-    ORDER BY fecha_liberacion
-    ;
 -- SELECT * FROM v_b_cheq_liberado;
 
+-- view for SELECT cheques liberados
+CREATE
+    OR REPLACE VIEW v_b_cheq_liberado AS
+    SELECT
+        chq.id_cheque,
+        chq.num_cheque,
+        chq.fecha_emision,
+        chq.monto,
+        chq.lugar_emision,
+        chq.estado,
+        chq.beneficiario,
+        chq.num_cuenta,
+        chq.num_chequera,
+        chq.nit,
+        chq.id_user_genero,
+        bcl.id_liberacion,
+        bcl.fecha_liberacion,
+        bcl.id_grupo,
+        bcl.id_user AS id_user_libero
+    FROM
+        cheque AS chq
+        JOIN bitacora_cheque_liberado AS bcl ON chq.id_cheque = bcl.id_cheque
+    ORDER BY
+        fecha_liberacion;
+
+-- SELECT * FROM v_b_cheq_liberado;
+
+-- view for SELECT cheques MODIFICADOS
+CREATE
+    OR REPLACE VIEW v_b_cheq_modif AS
+    SELECT
+        chq.id_cheque,
+        chq.num_cheque,
+        chq.fecha_emision,
+        chq.monto,
+        chq.lugar_emision,
+        chq.estado,
+        chq.num_cuenta,
+        chq.num_chequera,
+        chq.id_user_genero,
+        bcm.id_mod,
+        bcm.fecha_mod AS fecha_modificacion,
+        bcm.monto_antes,
+        bcm.monto_post,
+        bcm.benef_antes,
+        bcm.benef_post,
+        bcm.id_user AS id_user_modifico
+
+    FROM
+        cheque AS chq
+        JOIN bitacora_cheque_modificado AS bcm ON chq.id_cheque = bcm.id_cheque
+    ORDER BY
+        fecha_modificacion;
+-- SELECT * FROM v_b_cheq_modif;
+
 -- view for SELECT cheques en buffer pendientes
-CREATE OR REPLACE VIEW v_chq_pendient_valid AS
+CREATE
+    OR REPLACE VIEW v_chq_pendient_valid AS
     SELECT
-    
-    chq.id_cheque,
-    bcpa.id_pendencia,
-    chq.fecha_emision,
-    chq.monto,
-    chq.estado,
-    chq.beneficiario,
-    chq.num_cuenta,
-    bcpa.id_group
-    
+        chq.id_cheque,
+        bcpa.id_pendencia,
+        chq.fecha_emision,
+        chq.monto,
+        chq.estado,
+        chq.beneficiario,
+        chq.num_cuenta,
+        bcpa.id_group,
+        g.nombre
     FROM
         cheque AS chq
-    JOIN buffer_cheque_pendiente_autorizacion AS bcpa
-    ON chq.id_cheque = bcpa.id_cheque
-    ORDER BY bcpa.id_pendencia
-    ;
+        JOIN buffer_cheque_pendiente_autorizacion AS bcpa
+        ON chq.id_cheque = bcpa.id_cheque
+        JOIN grupo AS g ON g.id_group = bcpa.id_group
+    ORDER BY
+        bcpa.id_pendencia;
+
 -- SELECT * FROM v_chq_pendient_valid;
 
-
--- view for SELECT cheques modificados
-CREATE OR REPLACE VIEW v_chq_dispon AS
+-- view for SELECT cheques disponible
+CREATE
+    OR REPLACE VIEW v_chq_dispon AS
     SELECT
-    
-    chq.id_cheque,
-    bcds.id_disponible,
-    chq.fecha_emision,
-    chq.monto,
-    chq.estado,
-    chq.beneficiario,
-    chq.num_cuenta,
-    bcds.id_group
-    
+        chq.id_cheque,
+        bcds.id_disponible,
+        chq.fecha_emision,
+        chq.monto,
+        chq.estado,
+        chq.beneficiario,
+        chq.num_cuenta
     FROM
         cheque AS chq
-    JOIN buffer_cheque_disponible AS bcds
-    ON chq.id_cheque = bcds.id_cheque
-    ORDER BY bcpa.id_pendencia
-    ;
--- SELECT * FROM v_chq_pendient_valid;
+        JOIN buffer_cheque_disponible AS bcds ON chq.id_cheque = bcds.id_cheque
+    ORDER BY
+        bcds.id_disponible;
 
+-- SELECT * FROM v_chq_dispon;
 
+-- view for SELECT cheques llamada Jefe
+CREATE
+    OR REPLACE VIEW v_llamada_jefe AS
+    SELECT
+        chq.id_cheque,
+        bfj.id_llamada,
+        chq.fecha_emision,
+        chq.monto,
+        chq.estado,
+        chq.beneficiario,
+        chq.num_cuenta
+    FROM
+        buffer_llamados_jefe AS bfj
+        JOIN cheque AS chq ON chq.id_cheque = bfj.id_cheque
+    ORDER BY
+        bfj.id_llamada;
+
+-- SELECT * FROM v_llamada_jefe;
 
 
 -- D R O P P I N G
@@ -404,3 +478,4 @@ DROP VIEW IF EXISTS v_b_cheq_modif;
 
 DROP VIEW IF EXISTS v_chq_pendient_valid;
 DROP VIEW IF EXISTS v_chq_dispon;
+DROP VIEW IF EXISTS v_llamada_jefe;

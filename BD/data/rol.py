@@ -2,8 +2,10 @@
 from data.mySql import mySql
 
 maria = mySql()
-def sql_builder(procedure,labels,data):
-        
+
+
+def sql_builder(procedure, labels, data):
+
     sql = f"CALL {procedure}("
 
     for label in labels:
@@ -16,25 +18,28 @@ def sql_builder(procedure,labels,data):
     sql += "@resultado);"
 
     return sql
+
+
 class Rol_all():
     """Esta es clase para funciones que abarcan todo
     todos los roles sin importar si son de grupo o user_sup"""
-    def read_all(self,**kwargs):
+    def read_all(self, **kwargs):
         """
         funciona igual que el metod read de la clase Rol_grupo
          Siendo los campos posibles 
          ['id_rol', 'nombre_rol']
         """
-        
+
         labels = ['id_rol', 'nombre_rol']
         vista = "v_all_rol"
-        retorno = maria.select_vista(vista,labels,**kwargs)
-        return retorno 
-        
+        retorno = maria.select_vista(vista, labels, **kwargs)
+        return retorno
+
+
 class Rol_grupo():
     """Esta es la clase para crear roles de grupos,
     no es para roles de usuario singular"""
-    def create(self,data):
+    def create(self, data):
         """
         recibe un diccionario de la siguiente forma
         {"nombre" : 'Name', "monto_min" : number, "monto_max": number}
@@ -53,12 +58,12 @@ class Rol_grupo():
         #los rol_group con id_group > 1, serán lo contrario al grupo 1
         """
         procedure = 'pa_new_group_rol'
-        labels = ['nombre','monto_min','monto_max']
-        sql = sql_builder(procedure,labels,data)
-        retorno = maria.insertar( sql )
+        labels = ['nombre', 'monto_min', 'monto_max']
+        sql = sql_builder(procedure, labels, data)
+        retorno = maria.insertar(sql)
         return retorno
-    
-    def read(self,**kwargs):
+
+    def read(self, **kwargs):
         """
         Puede recibir cualquier campo o serie de campos, con su valor, 
         
@@ -81,17 +86,20 @@ class Rol_grupo():
         #    for campo, valor in fila.items():
         #            print(campo, ':', valor,end=" ")
         #    print('')
-        
-        labels = ['id_rol', 'nombre', 'monto_min', 'monto_max',
-                  'generar_cheque', 'validar_cheque']
+
+        labels = [
+            'id_rol', 'nombre', 'monto_min', 'monto_max', 'generar_cheque',
+            'validar_cheque'
+        ]
         vista = "v_rol_group"
-        retorno = maria.select_vista(vista,labels,**kwargs)
-        return retorno 
-   
+        retorno = maria.select_vista(vista, labels, **kwargs)
+        return retorno
+
+
 class Rol_permiso_sup():
     """Esta es la clase para crear roles de usuarios sigulares, cajeros, administrdores, etc 
     no, es para roles de grupo"""
-    def create(self,data):
+    def create(self, data):
         """
         Recibe un diccionario
         True se representa con =  y False con 0
@@ -114,27 +122,34 @@ class Rol_permiso_sup():
         RETORNO
         Retorna igual que el metodo create de la clase Rol_grupo
         """
-        
-        labels=['nombre', 'crud_users', 'imprimir_cheque', 'anular_cheque', 'modificar_cheque',
-                'reporte_cheque', 'auditar_user', 'admin_cuenta_banc', 'auditar_cuenta',
-                'mostrar_bitacora_user', 'mostrar_bitacora_group', 'mostrar_bitacora_jefe', 'jefe']
+
+        labels = [
+            'nombre', 'crud_users', 'imprimir_cheque', 'anular_cheque',
+            'modificar_cheque', 'reporte_cheque', 'auditar_user',
+            'admin_cuenta_banc', 'auditar_cuenta', 'mostrar_bitacora_user',
+            'mostrar_bitacora_group', 'mostrar_bitacora_jefe', 'jefe'
+        ]
         procedure = 'pa_new_permis_sup_rol'
-        sql = sql_builder(procedure,labels,data)
-        
-        retorno = maria.insertar( sql )
+        sql = sql_builder(procedure, labels, data)
+
+        retorno = maria.insertar(sql)
         return retorno
-    
-    def read(self,**kwargs):
+
+    def read(self, **kwargs):
         """Funciona igual que el metodo create, de la clase Rol_grupo
         siendo los campos posibles
         ['id_rol','nombre', 'crud_users', 'imprimir_cheque', 'anular_cheque', 'modificar_cheque',
          'reporte_cheque', 'auditar_user', 'admin_cuenta_banc', 'auditar_cuenta',
          'mostrar_bitacora_user', 'mostrar_bitacora_group', 'mostrar_bitacora_jefe', 'jefe']
         """
-        
-        labels =  ['id_rol','nombre', 'crud_users', 'imprimir_cheque', 'anular_cheque', 'modificar_cheque',
-                   'reporte_cheque', 'auditar_user', 'admin_cuenta_banc', 'auditar_cuenta',
-                   'mostrar_bitacora_user', 'mostrar_bitacora_group', 'mostrar_bitacora_jefe', 'jefe']
+
+        labels = [
+            'id_rol', 'nombre', 'crud_users', 'imprimir_cheque',
+            'anular_cheque', 'modificar_cheque', 'reporte_cheque',
+            'auditar_user', 'admin_cuenta_banc', 'auditar_cuenta',
+            'mostrar_bitacora_user', 'mostrar_bitacora_group',
+            'mostrar_bitacora_jefe', 'jefe'
+        ]
         vista = "v_rol_user"
-        retorno = maria.select_vista(vista,labels,**kwargs)
-        return retorno 
+        retorno = maria.select_vista(vista, labels, **kwargs)
+        return retorno

@@ -1,4 +1,6 @@
-from BD.app.data.mySql import mySql #Importamos la libreria para usar la base de datos
+
+#from mySql import mySql
+from data.mySql import mySql
 maria = mySql() #objeto global de la base de datos 
 
 class Seguridad:  #Driver de seguridad

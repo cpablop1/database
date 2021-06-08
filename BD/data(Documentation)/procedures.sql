@@ -770,7 +770,6 @@ DELIMITER ;
 DELIMITER //
 CREATE OR REPLACE PROCEDURE pa_solicitar_modificar_elimi(
     IN id_pendencia INT,
-
     OUT resultado INT
 )
 BEGIN
