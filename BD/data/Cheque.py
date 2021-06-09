@@ -168,6 +168,19 @@ class Cheque():
         vista = "v_b_cheq_eliminado"
         retorno = maria.select_vista(vista,labels,**kwargs)
         return retorno
+    
+    def read_cheque_modificaciones(self,**kwargs):
+        """  ---campos aceptados
+        ['id_mod', 'fecha_mod', 'monto_antes', 'monto_post', 
+        'benef_antes', 'benef_post', 'id_user', 'id_cheque']
+        """
+        
+        labels = ['id_mod', 'fecha_mod', 'monto_antes', 'monto_post', 
+        'benef_antes', 'benef_post', 'id_user', 'id_cheque']
+
+        vista = "bitacora_cheque_modificado"
+        retorno = maria.select_vista(vista,labels,**kwargs)
+        return retorno
 
 def sql_builder(procedure,labels,data):
         
