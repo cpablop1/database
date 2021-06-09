@@ -10,6 +10,7 @@ import data.Usuario as user
 import data.Proveedor as proveedor
 import data.Cuenta_bancaria as cuenta_bancaria
 import data.Cheque as cheque
+import data.buffers as buffer
 
 import data.Contacto as Contacto
 
@@ -1038,7 +1039,41 @@ def VerChequeEliminado(request):
         'leer': clave
     })
 
+def BufferChequePendienteAutorizacion(request):
+    clave = []
+    try:
+        data = buffer.Buffer_chq_pendt_autorizacion()
+        leer = data.read()
+        for fila in leer['res']:
+            clave.append(fila)
+    except:
+        messages.error(
+            request, 'Error de conexión, no se podrán visualizar todos cheques!')
 
+    return render(request, 'buffers/buffer_chq_pendt_atorizacion.html', {
+        'leer': clave
+    })
+
+def ValidarCheque(request):
+    if request.method == 'POST':
+        id_validar = request.POST['validar']
+        if int(id_validar) == 0:
+            messages.error(request, 'El ID del cheque debe ser mayor a 0, seleccione un ID válido.')
+        else:
+            diccionario = {'id_pendencia':id_validar,
+                            'id_user':request.COOKIES['id_user']}
+
+            try:
+                data = buffer.Buffer_chq_pendt_autorizacion()
+                result = data.validar(diccionario)
+                if result['id'] == 0:
+                    messages.warning(request, 'Verifique el ID del cheque pendiente de autorización.')
+                else:
+                    messages.success(request, 'Cheque validado correctamente!')
+            except:
+                messages.error(request, 'Error de conexión, no se realizó la validación del cheque!')
+
+    return render(request, 'buffers/validar_cheque.html')
 
 
 

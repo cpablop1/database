@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+    <h2>Buffer de cheques pendientes de autorización</h2>
+    <table border="3px">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID pendencia</th>
+                <th>Fecha emisión</th>
+                <th>Monto</th>
+                <th>Estado</th>
+                <th>Beneficiario</th>
+                <th>No. cuenta</th>
+                <th>ID grupo</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in leer %}
+                    <tr>
+                        {% for j in i.items %}
+                            <td>
+                                {{ j.1 }}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

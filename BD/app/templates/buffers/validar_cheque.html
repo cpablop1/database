@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+    <form class="formulario" method="post">
+        {% csrf_token %}
+        <div class="campo">
+            <label for="validar">ID cheque pendiente de autorización:</label>
+            <input type="number" name="validar" required>
+        </div>
+
+        <div class="enviar">
+            <input class="boton" type="submit" value="VALIDAR">
+        </div>
+    </form>
+{% endblock %}

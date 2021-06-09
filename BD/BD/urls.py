@@ -64,4 +64,6 @@ urlpatterns = [
     path('ver-cheque-fallido/', views.VerChequeFallido, name='ver_cheque_fallido'),
     path('ver-cheque-emitido/', views.VerChequeEmitidos, name='ver_cheque_emitido'),
     path('ver-cheque-eliminado/', views.VerChequeEliminado, name='ver_cheque_eliminado'),
+    path('buffer-cheque-pendiente-autorizacion/', views.BufferChequePendienteAutorizacion, name='buffer_chq_pend_auto'),
+    path('validar-cheque/', views.ValidarCheque, name='validar_cheque'),
 ]
