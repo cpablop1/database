@@ -1,0 +1,32 @@
+{% extends 'cheque/ver_cheque.html' %}
+
+{% block subcontenido %}
+    <table border="3px">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>No. cheque</th>
+                <th>Fecha emisión</th>
+                <th>Monto</th>
+                <th>Lugar emisión</th>
+                <th>Estado</th>
+                <th>Beneficiario</th>
+                <th>No. cuenta</th>
+                <th>No. chequera</th>
+                <th>NIT</th>
+                <th>Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in leer %}
+                    <tr>
+                        {% for j in i.items %}
+                            <td>
+                                {{ j.1 }}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

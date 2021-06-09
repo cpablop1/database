@@ -945,15 +945,98 @@ def CrearCheque(request):
         'leer1': clave1
     })
 
+def VerCheque(request):
+    return render(request, 'cheque/ver_cheque.html')
 
+def VerChequeTodos(request):
+    clave = []
+    try:
+        data = cheque.Cheque()
+        leer = data.read_all()
+        for fila in leer['res']:
+            clave.append(fila)
+    except:
+        messages.error(
+            request, 'Error de conexión, no se podrán visualizar todos cheques!')
 
+    return render(request, 'cheque/ver_cheque_todos.html', {
+        'leer': clave
+    })
 
+def VerChequeModificado(request):
+    clave = []
+    try:
+        data = cheque.Cheque()
+        leer = data.read_cheque_modificado()
+        for fila in leer['res']:
+            clave.append(fila)
+    except:
+        messages.error(
+            request, 'Error de conexión, no se podrán visualizar todos cheques!')
 
+    return render(request, 'cheque/ver_cheque_modificado.html', {
+        'leer': clave
+    })
 
+def VerChequeLiberado(request):
+    clave = []
+    try:
+        data = cheque.Cheque()
+        leer = data.read_cheque_liberado()
+        for fila in leer['res']:
+            clave.append(fila)
+    except:
+        messages.error(
+            request, 'Error de conexión, no se podrán visualizar todos cheques!')
 
+    return render(request, 'cheque/ver_cheque_liberado.html', {
+        'leer': clave
+    })
 
+def VerChequeFallido(request):
+    clave = []
+    try:
+        data = cheque.Cheque()
+        leer = data.read_cheque_fallido()
+        for fila in leer['res']:
+            clave.append(fila)
+    except:
+        messages.error(
+            request, 'Error de conexión, no se podrán visualizar todos cheques!')
 
+    return render(request, 'cheque/ver_cheque_fallido.html', {
+        'leer': clave
+    })
 
+def VerChequeEmitidos(request):
+    clave = []
+    try:
+        data = cheque.Cheque()
+        leer = data.read_cheque_emitido()
+        for fila in leer['res']:
+            clave.append(fila)
+    except:
+        messages.error(
+            request, 'Error de conexión, no se podrán visualizar todos cheques!')
+
+    return render(request, 'cheque/ver_cheque_emitidos.html', {
+        'leer': clave
+    })
+
+def VerChequeEliminado(request):
+    clave = []
+    try:
+        data = cheque.Cheque()
+        leer = data.read_cheque_eliminado()
+        for fila in leer['res']:
+            clave.append(fila)
+    except:
+        messages.error(
+            request, 'Error de conexión, no se podrán visualizar todos cheques!')
+
+    return render(request, 'cheque/ver_cheque_eliminado.html', {
+        'leer': clave
+    })
 
 
 

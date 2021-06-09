@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+    <h2>Ver cheque</h2>
+
+    <div class="nav-bg">
+        <nav class="navegacion contenedor">
+            <form class="separar" action="{% url 'ver_cheque_todos' %}">
+                <input class="boton" type="submit" value="Todos">
+            </form>
+            <form class="separar" action="{% url 'ver_cheque_modificado' %}">
+                <input class="boton" type="submit" value="Modificados">
+            </form>
+            <form class="separar" action="{% url 'ver_cheque_liberado' %}">
+                <input class="boton" type="submit" value="Liberados">
+            </form>
+            <form class="separar" action="{% url 'ver_cheque_fallido' %}">
+                <input class="boton" type="submit" value="Fallidos">
+            </form>
+            <form class="separar" action="{% url 'ver_cheque_emitido' %}">
+                <input class="boton" type="submit" value="Emitidos">
+            </form>
+            <form class="separar" action="{% url 'ver_cheque_eliminado' %}">
+                <input class="boton" type="submit" value="Eliminados">
+            </form>
+        </nav>
+    </div>
+    {% block subcontenido %}
+    {% endblock %}
+{% endblock %}
