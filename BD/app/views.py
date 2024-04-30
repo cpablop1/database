@@ -827,6 +827,9 @@ def Login(request):
         usuario = request.POST['usuario']
         password = request.POST['password']
         correo = request.POST['correo']
+        print(usuario)
+        print(password)
+        print(correo)
         if usuario.strip() == '':
             messages.warning(request, 'Ingrese el usuario.')
         elif password.strip() == '':
@@ -839,6 +842,7 @@ def Login(request):
                 result = data.read_all_user(
                     nombre=usuario, clave=password, correo=correo)
                 if result['res'] == 'No hay registros que mostrar':
+                    print(result)
                     messages.error(request, 'Usuario inválido!')
                 else:
                     # https://programmerclick.com/article/8199519103/
